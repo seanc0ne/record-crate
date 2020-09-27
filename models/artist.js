@@ -1,3 +1,0 @@
-// artist
-
-// jb added
