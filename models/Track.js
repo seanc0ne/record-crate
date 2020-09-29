@@ -18,13 +18,13 @@ const TrackSchema = new Schema(
     bpm: [
       {
         type: Number,
-        required: 'Beats per Minute (BMP) is Required',
+        required: 'Beats per Minute (BPM) is Required',
       }
     ],
     key: [
       {
         type: String,
-      required: 'Song Key is Required',
+        required: 'Song Key is Required',
       }
     ]
   },
