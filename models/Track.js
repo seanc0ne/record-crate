@@ -1,12 +1,10 @@
 const { Schema, model } = require('mongoose');
-// const moment = require('moment');
+const moment = require('moment');
 
 const TrackSchema = new Schema(
   {
-    artistName: {
+    artistId: {
       type: String,
-      unique: true,
-      required: 'Artist Name is Required',
       trim: true,
     },
     songTitle: {
@@ -15,16 +13,74 @@ const TrackSchema = new Schema(
       unique: true,
       trim: true,
     },
+    sourceId: {
+      type: String,
+      trim: true,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: createdAtVal => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
+    },
     bpm: [
       {
         type: Number,
-        required: 'Beats per Minute (BPM) is Required',
+        trim: true,
       }
     ],
     key: [
       {
         type: String,
-        required: 'Song Key is Required',
+        trim: true,
+      }
+    ],
+    length: [
+      {
+        type: String,
+        trim: true,
+      }
+    ],
+    notes: [
+      {
+        type: String,
+        trim: true,
+        maxlength: [280, "Note must be 280 characters or less"],
+      }
+    ],
+    waveform: [
+      {
+        type: String,
+        trim: true,
+      }
+    ],
+    composer: [
+      {
+        type: String,
+        trim: true,
+      }
+    ],
+    producer: [
+      {
+        type: String,
+        trim: true,
+      }
+    ],
+    billboard: [
+      {
+        type: String,
+        trim: true,
+      }
+    ],
+    chartPeak: [
+      {
+        type: String,
+        trim: true,
+      }
+    ],
+    dropbox: [
+      {
+        type: String,
+        trim: true,
       }
     ]
   },
