@@ -1,5 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const config = require('config');
+const db = config.get('mongoURI');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -12,14 +14,12 @@ app.use(express.static('public'));
 app.use(require('./routes'));
 
 // connect database
-mongoose.connect(
-  process.env.MONGODB_URI || 'mongodb://localhost/record-crate',
-  {
-    useFindAndModify: false,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+mongoose.connect(db || 'mongodb://localhost/record-crate', {
+  useFindAndModify: false,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+});
 
 // Use this to log mongo queries being executed!
 mongoose.set('debug', true);

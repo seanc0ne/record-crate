@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const { check, validationResult } = require('express-validator/check');
+const { check, validationResult } = require('express-validator');
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
-
+const auth = require('../../middleware/auth');
 const User = require('../../models/User');
 
-// @route - POST api/users
+// @route - POST api/user/
 // @desc - Register user
 // @access - Public
 router.post(
@@ -39,12 +39,14 @@ router.post(
           .json({ errors: [{ msg: 'User already exists' }] });
       }
 
-      // get users gravatar
+      // get user's gravatar
       const avatar = gravatar.url(email, {
         s: '200', // size of the avatar
         r: 'pg', // rating
         d: 'mm', // default icon
       });
+
+      // create an instance of a User
       user = new User({
         name,
         email,
@@ -60,10 +62,81 @@ router.post(
       await user.save();
 
       // return jsonwebtoken:
+      // - get the payload (we're just going to send the user id, but we can add more fields)
+      const payload = {
+        user: {
+          id: user.id, // mongoose uses an abstraction so we don't have to use _id, but can write id instead
+        },
+      };
+      // - sign the token
+      jwt.sign(
+        payload,
+        config.get('jwtSecret'),
+        { expiresIn: 360000 }, // optional, but recommended
+        (err, token) => {
+          if (err) throw err;
+          res.json({ token }); // send token back to client - we can use tokens and send them in access-protected routes
+        }
+      );
+    } catch (err) {
+      console.log(err.message);
+      res.status(500).send('Server error');
+    }
+  }
+);
+
+// @route - GET api/user/
+// @desc - test route
+// @access - Public
+router.get('/', auth, async (req, res) => {
+  try {
+    const dbUser = await User.findById(req.user.id).select('-password'); // leave off the password
+    res.json(dbUser);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+// @route - POST api/user/login
+// @desc - Log in user & get token
+// @access - Public
+router.post(
+  '/login',
+  [
+    check('email', 'Please include a valid email').isEmail(),
+    check('password', 'Password is required').exists(),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { email, password } = req.body;
+
+    try {
+      // see if user exists and store his/her info into variable 'dbUser'
+      let dbUser = await User.findOne({ email });
+      if (!dbUser) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'Invalid credentials' }] });
+      }
+
+      // verify user (password provided needs to match password in the db)
+      const isMatch = await bcrypt.compare(password, dbUser.password);
+      if (!isMatch) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'Invalid credentials' }] });
+      }
+
+      // return jsonwebtoken:
       // - get the payload
       const payload = {
         user: {
-          id: user.id,
+          id: dbUser.id,
         },
       };
       // - sign the token
