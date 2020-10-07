@@ -54,6 +54,18 @@ const typeDefs = gql`
     token: ID!
     user: User
   }
+  input trackInput {
+    artistId: String
+    songTitle: String
+    sourceId: String
+  }
+  input playlistInput {
+    title: String!
+    description: String
+    public: Boolean
+    image: String
+    tracks: [trackInput]
+  }
   type Query {
     me: User
     users: [User]
@@ -66,6 +78,10 @@ const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
+    addPlaylist(newPlaylist: playlistInput!): Playlist
+    addReaction(playlistId: ID!, reactionBody: String!): Playlist
+    addFollower(followerId: ID!): User
+    addTrack(songTitle: String!): Track
   }
 `;
 

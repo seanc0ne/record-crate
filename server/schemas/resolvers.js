@@ -64,6 +64,22 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
+    addPlaylist: async (parent, { newPlaylist }, context) => {
+      console.log('newPlaylist', newPlaylist);
+      if (context.user) {
+        const playlist = await Playlist.create({
+          ...newPlaylist,
+          username: context.user.username,
+        });
+        await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $push: { playlists: playlist._id } },
+          { new: true }
+        );
+        return playlist;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
   },
 };
 
