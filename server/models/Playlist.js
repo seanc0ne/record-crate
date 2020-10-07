@@ -54,6 +54,6 @@ playlistSchema.virtual('reactionCount').get(function () {
   return this.reactions.length;
 });
 
-const Playlist = model('Thought', playlistSchema);
+const Playlist = model('Playlist', playlistSchema);
 
 module.exports = Playlist;
