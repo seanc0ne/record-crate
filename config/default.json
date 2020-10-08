@@ -1,5 +1,0 @@
-{
-  "mongoURI": "mongodb+srv://lepois_71:WAUH5rurn-spew2sqop@cluster0.4q44g.mongodb.net/record-crate?retryWrites=true&w=majority",
-  "jwtSecret": "c'est un grand secret",
-  "expiration": "2h"
-}
