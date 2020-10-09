@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// import environment variables
 require('dotenv').config();
 
 const db = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PW}@cluster0.4q44g.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;

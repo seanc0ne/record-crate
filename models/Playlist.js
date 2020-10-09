@@ -1,12 +1,11 @@
 const { Schema, model } = require('mongoose');
 const moment = require('moment');
-const reactionSchema = require('./Reaction');
 
 const playlistSchema = new Schema(
   {
-    username: {
-      type: String,
-      required: true,
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
     },
     title: {
       type: String,
@@ -14,7 +13,6 @@ const playlistSchema = new Schema(
     },
     description: {
       type: String,
-      required: true,
     },
     public: {
       type: Boolean,
@@ -25,17 +23,45 @@ const playlistSchema = new Schema(
       type: String,
     },
     tracks: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Track',
-      },
+      // {
+      //   trackId: {
+      //     type: Schema.Types.ObjectId,
+      //     ref: 'Track',
+      //   },
+      // },
+      String,
     ],
     createdAt: {
       type: Date,
       default: Date.now,
       get: (timestamp) => moment(timestamp).format('MMM Do, YYYY [at] hh:mm a'),
     },
-    reactions: [reactionSchema],
+    likes: [
+      {
+        userId: {
+          type: Schema.Types.ObjectId,
+          ref: 'user',
+        },
+      },
+    ],
+    comments: [
+      {
+        userId: {
+          type: Schema.Types.ObjectId,
+          ref: 'user',
+        },
+        text: {
+          type: String,
+          required: true,
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now,
+          get: (timestamp) =>
+            moment(timestamp).format('MMM Do, YYYY [at] hh:mm a'),
+        },
+      },
+    ],
   },
   {
     toJSON: {
@@ -46,14 +72,18 @@ const playlistSchema = new Schema(
   }
 );
 
-playlistSchema.virtual('trackCount').get(function () {
+playlistSchema.virtual('tracksCount').get(function () {
   return this.tracks.length;
 });
 
-playlistSchema.virtual('reactionCount').get(function () {
-  return this.reactions.length;
+playlistSchema.virtual('likesCount').get(function () {
+  return this.likes.length;
 });
 
-const Playlist = model('Playlist', playlistSchema);
+playlistSchema.virtual('commentsCount').get(function () {
+  return this.comments.length;
+});
+
+const Playlist = model('playlist', playlistSchema);
 
 module.exports = Playlist;

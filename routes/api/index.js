@@ -1,8 +1,9 @@
 const router = require('express').Router();
+const playlistRoutes = require('./playlist-routes');
 const trackRoutes = require('./track-routes');
 const userRoutes = require('./user-routes');
 
-// add prefix of `/track` to routes created in `track-routes.js`
+router.use('/playlist', playlistRoutes);
 router.use('/track', trackRoutes);
 router.use('/user', userRoutes);
 

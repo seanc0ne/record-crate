@@ -4,9 +4,9 @@ const { check, validationResult } = require('express-validator');
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const config = require('config');
 const auth = require('../../middleware/auth');
 const User = require('../../models/User');
+require('dotenv').config();
 
 // @route - POST api/user/
 // @desc - Register user
@@ -71,8 +71,8 @@ router.post(
       // - sign the token
       jwt.sign(
         payload,
-        config.get('jwtSecret'),
-        { expiresIn: 360000 }, // optional, but recommended
+        process.env.jwtSecret,
+        { expiresIn: process.env.expiration }, // optional, but recommended
         (err, token) => {
           if (err) throw err;
           res.json({ token }); // send token back to client - we can use tokens and send them in access-protected routes
@@ -142,8 +142,8 @@ router.post(
       // - sign the token
       jwt.sign(
         payload,
-        config.get('jwtSecret'),
-        { expiresIn: 360000 }, // optional, but recommended
+        process.env.jwtSecret,
+        { expiresIn: process.env.expiration }, // optional, but recommended
         (err, token) => {
           if (err) throw err;
           res.json({ token }); // send token back to client
