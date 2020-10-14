@@ -27,13 +27,6 @@ const SourceSchema = new Schema(
     //     required:
     //   }
     // ]
-  },
-  {
-    toJSON: {
-    //   virtuals: true,
-    //   getters: true
-    },
-    id: false
   }
 );
 
