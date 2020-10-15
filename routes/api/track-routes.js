@@ -2,12 +2,10 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
-const Track = require('../../models/Track');
-const Source = require('../../models/Track');
-const Artist = require('../../models/Track');
+const { Track } = require('../../models');
 
 // @route - POST api/track/
-// @desc - create a post
+// @desc - add a track
 // @access - private
 router.post(
   '/',

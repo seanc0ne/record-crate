@@ -6,6 +6,7 @@ const playlistSchema = new Schema(
     userId: {
       type: Schema.Types.ObjectId,
       ref: 'user',
+      required: true,
     },
     title: {
       type: String,
@@ -23,13 +24,12 @@ const playlistSchema = new Schema(
       type: String,
     },
     tracks: [
-      // {
-      //   trackId: {
-      //     type: Schema.Types.ObjectId,
-      //     ref: 'Track',
-      //   },
-      // },
-      String,
+      {
+        trackId: {
+          type: Schema.Types.ObjectId,
+          ref: 'Track',
+        },
+      },
     ],
     createdAt: {
       type: Date,
