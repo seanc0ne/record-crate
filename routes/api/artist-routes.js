@@ -9,8 +9,7 @@ const { Artist } = require('../../models');
 // @access - private
 router.post(
   '/',
-  auth,
-  [check('artistName', 'An artist name is required').not().isEmpty()],
+  [auth, [check('artistName', 'An artist name is required').not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -35,7 +34,7 @@ router.post(
             { new: true }
           ).populate({
             path: 'userId',
-            select: '-__v -password',
+            select: 'name avatar',
           });
         }
         return res.json(artist);
@@ -64,7 +63,7 @@ router.get('/', auth, async (req, res) => {
       .sort({ artistName: 'ascending' })
       .populate({
         path: 'userId',
-        select: '-__v -password',
+        select: 'name avatar',
       });
     res.json(artists);
   } catch (err) {
@@ -82,14 +81,13 @@ router.get('/:artist_id', auth, async (req, res) => {
       _id: req.params.artist_id,
     }).populate({
       path: 'userId',
-      select: '-__v -password',
+      select: 'name avatar',
     });
+    if (!artist)
+      return res.status(400).json({ msg: 'This artist was not found' });
     res.json(artist);
   } catch (err) {
     console.error(err.message);
-    if (err.kind == 'ObjectId') {
-      return res.status(400).json({ msg: 'Artist not found' });
-    }
     res.status(500).send('Server error');
   }
 });
@@ -99,19 +97,16 @@ router.get('/:artist_id', auth, async (req, res) => {
 // @access - private
 router.delete('/:artist_id', auth, async (req, res) => {
   try {
-    // @todo - remove source and tracks
     // remove artist
     const artist = await Artist.findOneAndRemove({
       _id: req.params.artist_id,
       userId: req.user.id,
     });
-    if (!artist) return res.status(400).json({ msg: 'Deletion not allowed' });
-    res.json({ msg: 'Artist and related Source and Tracks deleted' });
+    if (!artist)
+      return res.status(400).json({ msg: 'This artist cannot be deleted' });
+    res.json({ msg: 'This artist has been deleted' });
   } catch (err) {
     console.error(err.message);
-    if (err.kind == 'ObjectId') {
-      return res.status(400).json({ msg: 'Artist not found' });
-    }
     res.status(500).send('Server error');
   }
 });

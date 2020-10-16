@@ -5,16 +5,20 @@ const auth = require('../../middleware/auth');
 const { Source } = require('../../models');
 
 // @route - POST api/source/
-// @desc - create or update a source
+// @desc - add a source
 // @access - private
 router.post(
   '/',
-  auth,
   [
-    check('artistId', 'The artist is required').not().isEmpty(),
-    check('source', 'The source is required').not().isEmpty(),
-    check('label', 'The record label is required').not().isEmpty(),
-    check('year', 'At least one year of release is required').not().isEmpty(),
+    auth,
+    [
+      check('artists', 'At least one artist is required').not().isEmpty(),
+      check('source', 'The source is required').not().isEmpty(),
+      check('label', 'The record label is required').not().isEmpty(),
+      check('years', 'At least one year of release is required')
+        .not()
+        .isEmpty(),
+    ],
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -22,51 +26,19 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    // build 'year' array
-    const yearArr = req.body.year.split(',').map((yr) => yr.trim());
+    // build the 'years' array - artists will be selected from the existing collection
+    const years = req.body.years.split(',').map((year) => year.trim());
 
+    // insert the new source data
     try {
-      let sourceInfo = await Source.findOne({
-        artistId: req.body.artistId,
-        source: req.body.source.toLowerCase(),
-      });
-      // if the source already exists in the db, update it with new info only if user is the one who created the record in the first place.
-      // return the source as response.
-      if (sourceInfo) {
-        if (String(sourceInfo.userId) === req.user.id) {
-          // b/c artist.userId is an object whereas req.user.id is a string
-          sourceInfo = await Source.findOneAndUpdate(
-            {
-              userId: req.user.id,
-              artistId: req.body.artistId,
-              source: req.body.source.toLowerCase(),
-            },
-            {
-              label: req.body.label,
-              $push: { year: { $each: yearArr } },
-            },
-            { new: true }
-          )
-            .populate({
-              path: 'userId',
-              select: '-__v -password',
-            })
-            .populate({
-              path: 'artistId',
-              select: '-__v',
-            });
-        }
-        return res.json(sourceInfo);
-      }
-      // otherwise, create the record
       const newSource = new Source({
         userId: req.user.id,
-        artistId: req.body.artistId,
+        artists: req.body.artists,
         source: req.body.source,
         label: req.body.label,
-        year: yearArr,
+        years: years,
       });
-      sourceInfo = await newSource.save();
+      const sourceInfo = await newSource.save();
       res.json(sourceInfo);
     } catch (err) {
       console.error(err.message);
@@ -84,11 +56,15 @@ router.get('/', auth, async (req, res) => {
       .sort({ source: 'ascending' })
       .populate({
         path: 'userId',
-        select: '-__v -password',
+        select: 'name avatar',
       })
       .populate({
-        path: 'artistId',
-        select: '-__v',
+        path: 'artists',
+        select: 'artistName countryOfOrigin',
+        populate: {
+          path: 'userId',
+          select: 'name avatar',
+        },
       });
     res.json(sources);
   } catch (err) {
@@ -107,18 +83,21 @@ router.get('/:source_id', auth, async (req, res) => {
     })
       .populate({
         path: 'userId',
-        select: '-__v -password',
+        select: 'name avatar',
       })
       .populate({
-        path: 'artistId',
-        select: '-__v',
+        path: 'artists',
+        select: 'artistName countryOfOrigin',
+        populate: {
+          path: 'userId',
+          select: 'name avatar',
+        },
       });
+    if (!sourceInfo)
+      return res.status(400).json({ msg: 'This source was not found' });
     res.json(sourceInfo);
   } catch (err) {
     console.error(err.message);
-    if (err.kind == 'ObjectId') {
-      return res.status(400).json({ msg: 'Source not found' });
-    }
     res.status(500).send('Server error');
   }
 });
@@ -128,21 +107,16 @@ router.get('/:source_id', auth, async (req, res) => {
 // @access - private
 router.delete('/:source_id', auth, async (req, res) => {
   try {
-    // @todo - remove tracks
-    // remove source
     const sourceInfo = await Source.findOneAndRemove({
       _id: req.params.source_id,
       userId: req.user.id,
     });
 
     if (!sourceInfo)
-      return res.status(400).json({ msg: 'Deletion not allowed' });
-    res.json({ msg: 'Source and related Tracks deleted' });
+      return res.status(400).json({ msg: 'This source cannot be deleted' });
+    res.json({ msg: 'This source has been deleted' });
   } catch (err) {
     console.error(err.message);
-    if (err.kind == 'ObjectId') {
-      return res.status(400).json({ msg: 'Source not found' });
-    }
     res.status(500).send('Server error');
   }
 });
