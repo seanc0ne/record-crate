@@ -109,13 +109,14 @@ router.get('/', auth, async (req, res) => {
 });
 
 // @route - GET api/track/:track_id
-// @desc - get track by track ID
+// @desc - get track by ID
 // @access - private
 router.get('/:track_id', auth, async (req, res) => {
   try {
     const track = await Track.findOne({
       _id: req.params.track_id,
     })
+      .select('-__v')
       .populate({
         path: 'userId',
         select: 'name avatar',
@@ -137,7 +138,7 @@ router.get('/:track_id', auth, async (req, res) => {
         },
       });
     if (!track)
-      return res.status(400).json({ msg: 'This track was not found' });
+      return res.status(404).json({ msg: 'This track was not found' });
     res.json(track);
   } catch (err) {
     console.error(err.message);
@@ -190,7 +191,7 @@ router.put(
         { new: true }
       ).select('-__v');
       if (!track)
-        return res.status(400).json({ msg: 'This track was not found' });
+        return res.status(404).json({ msg: 'This track was not found' });
       res.json(track);
     } catch (err) {
       console.error(err.message);
@@ -208,7 +209,7 @@ router.put('/:track_id/note/:note_id', auth, async (req, res) => {
       '-__v'
     );
     if (!track)
-      return res.status(400).json({ msg: 'This track was not found' });
+      return res.status(404).json({ msg: 'This track was not found' });
     const note = track.notes.filter(
       (note) => note.userId === req.user.id && note._id === req.params.note_id
     );
@@ -218,19 +219,17 @@ router.put('/:track_id/note/:note_id', auth, async (req, res) => {
         .map((note) => note._id)
         .indexOf(req.params.note_id);
       const noteToEdit = track.notes[noteIndex];
-      if (String(noteToEdit.userId) === req.user.id) {
+      if (noteToEdit.userId.toString() === req.user.id) {
         if (req.body.noteText) noteToEdit.noteText = req.body.noteText;
         if (req.body.public) noteToEdit.public = req.body.public;
         track.notes.splice(noteIndex, 1, noteToEdit);
         await track.save();
         return res.json(track);
       } else {
-        return res
-          .status(400)
-          .json({ msg: 'You cannot edit a note that you did not author.' });
+        return res.status(401).json({ msg: 'User not authorized' });
       }
     } else {
-      return res.status(400).json({ msg: 'This note was not found' });
+      return res.status(404).json({ msg: 'This note was not found' });
     }
   } catch (err) {
     console.error(err.message);
@@ -247,7 +246,7 @@ router.delete('/:track_id/note/:note_id', auth, async (req, res) => {
       '-__v'
     );
     if (!track)
-      return res.status(400).json({ msg: 'This track was not found' });
+      return res.status(404).json({ msg: 'This track was not found' });
     const note = track.notes.filter(
       (note) => note.userId === req.user.id && note._id === req.params.note_id
     );
@@ -257,17 +256,15 @@ router.delete('/:track_id/note/:note_id', auth, async (req, res) => {
         .map((note) => note._id)
         .indexOf(req.params.note_id);
       const noteToDelete = track.notes[noteIndex];
-      if (String(noteToDelete.userId) === req.user.id) {
+      if (noteToDelete.userId.toString() === req.user.id) {
         track.notes.splice(noteIndex, 1);
         await track.save();
         return res.json(track);
       } else {
-        return res
-          .status(400)
-          .json({ msg: 'You cannot delete a note that you did not author.' });
+        return res.status(401).json({ msg: 'User not authorized' });
       }
     } else {
-      return res.status(400).json({ msg: 'This note was not found' });
+      return res.status(404).json({ msg: 'This note was not found' });
     }
   } catch (err) {
     console.error(err.message);
