@@ -74,7 +74,7 @@ router.get('/', auth, async (req, res) => {
 });
 
 // @route - GET api/source/:source_id
-// @desc - get source by source ID
+// @desc - get source by ID
 // @access - private
 router.get('/:source_id', auth, async (req, res) => {
   try {
@@ -94,7 +94,7 @@ router.get('/:source_id', auth, async (req, res) => {
         },
       });
     if (!sourceInfo)
-      return res.status(400).json({ msg: 'This source was not found' });
+      return res.status(404).json({ msg: 'This source was not found' });
     res.json(sourceInfo);
   } catch (err) {
     console.error(err.message);
@@ -113,7 +113,7 @@ router.delete('/:source_id', auth, async (req, res) => {
     });
 
     if (!sourceInfo)
-      return res.status(400).json({ msg: 'This source cannot be deleted' });
+      return res.status(401).json({ msg: 'This source cannot be deleted' });
     res.json({ msg: 'This source has been deleted' });
   } catch (err) {
     console.error(err.message);

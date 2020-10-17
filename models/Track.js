@@ -116,12 +116,12 @@ const TrackSchema = new Schema(
 );
 
 // get total count of notes on retrieval
-TrackSchema.virtual('noteCount').get(function () {
+TrackSchema.virtual('notesCount').get(function () {
   return this.notes.length;
 });
 
 // create the Track model using the TrackSchema
-const Track = model('Track', TrackSchema);
+const Track = model('track', TrackSchema);
 
 // export the Track model
 module.exports = Track;
