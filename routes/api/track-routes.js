@@ -199,6 +199,45 @@ router.put(
   }
 );
 
+// @route - UPDATE api/track/:track_id/note/:note_id
+// @desc - update a note from a track
+// @access - private
+router.put('/:track_id/note/:note_id', auth, async (req, res) => {
+  try {
+    const track = await Track.findOne({ _id: req.params.track_id }).select(
+      '-__v'
+    );
+    if (!track)
+      return res.status(400).json({ msg: 'This track was not found' });
+    const note = track.notes.filter(
+      (note) => note.userId === req.user.id && note._id === req.params.note_id
+    );
+    if (note) {
+      // get note's index
+      const noteIndex = track.notes
+        .map((note) => note._id)
+        .indexOf(req.params.note_id);
+      const noteToEdit = track.notes[noteIndex];
+      if (String(noteToEdit.userId) === req.user.id) {
+        if (req.body.noteText) noteToEdit.noteText = req.body.noteText;
+        if (req.body.public) noteToEdit.public = req.body.public;
+        track.notes.splice(noteIndex, 1, noteToEdit);
+        await track.save();
+        return res.json(track);
+      } else {
+        return res
+          .status(400)
+          .json({ msg: 'You cannot edit a note that you did not author.' });
+      }
+    } else {
+      return res.status(400).json({ msg: 'This note was not found' });
+    }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 // @route - DELETE api/track/:track_id/note/:note_id
 // @desc - delete a note from a track
 // @access - private
@@ -212,18 +251,23 @@ router.delete('/:track_id/note/:note_id', auth, async (req, res) => {
     const note = track.notes.filter(
       (note) => note.userId === req.user.id && note._id === req.params.note_id
     );
-    console.log('found note', note);
     if (note) {
-      console.log('This user can delete the note');
-      // get remove index
-      const removeIndex = track.notes
+      // get note's index
+      const noteIndex = track.notes
         .map((note) => note._id)
         .indexOf(req.params.note_id);
-      track.notes.splice(removeIndex, 1);
-      await track.save();
-      return res.json(track);
+      const noteToDelete = track.notes[noteIndex];
+      if (String(noteToDelete.userId) === req.user.id) {
+        track.notes.splice(noteIndex, 1);
+        await track.save();
+        return res.json(track);
+      } else {
+        return res
+          .status(400)
+          .json({ msg: 'You cannot delete a note that you did not author.' });
+      }
     } else {
-      return res.status(400).json({ msg: 'This note cannot be deleted' });
+      return res.status(400).json({ msg: 'This note was not found' });
     }
   } catch (err) {
     console.error(err.message);
