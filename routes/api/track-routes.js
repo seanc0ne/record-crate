@@ -80,6 +80,7 @@ router.get('/', auth, async (req, res) => {
   try {
     const tracks = await Track.find()
       .sort({ songTitle: 'ascending' })
+      .select('-__v')
       .populate({
         path: 'userId',
         select: 'name avatar',
@@ -162,7 +163,7 @@ router.delete('/:track_id', auth, async (req, res) => {
   }
 });
 
-// @route - PUT api/:track_id/note
+// @route - PUT api/track/:track_id/note
 // @desc - add note to a track
 // @access - private
 router.put(
@@ -173,7 +174,7 @@ router.put(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-
+    console.log('req', req);
     try {
       const track = await Track.findOneAndUpdate(
         { _id: req.params.track_id },
@@ -197,5 +198,37 @@ router.put(
     }
   }
 );
+
+// @route - DELETE api/track/:track_id/note/:note_id
+// @desc - delete a note from a track
+// @access - private
+router.delete('/:track_id/note/:note_id', auth, async (req, res) => {
+  try {
+    const track = await Track.findOne({ _id: req.params.track_id }).select(
+      '-__v'
+    );
+    if (!track)
+      return res.status(400).json({ msg: 'This track was not found' });
+    const note = track.notes.filter(
+      (note) => note.userId === req.user.id && note._id === req.params.note_id
+    );
+    console.log('found note', note);
+    if (note) {
+      console.log('This user can delete the note');
+      // get remove index
+      const removeIndex = track.notes
+        .map((note) => note._id)
+        .indexOf(req.params.note_id);
+      track.notes.splice(removeIndex, 1);
+      await track.save();
+      return res.json(track);
+    } else {
+      return res.status(400).json({ msg: 'This note cannot be deleted' });
+    }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
 
 module.exports = router;
