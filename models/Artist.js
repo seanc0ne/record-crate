@@ -1,25 +1,36 @@
 const { Schema, model } = require('mongoose');
-// const moment = require('moment');
+const moment = require('moment');
 
 const ArtistSchema = new Schema(
   {
     artistName: {
       type: String,
-      unique: true,
-      required: 'Artist name is required.',
+      required: true,
       trim: true,
+      lowercase: true,
     },
     countryOfOrigin: {
       type: String,
-    //   required: 'Country of origin is required.',
-      unique: true,
       trim: true,
-    }
-}
+    },
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: (createdAtVal) =>
+        moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a'),
+    },
+  },
+  {
+    id: false,
+  }
 );
 
 // create the Artist model using the ArtistSchema
-const Artist = model('Artist', ArtistSchema);
+const Artist = model('artist', ArtistSchema);
 
 // export the Artist model
 module.exports = Artist;

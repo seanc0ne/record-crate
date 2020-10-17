@@ -2,8 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
-const Playlist = require('../../models/Playlist');
-const User = require('../../models/User');
+const { Playlist, User } = require('../../models');
 
 // @route - POST api/playlist/
 // @desc - Create playlist
@@ -24,7 +23,6 @@ router.post(
     }
 
     try {
-      const user = await User.findById(req.user.id).select('-password');
       const newPlaylist = new Playlist({
         userId: req.user.id,
         title: req.body.title,

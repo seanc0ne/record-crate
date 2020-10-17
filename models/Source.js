@@ -1,44 +1,52 @@
 const { Schema, model } = require('mongoose');
-// const moment = require('moment');
+const moment = require('moment');
 
 const SourceSchema = new Schema(
   {
-    artistName: {
+    artists: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'artist',
+        required: true,
+      },
+    ],
+    source: {
       type: String,
-      unique: true,
-      required: 'Artist name is required.',
+      required: true,
       trim: true,
     },
-    recordLabel: {
+    label: {
       type: String,
-      required: 'Record label is required.',
-      unique: true,
+      required: true,
       trim: true,
     },
-    year: [
+    years: [
       {
         type: Number,
-        required: 'Year of release is required.',
-      }
+        required: true,
+      },
     ],
-    // artworkImage: [
-    //   {
-    //     type: 
-    //     required:
-    //   }
-    // ]
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: (createdAtVal) =>
+        moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a'),
+    },
   },
   {
     toJSON: {
-    //   virtuals: true,
-    //   getters: true
+      getters: true,
     },
-    id: false
+    id: false,
   }
 );
 
 // create the Source model using the SourceSchema
-const Source = model('Source', SourceSchema);
+const Source = model('source', SourceSchema);
 
 // export the Source model
 module.exports = Source;

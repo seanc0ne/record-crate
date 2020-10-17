@@ -5,7 +5,7 @@ const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const auth = require('../../middleware/auth');
-const User = require('../../models/User');
+const { User } = require('../../models');
 require('dotenv').config();
 
 // @route - POST api/user/
@@ -65,7 +65,7 @@ router.post(
       // - get the payload (we're just going to send the user id, but we can add more fields)
       const payload = {
         user: {
-          id: user.id, // mongoose uses an abstraction so we don't have to use _id, but can write id instead
+          id: user._id,
         },
       };
       // - sign the token
@@ -136,7 +136,7 @@ router.post(
       // - get the payload
       const payload = {
         user: {
-          id: dbUser.id,
+          id: dbUser._id,
         },
       };
       // - sign the token

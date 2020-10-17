@@ -1,97 +1,124 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 const moment = require('moment');
 
-const TrackSchema = new Schema(
+const NoteSchema = new Schema(
   {
-    artistId: {
+    noteText: {
       type: String,
-      trim: true,
+      required: true,
+      maxlength: [280, 'maximum of 280 characters allowed'],
     },
-    songTitle: {
-      type: String,
-      required: 'Song Title is Required',
-      unique: true,
-      trim: true,
+    public: {
+      type: Boolean,
+      default: false,
     },
-    sourceId: {
-      type: String,
-      trim: true,
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
     },
     createdAt: {
       type: Date,
       default: Date.now,
-      get: createdAtVal => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
+      get: (createdAtVal) =>
+        moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a'),
     },
-    bpm: [
-      {
-        type: Number,
-        trim: true,
-      }
-    ],
-    key: [
-      {
-        type: String,
-        trim: true,
-      }
-    ],
-    length: [
-      {
-        type: String,
-        trim: true,
-      }
-    ],
-    notes: [
-      {
-        type: String,
-        trim: true,
-        maxlength: [280, "Note must be 280 characters or less"],
-      }
-    ],
-    waveform: [
-      {
-        type: String,
-        trim: true,
-      }
-    ],
-    composer: [
-      {
-        type: String,
-        trim: true,
-      }
-    ],
-    producer: [
-      {
-        type: String,
-        trim: true,
-      }
-    ],
-    billboard: [
-      {
-        type: String,
-        trim: true,
-      }
-    ],
-    chartPeak: [
-      {
-        type: String,
-        trim: true,
-      }
-    ],
-    dropbox: [
-      {
-        type: String,
-        trim: true,
-      }
-    ]
   },
   {
     toJSON: {
-    //   virtuals: true,
-    //   getters: true
+      getters: true,
     },
-    id: false
+    id: false,
   }
 );
+
+const TrackSchema = new Schema(
+  {
+    songTitle: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    sourceId: {
+      type: Schema.Types.ObjectId,
+      ref: 'source',
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: (createdAtVal) =>
+        moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a'),
+    },
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+    },
+    keys: [
+      {
+        type: String,
+        trim: true,
+      },
+    ],
+    bpms: [
+      {
+        type: Number,
+        trim: true,
+      },
+    ],
+    lengths: [
+      {
+        type: String,
+        trim: true,
+      },
+    ],
+    notes: [NoteSchema],
+    composers: [
+      {
+        type: String,
+        trim: true,
+      },
+    ],
+    producers: [
+      {
+        type: String,
+        trim: true,
+      },
+    ],
+    billboardChartPeaks: [
+      {
+        type: String,
+        trim: true,
+      },
+    ],
+    chartPeakDates: [
+      {
+        type: String,
+        trim: true,
+      },
+    ],
+    dropboxUrls: [
+      {
+        type: String,
+        trim: true,
+      },
+    ],
+    public: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  {
+    toJSON: {
+      virtuals: true,
+      getters: true,
+    },
+    id: false,
+  }
+);
+
+// get total count of notes on retrieval
+TrackSchema.virtual('noteCount').get(function () {
+  return this.notes.length;
+});
 
 // create the Track model using the TrackSchema
 const Track = model('Track', TrackSchema);
