@@ -5,8 +5,8 @@ const auth = require('../../middleware/auth');
 const { Playlist, User } = require('../../models');
 
 // @route - POST api/playlist/
-// @desc - Create playlist
-// @access - Private
+// @desc - create a playlist
+// @access - private
 router.post(
   '/',
   [
@@ -42,7 +42,7 @@ router.post(
 
 // @route - GET api/playlist/
 // @desc - get all playlists
-// @access - Private
+// @access - private
 router.get('/', auth, async (req, res) => {
   try {
     const playlists = await Playlist.find()
@@ -72,7 +72,7 @@ router.get('/', auth, async (req, res) => {
 
 // @route - GET api/playlist/:playlist_id
 // @desc - get playlist by ID
-// @access - Private
+// @access - private
 router.get('/:playlist_id', auth, async (req, res) => {
   try {
     const playlist = await Playlist.findOne({
@@ -105,7 +105,7 @@ router.get('/:playlist_id', auth, async (req, res) => {
 
 // @route - DELETE api/playlist/:playlist_id
 // @desc - delete playlist by ID
-// @access - Private
+// @access - private
 router.delete('/:playlist_id', auth, async (req, res) => {
   try {
     const playlist = await Playlist.findOneAndRemove({
@@ -115,6 +115,62 @@ router.delete('/:playlist_id', auth, async (req, res) => {
     if (!playlist)
       return res.status(404).json({ msg: 'This playlist cannot be deleted' });
     res.json({ msg: 'This playlist has been deleted' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+// @route - PUT api/playlist/like/:id
+// @desc - like a playlist
+// @access - private
+router.put('/like/:id', auth, async (req, res) => {
+  try {
+    const playlist = await Playlist.findById(req.params.id);
+    if (!playlist)
+      return res.status(404).json({ msg: 'This playlist was not found' });
+    // check if the playlist has already been liked by this user
+    if (
+      playlist.likes.filter((like) => like.userId.toString() === req.user.id)
+        .length > 0
+    ) {
+      return res
+        .status(400)
+        .json({ msg: 'You have already liked this playlist' });
+    }
+    playlist.likes.unshift({ userId: req.user.id });
+    await playlist.save();
+    res.json(playlist.likes);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+// @route - PUT api/playlist/unlike/:id
+// @desc - unlike a playlist
+// @access - private
+router.put('/unlike/:id', auth, async (req, res) => {
+  try {
+    const playlist = await Playlist.findById(req.params.id);
+    if (!playlist)
+      return res.status(404).json({ msg: 'This playlist was not found' });
+    // check if the playlist has already been liked by this user
+    if (
+      playlist.likes.filter((like) => like.userId.toString() === req.user.id)
+        .length === 0
+    ) {
+      return res
+        .status(400)
+        .json({ msg: 'You have not liked this playlist yet' });
+    }
+    // get like's index
+    const likeIndex = playlist.likes
+      .map((like) => like.userId.toString())
+      .indexOf(req.user.id);
+    playlist.likes.splice(likeIndex, 1);
+    await playlist.save();
+    res.json(playlist.likes);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
