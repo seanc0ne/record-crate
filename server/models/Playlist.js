@@ -52,6 +52,11 @@ const playlistSchema = new Schema(
           type: String,
           required: true,
         },
+        public: {
+          type: Boolean,
+          required: true,
+          default: false,
+        },
         createdAt: {
           type: Date,
           default: Date.now,
