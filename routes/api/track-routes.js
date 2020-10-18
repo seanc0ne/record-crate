@@ -175,7 +175,6 @@ router.put(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    console.log('req', req);
     try {
       const track = await Track.findOneAndUpdate(
         { _id: req.params.track_id },
@@ -192,7 +191,7 @@ router.put(
       ).select('-__v');
       if (!track)
         return res.status(404).json({ msg: 'This track was not found' });
-      res.json(track);
+      res.json(track.notes);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');
@@ -200,7 +199,7 @@ router.put(
   }
 );
 
-// @route - UPDATE api/track/:track_id/note/:note_id
+// @route - PUT api/track/:track_id/note/:note_id
 // @desc - update a note from a track
 // @access - private
 router.put('/:track_id/note/:note_id', auth, async (req, res) => {
@@ -210,27 +209,22 @@ router.put('/:track_id/note/:note_id', auth, async (req, res) => {
     );
     if (!track)
       return res.status(404).json({ msg: 'This track was not found' });
-    const note = track.notes.filter(
-      (note) => note.userId === req.user.id && note._id === req.params.note_id
-    );
-    if (note) {
-      // get note's index
-      const noteIndex = track.notes
-        .map((note) => note._id)
-        .indexOf(req.params.note_id);
-      const noteToEdit = track.notes[noteIndex];
-      if (noteToEdit.userId.toString() === req.user.id) {
-        if (req.body.noteText) noteToEdit.noteText = req.body.noteText;
-        if (req.body.public) noteToEdit.public = req.body.public;
-        track.notes.splice(noteIndex, 1, noteToEdit);
-        await track.save();
-        return res.json(track);
-      } else {
-        return res.status(401).json({ msg: 'User not authorized' });
-      }
-    } else {
+    // pull out note
+    const noteIndex = track.notes
+      .map((note) => note._id)
+      .indexOf(req.params.note_id);
+    if (noteIndex === -1)
       return res.status(404).json({ msg: 'This note was not found' });
-    }
+    const noteToEdit = track.notes[noteIndex];
+    // check user
+    if (noteToEdit.userId.toString() !== req.user.id)
+      return res.status(401).json({ msg: 'User not authorized' });
+    // insert edits
+    if (req.body.noteText) noteToEdit.noteText = req.body.noteText;
+    if (req.body.public) noteToEdit.public = req.body.public;
+    track.notes.splice(noteIndex, 1, noteToEdit);
+    await track.save();
+    return res.json(track.notes);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
@@ -247,25 +241,20 @@ router.delete('/:track_id/note/:note_id', auth, async (req, res) => {
     );
     if (!track)
       return res.status(404).json({ msg: 'This track was not found' });
-    const note = track.notes.filter(
-      (note) => note.userId === req.user.id && note._id === req.params.note_id
-    );
-    if (note) {
-      // get note's index
-      const noteIndex = track.notes
-        .map((note) => note._id)
-        .indexOf(req.params.note_id);
-      const noteToDelete = track.notes[noteIndex];
-      if (noteToDelete.userId.toString() === req.user.id) {
-        track.notes.splice(noteIndex, 1);
-        await track.save();
-        return res.json(track);
-      } else {
-        return res.status(401).json({ msg: 'User not authorized' });
-      }
-    } else {
+    // pull out note
+    const noteIndex = track.notes
+      .map((note) => note._id)
+      .indexOf(req.params.note_id);
+    if (noteIndex === -1)
       return res.status(404).json({ msg: 'This note was not found' });
-    }
+    const noteToEdit = track.notes[noteIndex];
+    // check user
+    if (noteToEdit.userId.toString() !== req.user.id)
+      return res.status(401).json({ msg: 'User not authorized' });
+    // delete note
+    track.notes.splice(noteIndex, 1);
+    await track.save();
+    return res.json(track.notes);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');

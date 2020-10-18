@@ -177,4 +177,101 @@ router.put('/unlike/:id', auth, async (req, res) => {
   }
 });
 
+// @route - POST api/playlist/:playlist_id/comment
+// @desc - add a comment to a playlist
+// @access - private
+router.put(
+  '/:playlist_id/comment',
+  [auth, [check('text', 'Text is required').not().isEmpty()]],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    try {
+      const playlist = await Playlist.findByIdAndUpdate(
+        { _id: req.params.playlist_id },
+        {
+          $push: {
+            comments: {
+              text: req.body.text,
+              public: req.body.public,
+              userId: req.user.id,
+            },
+          },
+        },
+        { new: true }
+      ).select('-__v');
+      if (!playlist)
+        return res.status(404).json({ msg: 'This playlist was not found' });
+      res.json(playlist.comments);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
+    }
+  }
+);
+
+// @route - PUT api/playlist/:playlist_id/comment/:comment_id
+// @desc - update a comment from a playlist
+// @access - private
+router.put('/:playlist_id/comment/:comment_id', auth, async (req, res) => {
+  try {
+    const playlist = await Playlist.findOne({
+      _id: req.params.playlist_id,
+    }).select('-__v');
+    if (!playlist)
+      return res.status(404).json({ msg: 'This playlist was not found' });
+    // pull out comment
+    const commentIndex = playlist.comments
+      .map((comment) => comment._id)
+      .indexOf(req.params.comment_id);
+    if (commentIndex === -1)
+      return res.status(404).json({ msg: 'This comment was not found' });
+    const commentToEdit = playlist.comments[commentIndex];
+    // check user
+    if (commentToEdit.userId.toString() !== req.user.id)
+      return res.status(401).json({ msg: 'User not authorized' });
+    // insert edits
+    if (req.body.text) commentToEdit.text = req.body.text;
+    if (req.body.public) commentToEdit.public = req.body.public;
+    playlist.comments.splice(commentIndex, 1, commentToEdit);
+    await playlist.save();
+    return res.json(playlist.comments);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+// @route - DELETE api/playlist/:playlist_id/comment/:comment_id
+// @desc - delete a comment from a playlist
+// @access - private
+router.delete('/:playlist_id/comment/:comment_id', auth, async (req, res) => {
+  try {
+    const playlist = await Playlist.findOne({
+      _id: req.params.playlist_id,
+    }).select('-__v');
+    if (!playlist)
+      return res.status(404).json({ msg: 'This playlist was not found' });
+    // pull out comment
+    const commentIndex = playlist.comments
+      .map((comment) => comment._id)
+      .indexOf(req.params.comment_id);
+    if (commentIndex === -1)
+      return res.status(404).json({ msg: 'This comment was not found' });
+    const commentToEdit = playlist.comments[commentIndex];
+    // check user
+    if (commentToEdit.userId.toString() !== req.user.id)
+      return res.status(401).json({ msg: 'User not authorized' });
+    // delete comment
+    playlist.comments.splice(commentIndex, 1);
+    await playlist.save();
+    return res.json(playlist.comments);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 module.exports = router;
