@@ -25,10 +25,8 @@ const playlistSchema = new Schema(
     },
     tracks: [
       {
-        trackId: {
-          type: Schema.Types.ObjectId,
-          ref: 'Track',
-        },
+        type: Schema.Types.ObjectId,
+        ref: 'track',
       },
     ],
     createdAt: {

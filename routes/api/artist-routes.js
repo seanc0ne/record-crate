@@ -23,8 +23,10 @@ router.post(
       // if the artist already exists in the db, update it with new info only if user is the one who created the record in the first place.
       // return the artist as response.
       if (artist) {
-        if (String(artist.userId) === req.user.id) {
+        if (artist.userId.toString() !== req.user.id) {
           // b/c artist.userId is an object whereas req.user.id is a string
+          return res.status(401).json({ msg: 'User not authorized' });
+        } else {
           artist = await Artist.findOneAndUpdate(
             {
               artistName: req.body.artistName.toLowerCase(),
@@ -84,7 +86,7 @@ router.get('/:artist_id', auth, async (req, res) => {
       select: 'name avatar',
     });
     if (!artist)
-      return res.status(400).json({ msg: 'This artist was not found' });
+      return res.status(404).json({ msg: 'This artist was not found' });
     res.json(artist);
   } catch (err) {
     console.error(err.message);
@@ -103,7 +105,7 @@ router.delete('/:artist_id', auth, async (req, res) => {
       userId: req.user.id,
     });
     if (!artist)
-      return res.status(400).json({ msg: 'This artist cannot be deleted' });
+      return res.status(401).json({ msg: 'This artist cannot be deleted' });
     res.json({ msg: 'This artist has been deleted' });
   } catch (err) {
     console.error(err.message);
