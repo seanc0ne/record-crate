@@ -35,7 +35,7 @@ body {
   font-family: 'Raleway', sans-serif;
   font-size: 1rem;
   line-height: 1.6;
-  background-color: var(--sleeve-dark-purple);
+  background-color: var(--sleeve-medium-purple);
   color: var(--sleeve-cream);
 }
 
@@ -49,6 +49,14 @@ ul {
 }
 
 /* Utilities */
+.container {
+  max-width: 1100px;
+  margin: auto;
+  overflow: hidden;
+  padding: 0 2rem;
+  margin-top: 6rem;
+  margin-bottom: 3rem;
+}
 
 .btn {
   display: inline-block;
@@ -84,14 +92,27 @@ ul {
   margin-bottom: 1rem;
 }
 
+.large {
+  font-size: 3rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
 .lead {
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
 
+.text-primary {
+  color: var(--sleeve-bright-purple);
+}
+
 /* Padding */
 
 /* Margin */
+.my-1 {
+  margin: 1rem 0;
+}
 
 /* Overlay */
 .dark-overlay {
@@ -104,6 +125,33 @@ ul {
 }
 
 /* Forms */
+.form .form-group {
+  margin: 1.2rem 0;
+}
+
+.form .form-text {
+  display: block;
+  margin-top: 0.3rem;
+  color: var(--logo-grey);
+}
+
+.form input[type='text'],
+.form input[type='email'],
+.form input[type='password'],
+.form input[type='date'],
+.form select,
+.form textarea {
+  display: block;
+  width: 100%;
+  padding: 0.4rem;
+  font-size: 1.2rem;
+  border: 1px solid var(--sleeve-bright-purple);
+}
+
+.form input[type='submit'],
+button {
+  font: inherit;
+}
 
 /* Navbar */
 .navbar {
@@ -161,9 +209,17 @@ ul {
 
 /* Mobile Styles */
 @media (max-width: 700px) {
+  .container {
+    margin-top: 8rem;
+  }
+
   /* Text Styles */
   .x-large {
     font-size: 3rem;
+  }
+
+  .large {
+    font-size: 2rem;
   }
 
   .lead {
