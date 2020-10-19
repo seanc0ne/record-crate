@@ -2,9 +2,10 @@ import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
+import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
 
-const Register = ({ setAlert }) => {
+const Register = ({ setAlert, register }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -23,7 +24,7 @@ const Register = ({ setAlert }) => {
     if (password !== password2) {
       setAlert('Passwords do not match', 'danger'); // we pass in the msg, and the alert type. We choose 'danger' for the alert type b/c of our css
     } else {
-      console.log(formData);
+      register({ name, email, password });
     }
   };
 
@@ -89,6 +90,7 @@ const Register = ({ setAlert }) => {
 
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
 };
 
-export default connect(null, { setAlert })(Register); // connect takes in two things: (1) any state that we want to map (which we don't have here, hence 'null'), and (2) an object with any actions we want to use (we want to use 'setAlert' here)
+export default connect(null, { setAlert, register })(Register); // connect takes in two things: (1) any state that we want to map (which we don't have here, hence 'null'), and (2) an object with any actions we want to use (we want to use 'setAlert' here)

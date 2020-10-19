@@ -1,9 +1,9 @@
-import { v4 as uuid } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import { SET_ALERT, REMOVE_ALERT } from './types';
 
 // can use this syntax below because of 'thunk' package
 export const setAlert = (msg, alertType, timeout = 5000) => (dispatch) => {
-  const id = uuid(); // gives us a random unique id
+  const id = uuidv4(); // gives us a random unique id
   dispatch({
     type: SET_ALERT,
     payload: { msg, alertType, id },
