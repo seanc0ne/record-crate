@@ -15,7 +15,7 @@
   --sleeve-old-red: #c66b6a;
   --sleeve-orange: #feaa2d;
   --sleeve-yellow: #f8d54d;
-  --sleeve-light-green: #7cd440;
+  --sleeve-bright-green: #7cd440;
   --sleeve-dark-green: #5c8d49;
   --sleeve-light-turquoise: #3cdecf;
   --sleeve-dark-turquoise: #6c9896;
@@ -58,9 +58,17 @@ ul {
   margin-bottom: 3rem;
 }
 
+.alert {
+  padding: 0.8rem;
+  margin: 1rem 0;
+  opacity: 0.9;
+  background: var(--sleeve-cream);
+  color: var(--disc-dark);
+}
+
 .btn {
   display: inline-block;
-  background: var(--disc-light);
+  background: var(--sleeve-cream);
   color: var(--disc-dark);
   padding: 0.4rem 1.3rem;
   font-size: 1rem;
@@ -71,14 +79,41 @@ ul {
   outline: none;
 }
 
-.btn-primary {
+.btn-primary,
+.alert-primary {
   background: var(--sleeve-old-red);
   color: var(--sleeve-cream);
 }
 
-.btn-light {
-  background: var(--disc-light);
+.btn-light,
+.alert-light {
+  background: var(--sleeve-cream);
   color: var(--disc-dark);
+}
+
+.btn-dark,
+.alert-dark {
+  background: var(--disc-dark);
+  color: var(--sleeve-cream);
+}
+
+.btn-danger,
+.alert-danger {
+  background: var(--sleeve-red);
+  color: var(--sleeve-cream);
+}
+
+.btn-success,
+.alert-success {
+  background: var(--sleeve-bright-green);
+  color: var(--sleeve-cream);
+}
+
+.btn-white,
+.alert-white {
+  background: var(--sleeve-cream);
+  color: var(--disc-dark);
+  border: var(--logo-paper) solid 1px;
 }
 
 .btn:hover {
