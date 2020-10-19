@@ -2,8 +2,6 @@ import React from "react";
 
 // *********** BOOTSTRAP **********
 import "bootstrap/dist/css/bootstrap.min.css";
-
-import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 
 // *********** ASSETS **********
@@ -11,7 +9,7 @@ import recordSleeveLogo from '../../assets/img/recordSleeveWtLogo@x2.png'
 import Container from "react-bootstrap/esm/Container";
 import Card from "react-bootstrap/Card";
 
-
+// *********** FUNCTION **********
 function LandingSleeve() {
     return (
         <Container>
