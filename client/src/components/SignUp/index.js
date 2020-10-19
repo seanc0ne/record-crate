@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
 import { validateEmail } from '../../utils/helpers';
 
-import Image from 'react-bootstrap/Image';
+// *********** BOOTSTRAP **********
+import "bootstrap/dist/css/bootstrap.min.css";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Badge from 'react-bootstrap/Badge';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Media from 'react-bootstrap/Media';
 
-import recordSleeveLogo from '../../assets/img/recordSleeve@x2.png'
-
+// *********** FUNCTION **********
 function SignUp() {
     const [formState, setFormState] = useState({
       name: '',
@@ -47,8 +44,8 @@ function SignUp() {
     }
     return (
         <Container className="w-100 signUpContainer">
-          <Row className="flex-row contact-page" style={{justifyContent:"center", margin:'30px'}}>
-            <Col sm={8} className="contact-form">
+          <Row className="flex-row contact-page signUpForm">
+            <Col sm={6} className="contact-form">
               <Row className="w-100">
                 <Form className="w-100" onSubmit={handleSubmit}>
                   <Form.Row className="w-100">
@@ -84,8 +81,8 @@ function SignUp() {
       Please use at least 6 characters etc... 
     </Form.Text>
                     </Form.Group>
-                    <Button className="w-100" type="submit">
-                      Send message
+                    <Button className="signUpConfirmBtn" type="submit">
+                      OK
                     </Button>
                   </Form.Row>
                 </Form>
