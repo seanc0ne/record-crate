@@ -87,10 +87,10 @@ router.post(
 
 // @route - GET api/user/
 // @desc - test route
-// @access - Public
+// @access - Private
 router.get('/', auth, async (req, res) => {
   try {
-    const dbUser = await User.findById(req.user.id).select('-password'); // leave off the password
+    const dbUser = await User.findById(req.user.id).select('-__v -password'); // leave off the password
     res.json(dbUser);
   } catch (err) {
     console.log(err.message);
