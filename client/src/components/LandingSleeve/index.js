@@ -1,16 +1,31 @@
-import React, { Fragment } from 'react';
+import React from "react";
+
+// *********** BOOTSTRAP **********
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 
+// *********** ASSETS **********
 import recordSleeveLogo from '../../assets/img/recordSleeveWtLogo@x2.png'
+import Container from "react-bootstrap/esm/Container";
+import Card from "react-bootstrap/Card";
 
 
-function SignUp() {
+function LandingSleeve() {
     return (
-        <Image src={recordSleeveLogo} fluid />
+        <Container>
+            <Card className='landingCard'>
+            <Card.Img src={recordSleeveLogo} fluid />
+            <Card.ImgOverlay>
+                <Card.Text className="signUpText">Create your own playlist from our database full of all the details you’ve been missing including BPM, key, and much more</Card.Text>
+            <Button className='signUpBtn'>Sign Up</Button>
+            </Card.ImgOverlay>
+            </Card> 
+        </Container>
+
     );
 
-} 
+}
 
-export default SignUp;
+export default LandingSleeve;
