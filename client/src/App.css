@@ -11,7 +11,7 @@
     border: 0;
 }
 
-.signUpBtn {
+.landingBtn {
     background-color: var(--color1) !important;
     text-transform: uppercase !important;
     border: none !important;
@@ -29,7 +29,7 @@
     left: 800px;
 }
 
-.signUpText {
+.landingText {
     color: white;
     font-size: 20px;
     
@@ -37,4 +37,11 @@
     width: 500px;
     left: 450px;
     bottom: 185px;
+}
+
+.signUpContainer {
+    background-image: url("./assets/img/recordSleeve@x2.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }

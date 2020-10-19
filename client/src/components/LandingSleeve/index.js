@@ -18,8 +18,8 @@ function LandingSleeve() {
             <Card className='landingCard'>
             <Card.Img src={recordSleeveLogo} fluid />
             <Card.ImgOverlay>
-                <Card.Text className="signUpText">Create your own playlist from our database full of all the details you’ve been missing including BPM, key, and much more</Card.Text>
-            <Button className='signUpBtn'>Sign Up</Button>
+                <Card.Text className="landingText">Create your own playlist from our database full of all the details you’ve been missing including BPM, key, and much more</Card.Text>
+            <Button className='landingBtn'>Sign Up</Button>
             </Card.ImgOverlay>
             </Card> 
         </Container>

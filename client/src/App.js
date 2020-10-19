@@ -24,7 +24,7 @@ function App() {
 
     <Row>
       <Col>
-        <LandingSleeve></LandingSleeve>
+        <SignUp></SignUp>
       </Col>
     </Row>
 

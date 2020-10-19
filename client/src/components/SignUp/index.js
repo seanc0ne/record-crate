@@ -12,7 +12,6 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Media from 'react-bootstrap/Media';
 
 import recordSleeveLogo from '../../assets/img/recordSleeve@x2.png'
-import Jumbotron from 'react-bootstrap/esm/Jumbotron';
 
 function SignUp() {
     const [formState, setFormState] = useState({
@@ -47,8 +46,7 @@ function SignUp() {
       console.log(formState);
     }
     return (
-        <Jumbotron style={{ backgroundImage: `url(${recordSleeveLogo})`, backgroundSize: 'cover', width: '762px', height: '508px' }}>
-        <Container className="w-100">
+        <Container className="w-100 signUpContainer">
           <Row className="flex-row contact-page" style={{justifyContent:"center", margin:'30px'}}>
             <Col sm={8} className="contact-form">
               <Row className="w-100">
@@ -95,7 +93,6 @@ function SignUp() {
             </Col>
           </Row>
         </Container>
-        </Jumbotron>
         // {errorMessage && (
         //   <div>
         //     <p className="error-text">{errorMessage}</p>
