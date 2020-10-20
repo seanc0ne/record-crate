@@ -10,7 +10,7 @@ import setAuthToken from './utils/setAuthToken';
 // Redux
 import { Provider } from 'react-redux';
 import store from './store';
-
+// custom styles
 import './App.css';
 
 // check localStorage for a token and set the global headers with it if there is one

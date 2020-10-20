@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
@@ -22,9 +22,10 @@ const Register = ({ setAlert, register }) => {
     e.preventDefault();
     // verify that passwords match
     if (password !== password2) {
-      setAlert('Passwords do not match', 'danger'); // we pass in the msg, and the alert type. We choose 'danger' for the alert type b/c of our css
+      setAlert('Passwords do not match', 'danger'); // we pass in the msg, and the alert type. We choose 'danger' for the alert type b/c of our css. We could optionally pass in a third arg which is the timeout delay which is set by default at 5000.
     } else {
       register({ name, email, password });
+      return <Redirect to="/" />;
     }
   };
 
@@ -93,4 +94,4 @@ Register.propTypes = {
   register: PropTypes.func.isRequired,
 };
 
-export default connect(null, { setAlert, register })(Register); // connect takes in two things: (1) any state that we want to map (which we don't have here, hence 'null'), and (2) an object with any actions we want to use (we want to use 'setAlert' here)
+export default connect(null, { setAlert, register })(Register); // connect takes in two things: (1) any state that we want to map (which we don't have here, hence 'null'), and (2) an object with any actions we want to use (we want to use 'setAlert' and 'register' here)
