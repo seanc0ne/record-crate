@@ -1,1 +1,70 @@
+:root {
+    --color1: #F05B6F;
+}
 
+* {
+    font-family: 'Futura PT', arial, sans-serif;
+  }
+
+.landingCard {
+    background-color: transparent   !important;
+    border: 0;
+}
+
+.landingBtn {
+    background-color: var(--color1) !important;
+    text-transform: uppercase !important;
+    border: none !important;
+    border-radius: 30px !important;
+    color: white !important;
+    padding: 15px 32px !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.1em !important;
+    position: absolute;
+    bottom: 90px;
+    left: 800px;
+    width: 200px !important;
+}
+
+.landingText {
+    color: white;
+    font-size: 20px;
+    
+    position: absolute;
+    width: 500px;
+    left: 450px;
+    bottom: 185px;
+}
+
+.signUpContainer {
+    background-image: url("./assets/img/recordSleeve@x2.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 750px;
+    width: 762px;
+}
+
+.signUpForm {
+    color: white;
+}
+
+.signUpConfirmBtn {
+    background-color: var(--color1) !important;
+    text-transform: uppercase !important;
+    border: none !important;
+    border-radius: 30px !important;
+    color: white !important;
+    padding: 15px 32px !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.1em !important;
+    width: 200px !important;
+}
