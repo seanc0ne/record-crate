@@ -5,7 +5,7 @@ import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
 
-const Register = ({ setAlert, register }) => {
+const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -25,9 +25,12 @@ const Register = ({ setAlert, register }) => {
       setAlert('Passwords do not match', 'danger'); // we pass in the msg, and the alert type. We choose 'danger' for the alert type b/c of our css. We could optionally pass in a third arg which is the timeout delay which is set by default at 5000.
     } else {
       register({ name, email, password });
-      return <Redirect to="/" />;
     }
   };
+
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <Fragment>
@@ -92,6 +95,11 @@ const Register = ({ setAlert, register }) => {
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
 };
 
-export default connect(null, { setAlert, register })(Register); // connect takes in two things: (1) any state that we want to map (which we don't have here, hence 'null'), and (2) an object with any actions we want to use (we want to use 'setAlert' and 'register' here)
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { setAlert, register })(Register); // connect takes in two things: (1) any state that we want to map (which we don't have here, hence 'null'), and (2) an object with any actions we want to use (we want to use 'setAlert' and 'register' here)

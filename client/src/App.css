@@ -248,6 +248,10 @@ button {
     margin-top: 8rem;
   }
 
+  .hide-sm {
+    display: none;
+  }
+
   /* Text Styles */
   .x-large {
     font-size: 3rem;
