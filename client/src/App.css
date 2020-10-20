@@ -35,7 +35,7 @@ body {
   font-family: 'Raleway', sans-serif;
   font-size: 1rem;
   line-height: 1.6;
-  background-color: var(--sleeve-medium-purple);
+  background-color: var(--disc-dark);
   color: var(--sleeve-cream);
 }
 
@@ -99,7 +99,7 @@ ul {
 
 .btn-danger,
 .alert-danger {
-  background: var(--sleeve-red);
+  background: var(--sleeve-orange);
   color: var(--sleeve-cream);
 }
 
@@ -139,7 +139,7 @@ ul {
 }
 
 .text-primary {
-  color: var(--sleeve-bright-purple);
+  color: var(--logo-paper);
 }
 
 /* Padding */
