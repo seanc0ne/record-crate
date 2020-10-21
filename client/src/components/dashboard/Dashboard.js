@@ -1,10 +1,18 @@
 import React from 'react';
+// import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-const Dashboard = (props) => {
-  return <div>Dashboard</div>;
+const Dashboard = ({ isAuthenticated }) => {
+  return <section className="landing"></section>;
 };
 
-Dashboard.propTypes = {};
+Dashboard.propTypes = {
+  isAuthenticated: PropTypes.bool,
+};
 
-export default Dashboard;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps)(Dashboard);

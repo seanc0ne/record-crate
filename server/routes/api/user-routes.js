@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const auth = require('../../middleware/auth');
 const { User } = require('../../models');
+const { Playlist } = require('../../models');
 require('dotenv').config();
 
 // @route - POST api/user/
@@ -85,19 +86,6 @@ router.post(
   }
 );
 
-// @route - GET api/user/
-// @desc - test route
-// @access - Private
-router.get('/', auth, async (req, res) => {
-  try {
-    const dbUser = await User.findById(req.user.id).select('-__v -password'); // leave off the password
-    res.json(dbUser);
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send('Server error');
-  }
-});
-
 // @route - POST api/user/login
 // @desc - Log in user & get token
 // @access - Public
@@ -155,5 +143,73 @@ router.post(
     }
   }
 );
+
+// @route - GET api/user/
+// @desc - Get current user
+// @access - Private
+router.get('/', auth, async (req, res) => {
+  try {
+    const dbUser = await User.findById(req.user.id).select('-__v -password'); // leave off the password
+    res.json(dbUser);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+// @route - PUT api/user/
+// @desc - Update current user
+// @access - Private
+router.put(
+  '/',
+  [
+    auth,
+    [
+      check('name', 'Name is required').not().isEmpty(), // check if a name is provided and it is not empty
+      check('email', 'Please include a valid email').isEmail(), // check that input is formatted as an email address
+      check(
+        'password',
+        'Please enter a password with 6 or more characters'
+      ).isLength({ min: 6 }),
+    ],
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const dbUser = await User.findOneAndUpdate(
+        { _id: req.user.id },
+        { $set: req.body },
+        { new: true }
+      ).select('-__v -password');
+      res.json(dbUser);
+    } catch (err) {
+      console.log(err.message);
+      if (err.kind == 'ObjectId') {
+        return res.status(400).json({ msg: 'User not found' });
+      }
+      res.status(500).send('Server error');
+    }
+  }
+);
+
+// @route - DELETE api/user/
+// @desc - Delete user and playlists
+// @access - Private
+router.delete('/', auth, async (req, res) => {
+  try {
+    // remove user's playlists
+    await Playlist.deleteMany({ userId: req.user.id });
+    // remove user
+    await User.findOneAndRemove({ _id: req.user.id });
+    res.json({ msg: 'User deleted ' });
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send('Server error');
+  }
+});
 
 module.exports = router;
