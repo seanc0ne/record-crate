@@ -149,7 +149,7 @@ router.post(
 // @access - Private
 router.get('/', auth, async (req, res) => {
   try {
-    const dbUser = await User.findById(req.user.id).select('-__v -password'); // leave off the password
+    const dbUser = await User.findById(req.user.id).select('-__v -password');
     res.json(dbUser);
   } catch (err) {
     console.log(err.message);
@@ -167,10 +167,6 @@ router.put(
     [
       check('name', 'Name is required').not().isEmpty(), // check if a name is provided and it is not empty
       check('email', 'Please include a valid email').isEmail(), // check that input is formatted as an email address
-      check(
-        'password',
-        'Please enter a password with 6 or more characters'
-      ).isLength({ min: 6 }),
     ],
   ],
   async (req, res) => {

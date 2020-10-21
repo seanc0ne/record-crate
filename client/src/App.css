@@ -145,6 +145,10 @@ ul {
 /* Padding */
 
 /* Margin */
+.m-1 {
+  margin: 1rem;
+}
+
 .my-1 {
   margin: 1rem 0;
 }

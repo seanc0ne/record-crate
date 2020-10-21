@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 // import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Navbar from '../layout/Navbar';
 
 const Dashboard = ({ isAuthenticated }) => {
-  return <section className="landing"></section>;
+  return (
+    <Fragment>
+      <Navbar />
+      <section className="landing">
+        <div className="dark-overlay"></div>
+      </section>
+    </Fragment>
+  );
 };
 
 Dashboard.propTypes = {
