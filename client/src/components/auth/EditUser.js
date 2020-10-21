@@ -23,46 +23,53 @@ const EditUser = ({ user, editUser, deleteAccount }) => {
 
   return (
     <Fragment>
-      <section className="container">
-        <h1 className="large text-primary">Edit your user account</h1>
-        <form className="form" onSubmit={(e) => onSubmit(e)}>
-          <div className="form-group">
-            <input
-              type="text"
-              placeholder="Name"
-              name="name"
-              value={name}
-              onChange={(e) => onChange(e)}
-              required
-            />
+      <section className="landing">
+        <div className="container">
+          <div className="bg-auth">
+            <h1 className="large text-primary">Edit your user account</h1>
+            <form className="form" onSubmit={(e) => onSubmit(e)}>
+              <div className="form-group">
+                <input
+                  type="text"
+                  placeholder="Name"
+                  name="name"
+                  value={name}
+                  onChange={(e) => onChange(e)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  type="email"
+                  placeholder="Email Address"
+                  name="email"
+                  value={email}
+                  onChange={(e) => onChange(e)}
+                  required
+                />
+                <small className="form-text">
+                  This site uses Gravatar so if you want a profile image, use a
+                  Gravatar email
+                </small>
+              </div>
+              <input
+                type="submit"
+                className="btn btn-primary m-1"
+                value="EditUser"
+              />
+              <Link className="btn btn-light m-1" to="/dashboard">
+                Go Back
+              </Link>
+            </form>
+            <div className="m-1">
+              <button
+                className="btn btn-danger"
+                onClick={() => deleteAccount()}
+              >
+                <i className="fas fa-user-minus"></i> Delete my account
+              </button>
+            </div>
           </div>
-          <div className="form-group">
-            <input
-              type="email"
-              placeholder="Email Address"
-              name="email"
-              value={email}
-              onChange={(e) => onChange(e)}
-              required
-            />
-            <small className="form-text">
-              This site uses Gravatar so if you want a profile image, use a
-              Gravatar email
-            </small>
-          </div>
-          <input
-            type="submit"
-            className="btn btn-primary m-1"
-            value="EditUser"
-          />
-          <Link className="btn btn-light m-1" to="/dashboard">
-            Go Back
-          </Link>
-        </form>
-        <div className="m-1">
-          <button className="btn btn-danger" onClick={() => deleteAccount()}>
-            <i className="fas fa-user-minus"></i> Delete my account
-          </button>
         </div>
       </section>
     </Fragment>

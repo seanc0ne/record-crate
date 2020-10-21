@@ -6,6 +6,7 @@ import Login from './components/auth/Login';
 import Alert from './components/layout/Alert';
 import Dashboard from './components/dashboard/Dashboard';
 import EditUser from './components/auth/EditUser';
+import Tracks from './components/tracks/Tracks';
 import PrivateRoute from './components/routing/PrivateRoute';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
@@ -36,6 +37,7 @@ function App() {
             <Route exact path="/login" component={Login} />
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
             <PrivateRoute exact path="/edit-user" component={EditUser} />
+            <Route exact path="/tracks" component={Tracks} />
           </Switch>
         </Fragment>
       </Router>

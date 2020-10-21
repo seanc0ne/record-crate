@@ -50,12 +50,19 @@ ul {
 
 /* Utilities */
 .container {
-  max-width: 1100px;
+  max-width: 500px;
   margin: auto;
   overflow: hidden;
   padding: 0 2rem;
-  margin-top: 6rem;
+  margin-top: 0rem;
   margin-bottom: 3rem;
+  padding-top: 6rem;
+}
+
+.bg-auth {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 4rem;
+  border-radius: 15px;
 }
 
 .alert {
