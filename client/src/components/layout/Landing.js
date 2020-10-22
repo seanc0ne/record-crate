@@ -1,42 +1,51 @@
 // *********** REACT & REDUX **********
-import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-// *********** BOOTSTRAP & ASSETS **********
+// *********** COMPONENTS **********
+import StartSleeve from './StartSleeve';
+import Register from '../auth/Register';
+import Login from '../auth/Login';
+
+// *********** BOOTSTRAP **********
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
-import recordSleeveLogo from '../../assets/img/recordSleeveWtLogo@x2.png';
 
 const Landing = ({ isAuthenticated }) => {
+  const [currentSleeve, setCurrentSleeve] = useState('start');
   if (isAuthenticated) {
     return <Redirect to="/dashboard" />;
   }
+  function displaySleeve(sleeveName) {
+    console.log('sleeveName', sleeveName);
+    switch (sleeveName) {
+      case 'signup':
+        return <Register></Register>;
+      case 'login':
+        return <Login></Login>;
+      case 'start':
+      default:
+        return (
+          <StartSleeve
+            currentSleeve={currentSleeve}
+            setCurrentSleeve={setCurrentSleeve}
+          ></StartSleeve>
+        );
+    }
+  }
+
   return (
     <section className="landing">
       <Container className="pt-5" fluid>
+        {/* <Row className="mx-auto vw-75 vh-100"></Row> */}
         <Row className="mx-auto vw-75 vh-100">
           <Col className="my-auto">
-            <Card className="landingCard text-white">
-              <Card.Img src={recordSleeveLogo} />
-              <Card.ImgOverlay>
-                <Card.Text className="landingText">
-                  Create your own playlist from our database full of all the
-                  details you’ve been missing including BPM, key, and much
-                  more...
-                </Card.Text>
-                <div className="landingBtnDiv mt-3">
-                  <Link to="/register" className="btn btn-primary landingBtn">
-                    Sign Up
-                  </Link>
-                </div>
-              </Card.ImgOverlay>
-            </Card>
+            <Card className="landingCard">{displaySleeve(currentSleeve)}</Card>
           </Col>
         </Row>
       </Container>

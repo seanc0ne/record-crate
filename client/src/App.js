@@ -20,10 +20,6 @@ import PrivateRoute from './components/routing/PrivateRoute';
 
 // *********** BOOTSTRAP & CUSTOM STYLES **********
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Jumbotron from 'react-bootstrap/Jumbotron';
 import './App.css';
 
 // check localStorage for a token and set the global headers with it if there is one
