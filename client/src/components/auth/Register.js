@@ -1,9 +1,16 @@
 import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
+
+// *********** BOOTSTRAP **********
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import recordSleeve from '../../assets/img/recordSleeve@x2.png';
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -12,6 +19,10 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     password: '',
     password2: '',
   });
+
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
 
   const { name, email, password, password2 } = formData;
 
@@ -28,76 +39,62 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     }
   };
 
-  if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
-  }
-
   return (
     <Fragment>
-      <section className="landing">
-        <div className="container">
-          <div className="bg-auth">
-            <h1 className="large text-primary">Sign Up</h1>
-            <p className="lead">
-              <i className="fas fa-user"></i> Create Your Account
-            </p>
-            <form className="form" onSubmit={(e) => onSubmit(e)}>
-              <div className="form-group">
-                <input
+      <Card.Img src={recordSleeve} />
+      <Card.ImgOverlay>
+        <div className="signup-sleeve pl-3 pr-5">
+          <Form className="w-100" onSubmit={(e) => onSubmit(e)}>
+            <Form.Row className="w-100">
+              <Form.Group className="w-100" controlId="formGridName">
+                <Form.Label htmlFor="name">User Name</Form.Label>
+                <Form.Control
                   type="text"
-                  placeholder="Name"
+                  defaultValue={name}
+                  onChange={(e) => onChange(e)}
                   name="name"
-                  value={name}
-                  onChange={(e) => onChange(e)}
-                  required
                 />
-              </div>
-              <div className="form-group">
-                <input
+              </Form.Group>
+              <Form.Group className="w-100" controlId="formGridEmail">
+                <Form.Label htmlFor="email">Email address</Form.Label>
+                <Form.Control
                   type="email"
-                  placeholder="Email Address"
+                  defaultValue={email}
+                  onChange={(e) => onChange(e)}
                   name="email"
-                  value={email}
-                  onChange={(e) => onChange(e)}
-                  required
                 />
-                <small className="form-text">
-                  This site uses Gravatar so if you want a profile image, use a
-                  Gravatar email
-                </small>
-              </div>
-              <div className="form-group">
-                <input
+                <Form.Text className="text-muted">
+                  We'll never share your email with anyone else.
+                </Form.Text>
+              </Form.Group>
+              <Form.Group className="w-100" controlId="formGridMessage">
+                <Form.Label htmlFor="password">Password</Form.Label>
+                <Form.Control
                   type="password"
-                  placeholder="Password"
+                  defaultValue={password}
+                  onChange={(e) => onChange(e)}
                   name="password"
-                  value={password}
-                  onChange={(e) => onChange(e)}
-                  minLength="6"
                 />
-              </div>
-              <div className="form-group">
-                <input
+                <Form.Text className="text-muted">
+                  Please use at least 6 characters etc...
+                </Form.Text>
+              </Form.Group>
+              <Form.Group className="w-100" controlId="formGridMessage2">
+                <Form.Label htmlFor="password2">Confirm Password</Form.Label>
+                <Form.Control
                   type="password"
-                  placeholder="Confirm Password"
-                  name="password2"
-                  value={password2}
+                  defaultValue={password2}
                   onChange={(e) => onChange(e)}
-                  minLength="6"
+                  name="password2"
                 />
-              </div>
-              <input
-                type="submit"
-                className="btn btn-primary"
-                value="Register"
-              />
-            </form>
-            <p className="my-1">
-              Already have an account? <Link to="/login">Sign In</Link>
-            </p>
-          </div>
+              </Form.Group>
+              <Button className="signUpConfirmBtn" type="submit">
+                OK
+              </Button>
+            </Form.Row>
+          </Form>
         </div>
-      </section>
+      </Card.ImgOverlay>
     </Fragment>
   );
 };

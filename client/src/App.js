@@ -1,4 +1,25 @@
-import React from 'react';
+// *********** REACT, REDUX & UTILS **********
+import React, { Fragment, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { loadUser } from './actions/auth';
+import store from './store';
+import setAuthToken from './utils/setAuthToken';
+
+// *********** COMPONENTS **********
+import Landing from './components/layout/Landing';
+// import LandingSleeve from './components/LandingSleeve';
+import Register from './components/auth/Register';
+// import SignUp from './components/auth/SignUp';
+import Login from './components/auth/Login';
+import Alert from './components/layout/Alert';
+import Dashboard from './components/dashboard/Dashboard';
+import EditUser from './components/auth/EditUser';
+import Tracks from './components/tracks/Tracks';
+import PrivateRoute from './components/routing/PrivateRoute';
+
+// *********** BOOTSTRAP & CUSTOM STYLES **********
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 // *********** COMPONENTS **********
