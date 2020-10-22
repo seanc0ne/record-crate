@@ -1,5 +1,6 @@
 /* Global Styles */
 :root {
+  --color1: #f05b6f;
   --logo-paper: #e9cfb5;
   --logo-orange: #d96d00;
   --logo-yellow: #e5ca00;
@@ -234,12 +235,12 @@ button {
 
 /* Landing Page */
 .landing {
-  position: relative;
   background: url('./assets/img/bgImg@x2.png') no-repeat center center/cover;
+  width: 100vw;
   height: 100vh;
 }
 
-.landing-inner {
+/* .landing-inner {
   color: var(--sleeve-cream);
   height: 100%;
   width: 80%;
@@ -249,6 +250,52 @@ button {
   align-items: center;
   justify-content: center;
   text-align: center;
+} */
+
+/* .img-container {
+  padding: 1em;
+  position: absolute;
+  max-width: 80%;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}*/
+
+.landingCard {
+  position: relative;
+  background-color: transparent;
+  border: 0;
+  width: 100%;
+}
+
+.card-img-overlay {
+  position: absolute;
+  top: 60%;
+  left: 40%;
+  margin-right: 5%;
+  margin-top: 3%;
+}
+
+.landingText {
+  color: var(--disc-dark);
+  font-size: 1.25em;
+}
+
+.landingBtnDiv {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.landingBtn {
+  text-transform: uppercase;
+  border: none;
+  border-radius: 30px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
 }
 
 /* Main Page */
