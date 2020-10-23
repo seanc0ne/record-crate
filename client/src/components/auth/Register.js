@@ -46,8 +46,8 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         <div className="signup-sleeve pl-3 pr-5">
           <Form className="w-100" onSubmit={(e) => onSubmit(e)}>
             <Form.Row className="w-100">
-              <Form.Group className="w-100" controlId="formGridName">
-                <Form.Label htmlFor="name">User Name</Form.Label>
+              <Form.Group className="w-100" controlId="registerUserName">
+                <Form.Label>User Name</Form.Label>
                 <Form.Control
                   type="text"
                   defaultValue={name}
@@ -55,8 +55,8 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                   name="name"
                 />
               </Form.Group>
-              <Form.Group className="w-100" controlId="formGridEmail">
-                <Form.Label htmlFor="email">Email address</Form.Label>
+              <Form.Group className="w-100" controlId="registerEmail">
+                <Form.Label>Email address</Form.Label>
                 <Form.Control
                   type="email"
                   defaultValue={email}
@@ -67,8 +67,8 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                   We'll never share your email with anyone else.
                 </Form.Text>
               </Form.Group>
-              <Form.Group className="w-100" controlId="formGridMessage">
-                <Form.Label htmlFor="password">Password</Form.Label>
+              <Form.Group className="w-100" controlId="registerPassword">
+                <Form.Label>Password</Form.Label>
                 <Form.Control
                   type="password"
                   defaultValue={password}
@@ -79,8 +79,8 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                   Please use at least 6 characters etc...
                 </Form.Text>
               </Form.Group>
-              <Form.Group className="w-100" controlId="formGridMessage2">
-                <Form.Label htmlFor="password2">Confirm Password</Form.Label>
+              <Form.Group className="w-100" controlId="registerPassword2">
+                <Form.Label>Confirm Password</Form.Label>
                 <Form.Control
                   type="password"
                   defaultValue={password2}

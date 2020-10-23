@@ -71,6 +71,7 @@ ul {
   background-image: url('./assets/img/bgImg@x2.png');
   background-size: cover;
   background-repeat: no-repeat;
+  height: 100vh;
 }
 
 .alert {
@@ -337,6 +338,9 @@ button {
   .loginBtn {
     font-size: 1em;
   }
+  .signup-sleeve {
+    top: 10%;
+  }
 }
 @media (max-width: 768px) {
   .container {
@@ -377,5 +381,9 @@ button {
 
   .navbar .welcome {
     display: none;
+  }
+  /* Sign Up form */
+  .signup-sleeve {
+    top: 5%;
   }
 }

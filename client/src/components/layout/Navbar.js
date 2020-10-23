@@ -16,7 +16,8 @@ const Navbar = ({ auth: { user, isAuthenticated, loading }, logout }) => {
       <li>
         <Link to="/edit-user">
           <i className="fas fa-user"></i>{' '}
-          <span className="hide-sm">{user.name}</span>
+          {/* @TODO: <span className="hide-sm">{user.name}</span> CURRENTLY WITH A GLITCH B/C NEED TO USE useEffect hook for when user data is finished loading*/}
+          <span className="hide-sm">User</span>
         </Link>
       </li>
       <li>

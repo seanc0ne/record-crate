@@ -28,8 +28,22 @@ export const register = ({ name, email, password }) => async (dispatch) => {
       type: REGISTER_SUCCESS,
       payload: res.data, // we get the token back
     });
+    console.log(
+      'Register in auth.js -> show res.data before dispatch(loadUser): ',
+      res.data
+    );
     dispatch(loadUser());
+    console.log(
+      'Register in auth.js -> show res.data after dispatch(loadUser): ',
+      res.data
+    );
   } catch (err) {
+    console.log('Register in auth.js -> show err: ', err);
+    console.log('Register in auth.js -> show err.response: ', err.response);
+    console.log(
+      'Register in auth.js -> show err.response.data: ',
+      err.response.data
+    );
     const errors = err.response.data.errors; // we want to display the array of errors
     // if there are errors we want to dispatch an alert for each of them
     if (errors) {

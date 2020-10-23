@@ -8,9 +8,9 @@ const Dashboard = ({ isAuthenticated }) => {
   return (
     <Fragment>
       <Navbar />
-      <section className="landing">
+      {/* <section className="landing">
         <div className="dark-overlay"></div>
-      </section>
+      </section> */}
     </Fragment>
   );
 };
