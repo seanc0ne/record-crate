@@ -27,15 +27,15 @@ router.post(
       billboardChartPeaks,
       chartPeakDates,
       dropboxUrls,
-      public,
+      showTrack,
     } = req.body;
 
     // build track object
     const trackObj = {};
     trackObj.userId = req.user.id;
     trackObj.songTitle = songTitle;
+    trackObj.showTrack = showTrack;
     if (sourceId) trackObj.sourceId = sourceId;
-    if (public) trackObj.public = public;
     if (keys) trackObj.keys = keys.split(',').map((key) => key.trim());
     if (bpms) trackObj.bpms = bpms.split(',').map((bpm) => bpm.trim());
     if (lengths)
@@ -182,7 +182,7 @@ router.put(
           $push: {
             notes: {
               noteText: req.body.noteText,
-              public: req.body.public,
+              showNote: req.body.showNote,
               userId: req.user.id,
             },
           },
@@ -220,8 +220,8 @@ router.put('/:track_id/note/:note_id', auth, async (req, res) => {
     if (noteToEdit.userId.toString() !== req.user.id)
       return res.status(401).json({ msg: 'User not authorized' });
     // insert edits
+    noteToEdit.showNote = req.body.showNote;
     if (req.body.noteText) noteToEdit.noteText = req.body.noteText;
-    if (req.body.public) noteToEdit.public = req.body.public;
     track.notes.splice(noteIndex, 1, noteToEdit);
     await track.save();
     return res.json(track.notes);

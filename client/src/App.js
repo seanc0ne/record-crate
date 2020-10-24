@@ -1,49 +1,63 @@
-import React from 'react';
-import './App.css';
+// *********** REACT, REDUX & UTILS **********
+import React, { Fragment, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { loadUser } from './actions/auth';
+import store from './store';
+import setAuthToken from './utils/setAuthToken';
 
 // *********** COMPONENTS **********
-import SignUp from './components/SignUp';
-import LandingSleeve from './components/LandingSleeve';
+import Landing from './components/layout/Landing';
+import Register from './components/auth/Register';
+import Login from './components/auth/Login';
+import Alert from './components/layout/Alert';
+import Dashboard from './components/dashboard/Dashboard';
+import EditUser from './components/auth/EditUser';
+import Tracks from './components/tracks/Tracks';
+import CreateTrack from './components/tracks/track-forms/CreateTrack';
+import PrivateRoute from './components/routing/PrivateRoute';
 
-// *********** BOOTSTRAP **********
-import "bootstrap/dist/css/bootstrap.min.css";
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+// *********** BOOTSTRAP & CUSTOM STYLES **********
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Jumbotron from 'react-bootstrap/Jumbotron';
-
-// *********** ASSETS **********
+import './App.css';
 import bgimage from './assets/img/bgImg@x2.png';
 
-// *********** FUNCTION **********
+// check localStorage for a token and set the global headers with it if there is one
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
+
 function App() {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []); // we need to put the empty brackets to prevent it from looping indefinitely; this way it will only run once, when it's loaded/mounted
+
   return (
-    <Jumbotron style={{ backgroundImage: `url(${bgimage})`, backgroundSize: 'cover', width: '100vw', height: '100vh' }}>
-  <Container className="App" style={{ alignContent: "center" }}>
-    {/* <Header
-      navItems={navItems}
-      setCurrentNavItem={setCurrentNavItem}
-      currentNavItem={currentNavItem}
-    ></Header> */}
-
-    <Row>
-      <Col>
-        <LandingSleeve></LandingSleeve>
-      </Col>
-    </Row>
-
-    {/* <Row>
-      <Footer></Footer>
-    </Row> */}
-
-  </Container>
-</Jumbotron>
-    
+    <Provider store={store}>
+      <Router>
+        <Jumbotron
+        // style={{
+        //   backgroundImage: `url(${bgimage})`,
+        //   backgroundSize: 'cover',
+        //   width: '100vw',
+        //   height: '100vh',
+        // }}
+        >
+          <Route exact path="/" component={Landing} />
+          <Alert />
+          <Switch>
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+            <PrivateRoute exact path="/dashboard" component={Dashboard} />
+            <PrivateRoute exact path="/edit-user" component={EditUser} />
+            <PrivateRoute exact path="/tracks" component={Tracks} />
+            <PrivateRoute exact path="/add-track" component={CreateTrack} />
+          </Switch>
+        </Jumbotron>
+      </Router>
+    </Provider>
   );
 }
 
 export default App;
-
-
-
-
