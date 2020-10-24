@@ -10,19 +10,19 @@ const Nav = () => {
       <ul>
         <Link to="/">
           <li className="active">
-            <HomeIcon />
+            {/* <HomeIcon /> */}
             Home
           </li>
         </Link>
         <Link to="/search">
           <li>
-            <SearchIcon />
+            {/* <SearchIcon /> */}
             Search
           </li>
         </Link>
         <Link to="/your-library">
           <li>
-            <LibraryIcon />
+            {/* <LibraryIcon /> */}
             Your Library
           </li>
         </Link>

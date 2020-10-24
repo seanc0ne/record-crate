@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import recordSleeveLogo from '../../assets/img/recordSleeveWtLogo@x2.png';
 
 // *********** BOOTSTRAP **********
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 

@@ -1,15 +1,24 @@
 import React from 'react';
-import {
-  Jumbotron,
-  Container,
-  CardColumns,
-  Card,
-  Button,
-} from 'react-bootstrap';
-// import Auth from '../utils/auth';
-// import { useQuery, useMutation } from '@apollo/react-hooks';
-// import { GET_ME_RECORDS } from '../utils/queries';
-// import { REMOVE_RECORD } from '../utils/mutations';
+// import {
+//   Jumbotron,
+//   Container,
+//   CardColumns,
+//   Card,
+//   Button,
+// } from 'react-bootstrap';
+
+// *********** BOOTSTRAP **********
+// import "bootstrap/dist/css/bootstrap.min.css";
+import Container from 'react-bootstrap/Container';
+import Jumbotron from 'react-bootstrap/Jumbotron';
+import CardColumns from 'react-bootstrap/CardColumns';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+
+import Auth from '../utils/auth';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { GET_ME_RECORDS } from '../utils/queries';
+import { REMOVE_RECORD } from '../utils/mutations';
 // Add Discogs API here?
 const Library = () => {
   const { loading, data } = useQuery(GET_ME_RECORDS);

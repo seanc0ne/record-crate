@@ -6,7 +6,7 @@ import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
 
 // *********** BOOTSTRAP & ASSETS **********
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
