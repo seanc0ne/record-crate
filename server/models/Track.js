@@ -8,7 +8,7 @@ const NoteSchema = new Schema(
       required: true,
       maxlength: [280, 'maximum of 280 characters allowed'],
     },
-    public: {
+    showNote: {
       type: Boolean,
       default: false,
     },
@@ -101,9 +101,9 @@ const TrackSchema = new Schema(
         trim: true,
       },
     ],
-    public: {
+    showTrack: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   {
