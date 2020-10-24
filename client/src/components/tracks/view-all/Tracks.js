@@ -23,7 +23,7 @@ const Tracks = ({ getTracks, track: { tracks, loading } }) => {
             {tracks.length > 0 ? (
               tracks.map((track) => <TrackList key={track._id} track={track} />)
             ) : (
-              <h4>No profiles found...</h4>
+              <h4>No tracks found...</h4>
             )}
           </div>
         </Fragment>

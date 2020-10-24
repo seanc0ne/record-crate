@@ -1,5 +1,5 @@
 // *********** REACT, REDUX & UTILS **********
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { loadUser } from './actions/auth';
@@ -8,13 +8,11 @@ import setAuthToken from './utils/setAuthToken';
 
 // *********** COMPONENTS **********
 import Landing from './components/layout/Landing';
-import Register from './components/auth/Register';
-import Login from './components/auth/Login';
 import Alert from './components/layout/Alert';
 import Dashboard from './components/dashboard/Dashboard';
 import EditUser from './components/auth/EditUser';
 import Tracks from './components/tracks/view-all/Tracks';
-import Track from './components/tracks/view-single/Track';
+import Track from './components/tracks/view-one/Track';
 import AddTrack from './components/tracks/track-forms/AddTrack';
 import PrivateRoute from './components/routing/PrivateRoute';
 
@@ -48,8 +46,6 @@ function App() {
           <Alert />
           <Route exact path="/" component={Landing} />
           <Switch>
-            {/* <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} /> */}
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
             <PrivateRoute exact path="/edit-user" component={EditUser} />
             <PrivateRoute exact path="/tracks" component={Tracks} />

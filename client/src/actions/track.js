@@ -47,6 +47,7 @@ export const getTrackById = (trackId) => async (dispatch) => {
 
 // Add a track - note: the 'history' object has a push method within
 export const addTrack = (formData, history) => async (dispatch) => {
+  console.log('data from AddTrack', formData);
   try {
     const config = {
       headers: {

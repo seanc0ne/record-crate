@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const TrackList = ({ track: track }) => {
+const TrackList = ({ track }) => {
   const {
     _id,
     songTitle,

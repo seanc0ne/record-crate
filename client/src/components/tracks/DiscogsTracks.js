@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import TrackList from './TrackList';
+import TrackList from './view-all/TrackList';
 import { getTracks } from '../../actions/track';
 import axios from 'axios';
 const BASEURL = 'https://api.discogs.com/database/search?q=';
