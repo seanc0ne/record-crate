@@ -10,6 +10,7 @@ import {
 // import { useQuery, useMutation } from '@apollo/react-hooks';
 // import { GET_ME_RECORDS } from '../utils/queries';
 // import { REMOVE_RECORD } from '../utils/mutations';
+// Add Discogs API here?
 const Library = () => {
   const { loading, data } = useQuery(GET_ME_RECORDS);
   const userData = data?.me || {};
