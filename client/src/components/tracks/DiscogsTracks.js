@@ -1,55 +1,52 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import TracksList from './TracksList';
+import TrackList from './TrackList';
 import { getTracks } from '../../actions/track';
-import axios from "axios";
-const BASEURL = "https://api.discogs.com/database/search?q=";
-const APIKEY = "&key=nxBVZyfnWIoqRtAaAjAz&secret=bFnEJXzeQAwQSpjFeucOoOXVmjQVfFXn";
+import axios from 'axios';
+const BASEURL = 'https://api.discogs.com/database/search?q=';
+const APIKEY =
+  '&key=nxBVZyfnWIoqRtAaAjAz&secret=bFnEJXzeQAwQSpjFeucOoOXVmjQVfFXn';
 
 function DiscogsTracks(props) {
-    const [search, setSearch] = useState([]);
+  const [search, setSearch] = useState([]);
 
-    const searchDiscogs = query => {
-        // API.search(query)
-        //   .then(res => this.setState({ results: res.data.data }))
-        //   .catch(err => console.log(err));
-        query = query.replace(' ', '+')
-        
-        fetch(
-            `${BASEURL}${query}${APIKEY}`
-            // baiser+summer+breeze&key=nxBVZyfnWIoqRtAaAjAz&secret=bFnEJXzeQAwQSpjFeucOoOXVmjQVfFXn
-          )
-            .then(function(response) {
-              return response.json();
-            })
-            .then(function(data) {
-              console.log(data);
-            });
-    };
+  const searchDiscogs = (query) => {
+    // API.search(query)
+    //   .then(res => this.setState({ results: res.data.data }))
+    //   .catch(err => console.log(err));
+    query = query.replace(' ', '+');
 
-    const handleFormSubmit = event => {
-        event.preventDefault();
-        const result = searchDiscogs(event.target.value);
-        // call setState and pass in the results from fetching
-        // setSearch(result.results)
-    };
+    fetch(
+      `${BASEURL}${query}${APIKEY}`
+      // baiser+summer+breeze&key=nxBVZyfnWIoqRtAaAjAz&secret=bFnEJXzeQAwQSpjFeucOoOXVmjQVfFXn
+    )
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        console.log(data);
+      });
+  };
 
-    return (
-        <form onSubmit={handleFormSubmit}>
-            <input
-                type='text'
-            />
-            <button className="btn btn-primary mt-3">
-                Search
-            </button>
-        </form>
-        
-        // search.map( searchResult => { <li>'stuff'</li>});
-    );
-  }
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    const result = searchDiscogs(event.target.value);
+    // call setState and pass in the results from fetching
+    // setSearch(result.results)
+  };
 
-  export default DiscogsTracks;
+  return (
+    <form onSubmit={handleFormSubmit}>
+      <input type="text" />
+      <button className="btn btn-primary mt-3">Search</button>
+    </form>
+
+    // search.map( searchResult => { <li>'stuff'</li>});
+  );
+}
+
+export default DiscogsTracks;
 
 // export default {
 //   search: function(query) {
