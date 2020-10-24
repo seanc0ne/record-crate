@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import TracksList from './TracksList';
+import TrackList from './TrackList';
 import { getTracks } from '../../actions/track';
 
 const Tracks = ({ getTracks, track: { tracks, loading } }) => {
@@ -19,12 +19,10 @@ const Tracks = ({ getTracks, track: { tracks, loading } }) => {
           <p className="lead">
             <i className="fab fa-connectdevelop"></i> Browse and select tracks
           </p>
-          <div className="profiles">
+          <div className="tracks">
             {tracks.length > 0 ? (
-              tracks.map((track) => <p>TEST</p>)
+              tracks.map((track) => <TrackList key={track._id} track={track} />)
             ) : (
-              //   <TracksList key={track._id} track={track} />
-              // ))
               <h4>No profiles found...</h4>
             )}
           </div>

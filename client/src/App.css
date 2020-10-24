@@ -50,29 +50,14 @@ ul {
   list-style: none;
 }
 
-/* Utilities */
-/* .container {
-  max-width: 500px;
-  margin: auto;
-  overflow: hidden;
-  padding: 0 2rem;
-  margin-top: 0rem;
-  margin-bottom: 3rem;
-  padding-top: 6rem;
-}
-
-.bg-auth {
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 4rem;
-  border-radius: 15px;
-} */
-
 .jumbotron {
   background-image: url('./assets/img/bgImg@x2.png');
   background-size: cover;
   background-repeat: no-repeat;
+  height: 100vh;
 }
 
+/* Alerts, Backgrounds, Buttons */
 .alert {
   padding: 0.8rem;
   margin: 1rem 0;
@@ -101,6 +86,7 @@ ul {
 }
 
 .btn-light,
+.bg-light,
 .alert-light {
   background: var(--sleeve-cream);
   color: var(--disc-dark);
@@ -133,6 +119,10 @@ ul {
 
 .btn:hover {
   opacity: 0.8;
+}
+
+.bg-light {
+  border: var(--logo-grey) solid 1px;
 }
 
 /* Text Styles*/
@@ -316,6 +306,17 @@ button {
 
 /* Main Page */
 
+/* styles for tracks */
+.track {
+  display: grid;
+  grid-template-columns: 2fr 4fr 2fr;
+  align-items: center;
+  grid-gap: 2rem;
+  padding: 1rem;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
 /* Mobile Styles */
 @media (max-width: 2560px) {
   .landingText,
@@ -336,6 +337,9 @@ button {
   .signUpBtn,
   .loginBtn {
     font-size: 1em;
+  }
+  .signup-sleeve {
+    top: 10%;
   }
 }
 @media (max-width: 768px) {
@@ -377,5 +381,14 @@ button {
 
   .navbar .welcome {
     display: none;
+  }
+  /* Sign Up form */
+  .signup-sleeve {
+    top: 5%;
+  }
+  /* styles for tracks */
+  .track {
+    grid-template-columns: 1fr;
+    text-align: center;
   }
 }

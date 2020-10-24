@@ -14,6 +14,7 @@ import Alert from './components/layout/Alert';
 import Dashboard from './components/dashboard/Dashboard';
 import EditUser from './components/auth/EditUser';
 import Tracks from './components/tracks/Tracks';
+import CreateTrack from './components/tracks/track-forms/CreateTrack';
 import PrivateRoute from './components/routing/PrivateRoute';
 
 // *********** BOOTSTRAP & CUSTOM STYLES **********
@@ -50,7 +51,8 @@ function App() {
             <Route exact path="/login" component={Login} />
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
             <PrivateRoute exact path="/edit-user" component={EditUser} />
-            <Route exact path="/tracks" component={Tracks} />
+            <PrivateRoute exact path="/tracks" component={Tracks} />
+            <PrivateRoute exact path="/add-track" component={CreateTrack} />
           </Switch>
         </Jumbotron>
       </Router>
