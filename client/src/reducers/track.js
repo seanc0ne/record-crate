@@ -49,6 +49,7 @@ export default function (state = initialState, action) {
         ...state,
         error: payload,
         loading: false,
+        track: null,
       };
     default:
       return state;

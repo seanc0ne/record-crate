@@ -13,15 +13,16 @@ import Login from './components/auth/Login';
 import Alert from './components/layout/Alert';
 import Dashboard from './components/dashboard/Dashboard';
 import EditUser from './components/auth/EditUser';
-import Tracks from './components/tracks/Tracks';
-import CreateTrack from './components/tracks/track-forms/CreateTrack';
+import Tracks from './components/tracks/view-all/Tracks';
+import Track from './components/tracks/view-single/Track';
+import AddTrack from './components/tracks/track-forms/AddTrack';
 import PrivateRoute from './components/routing/PrivateRoute';
 
 // *********** BOOTSTRAP & CUSTOM STYLES **********
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import './App.css';
-import bgimage from './assets/img/bgImg@x2.png';
+// import bgimage from './assets/img/bgImg@x2.png';
 
 // check localStorage for a token and set the global headers with it if there is one
 if (localStorage.token) {
@@ -44,15 +45,16 @@ function App() {
         //   height: '100vh',
         // }}
         >
-          <Route exact path="/" component={Landing} />
           <Alert />
+          <Route exact path="/" component={Landing} />
           <Switch>
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
+            {/* <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} /> */}
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
             <PrivateRoute exact path="/edit-user" component={EditUser} />
             <PrivateRoute exact path="/tracks" component={Tracks} />
-            <PrivateRoute exact path="/add-track" component={CreateTrack} />
+            <PrivateRoute exact path="/track/:id" component={Track} />
+            <PrivateRoute exact path="/add-track" component={AddTrack} />
           </Switch>
         </Jumbotron>
       </Router>

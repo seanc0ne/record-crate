@@ -2,12 +2,12 @@ import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TrackList from './TrackList';
-import { getTracks } from '../../actions/track';
+import { getTracks } from '../../../actions/track';
 
 const Tracks = ({ getTracks, track: { tracks, loading } }) => {
   useEffect(() => {
     getTracks();
-  }, []);
+  }, [getTracks]);
 
   return (
     <Fragment>
