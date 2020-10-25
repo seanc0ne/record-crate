@@ -9,13 +9,13 @@ import setAuthToken from './utils/setAuthToken';
 // *********** COMPONENTS **********
 import Landing from './components/layout/Landing';
 import Alert from './components/layout/Alert';
-import Library from './components/Library';
+import Dashboard from './components/Dashboard';
 import EditUser from './components/auth/EditUser';
 import Tracks from './components/tracks/view-all/Tracks';
 import Track from './components/tracks/view-one/Track';
 import AddTrack from './components/tracks/track-forms/AddTrack';
 import PrivateRoute from './components/routing/PrivateRoute';
-import Navbar from './components/layout/Navbar';
+// import Navbar from './components/layout/Navbar';
 
 // *********** BOOTSTRAP & CUSTOM STYLES **********
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -38,7 +38,7 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-        <Navbar />
+        {/* <Navbar /> */}
         <Jumbotron className="splashJumbotron">
           <Container>
             <Alert />
@@ -48,7 +48,7 @@ function App() {
               <PrivateRoute exact path="/edit-user" component={EditUser} />
               <PrivateRoute exact path="/tracks" component={Tracks} />
               <PrivateRoute exact path="/track/:id" component={Track} />
-              <PrivateRoute exact path="/add-track" component={CreateTrack} />
+              <PrivateRoute exact path="/add-track" component={AddTrack} />
             </Switch>
           </Container>
         </Jumbotron>
