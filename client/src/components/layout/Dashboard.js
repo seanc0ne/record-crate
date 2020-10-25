@@ -1,7 +1,5 @@
 import React, { Fragment } from 'react';
-// import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
-import Navbar from '../layout/Navbar';
+import Navbar from './Navbar';
 import Tracks from '../tracks/view-all/Tracks';
 
 const Dashboard = ({ isAuthenticated }) => {

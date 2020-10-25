@@ -7,15 +7,14 @@ import store from './store';
 import setAuthToken from './utils/setAuthToken';
 
 // *********** COMPONENTS **********
-import Landing from './components/layout/Landing';
 import Alert from './components/layout/Alert';
-import Dashboard from './components/Dashboard';
+import Landing from './components/layout/Landing';
+import Dashboard from './components/layout/Dashboard';
 import EditUser from './components/auth/EditUser';
 import Tracks from './components/tracks/view-all/Tracks';
 import Track from './components/tracks/view-one/Track';
 import AddTrack from './components/tracks/track-forms/AddTrack';
 import PrivateRoute from './components/routing/PrivateRoute';
-// import Navbar from './components/layout/Navbar';
 
 // *********** BOOTSTRAP & CUSTOM STYLES **********
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -38,7 +37,6 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-        {/* <Navbar /> */}
         <Jumbotron className="splashJumbotron">
           <Container>
             <Alert />
