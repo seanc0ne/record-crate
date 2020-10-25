@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import Navbar from './Navbar';
 import DiscogsTracks from '../tracks/DiscogsTracks'
 import Tracks from '../tracks/view-all/Tracks';
+import { Container } from 'react-bootstrap';
 
 const Dashboard = ({ isAuthenticated }) => {
   return (
@@ -19,21 +20,31 @@ const Dashboard = ({ isAuthenticated }) => {
         </div>
         <div className="col-xs-12 col-md-9">
           <div className="whiteBox">
-            <ul className="library-list">
+            <table>
+              <tr>
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Keys</th>
+                <th>BPM</th>
+                <th>Length</th>
+                <th></th>                
+              </tr>
+                <Tracks />
+            </table>
+            {/* <ul className="library-list">
               <li>Title</li>
-              <li>Artist</li>
+              <li>Artist</li> */}
               {/* <li>Year</li>
               <li>Label</li> */}
-              <li>Key</li>
+              {/* <li>Key</li>
               <li>BPM</li>
-              <li>Length</li>
+              <li>Length</li> */}
               {/* <li>Composer</li>
               <li>Producer</li>
               <li>Chart</li>
               <li>Peak</li>
               <li>Link</li> */}
-            </ul>
-            <Tracks />
+            {/* </ul> */}
           </div>
         </div>
       </div>

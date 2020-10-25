@@ -35,38 +35,22 @@ const TrackList = ({ track }) => {
   } = track;
 
   return (
-    <ul className="library-list">
-      <li>{songTitle}</li>
-      <li>
-        {sourceId.artists.map((artist) => (
+    // old way <ul className="library-list"></ul>
+    <tr>
+      <td>{songTitle}</td>
+      <td>
+      {sourceId.artists.map((artist) => (
           <span className="artist-name" key={artist._id}>
             {' '}
             {artist.artistName}{' '}
           </span>
         ))}
-      </li>
-      {/* <li>{sourceId.years}</li>
-      <li>{sourceId.label}</li> */}
-      <li>{keys}</li>
-      <li>{bpms}</li>
-      <li>{lengths}</li>
-      {/* <li>{composers}</li>
-      <li>{producers}</li>
-      <li>{billboardChartPeaks}</li>
-      <li>{chartPeakDates}</li>
-      <li>
-        <ul>
-          {dropboxUrls.map((url, index) => (
-            <li key={`url_${index}`}>
-              <a href={url} target="_blank" rel="noopener noreferrer">
-                {`Link_${index}`}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </li> */}
-      <li>
-        <Button onClick={handleShow}>Details...</Button>
+      </td>
+      <td>{keys}</td>
+      <td>{bpms}</td>
+      <td>{lengths}</td>
+      <td>
+      <Button onClick={handleShow}>Details...</Button>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>
@@ -124,8 +108,12 @@ const TrackList = ({ track }) => {
             <Button onClick={handleClose}>Close</Button>
           </Modal.Footer>
         </Modal>
-      </li>
-    </ul>
+      </td>
+    </tr>
+    
+    
+    
+    
   );
 };
 
