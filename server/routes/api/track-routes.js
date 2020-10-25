@@ -36,27 +36,29 @@ router.post(
     trackObj.songTitle = songTitle;
     trackObj.showTrack = showTrack;
     if (sourceId) trackObj.sourceId = sourceId;
-    if (keys) trackObj.keys = keys.split(',').map((key) => key.trim());
-    if (bpms) trackObj.bpms = bpms.split(',').map((bpm) => bpm.trim());
-    if (lengths)
+    if (keys.length > 0)
+      trackObj.keys = keys.split(',').map((key) => key.trim());
+    if (bpms.length > 0)
+      trackObj.bpms = bpms.split(',').map((bpm) => bpm.trim());
+    if (lengths.length > 0)
       trackObj.lengths = lengths.split(',').map((length) => length.trim());
-    if (composers)
+    if (composers.length > 0)
       trackObj.composers = composers
         .split(',')
         .map((composer) => composer.trim());
-    if (producers)
+    if (producers.length > 0)
       trackObj.producers = producers
         .split(',')
         .map((producer) => producer.trim());
-    if (billboardChartPeaks)
+    if (billboardChartPeaks.length > 0)
       trackObj.billboardChartPeaks = billboardChartPeaks
         .split(',')
         .map((billboardChartPeak) => billboardChartPeak.trim());
-    if (chartPeakDates)
+    if (chartPeakDates.length > 0)
       trackObj.chartPeakDates = chartPeakDates
         .split(',')
         .map((chartPeakDate) => chartPeakDate.trim());
-    if (dropboxUrls)
+    if (dropboxUrls.length > 0)
       trackObj.dropboxUrls = dropboxUrls
         .split(',')
         .map((dropboxUrl) => dropboxUrl.trim());

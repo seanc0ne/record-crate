@@ -1,16 +1,14 @@
 import {
-  GET_TRACK,
-  GET_TRACKS,
-  GET_URLS,
-  UPDATE_TRACK,
-  CLEAR_TRACK,
-  TRACK_ERROR,
+  GET_ARTIST,
+  GET_ARTISTS,
+  UPDATE_ARTIST,
+  CLEAR_ARTIST,
+  ARTIST_ERROR,
 } from '../actions/types';
 
 const initialState = {
-  track: null,
-  tracks: [],
-  urls: [],
+  artist: null,
+  artists: [],
   loading: true,
   error: {},
 };
@@ -18,38 +16,31 @@ const initialState = {
 export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
-    case GET_TRACK:
-    case UPDATE_TRACK:
+    case GET_ARTIST:
+    case UPDATE_ARTIST:
       return {
         ...state,
-        track: payload,
+        artist: payload,
         loading: false,
       };
-    case GET_TRACKS:
+    case GET_ARTISTS:
       return {
         ...state,
-        tracks: payload,
+        artists: payload,
         loading: false,
       };
-    case GET_URLS:
+    case CLEAR_ARTIST:
       return {
         ...state,
-        repos: payload,
+        artist: null,
         loading: false,
       };
-    case CLEAR_TRACK:
-      return {
-        ...state,
-        track: null,
-        urls: [],
-        loading: false,
-      };
-    case TRACK_ERROR:
+    case ARTIST_ERROR:
       return {
         ...state,
         error: payload,
         loading: false,
-        track: null,
+        artist: null,
       };
     default:
       return state;

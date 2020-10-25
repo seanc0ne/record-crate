@@ -2,12 +2,12 @@ import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TrackList from './TrackList';
-import { getTracks } from '../../actions/track';
+import { getTracks } from '../../../actions/track';
 
 const Tracks = ({ getTracks, track: { tracks, loading } }) => {
   useEffect(() => {
     getTracks();
-  }, []);
+  }, [getTracks]);
 
   return (
     <Fragment>
@@ -23,7 +23,7 @@ const Tracks = ({ getTracks, track: { tracks, loading } }) => {
             {tracks.length > 0 ? (
               tracks.map((track) => <TrackList key={track._id} track={track} />)
             ) : (
-              <h4>No profiles found...</h4>
+              <h4>No tracks found...</h4>
             )}
           </div>
         </Fragment>

@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createTrack } from '../../../actions/track';
+import { addTrack } from '../../../actions/track';
 
 // *********** BOOTSTRAP **********
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,7 +10,7 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
-const CreateTrack = ({ createTrack, history }) => {
+const AddTrack = ({ addTrack, history }) => {
   const [formTrackData, setformTrackData] = useState({
     songTitle: '',
     showTrack: true,
@@ -45,9 +45,9 @@ const CreateTrack = ({ createTrack, history }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    // createArtist(formArtistData);
-    // createSource(formSourceData);
-    createTrack(formTrackData, history);
+    // addArtist(formArtistData);
+    // addSource(formSourceData);
+    addTrack(formTrackData, history);
   };
 
   return (
@@ -179,8 +179,8 @@ const CreateTrack = ({ createTrack, history }) => {
   );
 };
 
-CreateTrack.propTypes = {
-  createTrack: PropTypes.func.isRequired,
+AddTrack.propTypes = {
+  addTrack: PropTypes.func.isRequired,
 };
 
-export default connect(null, { createTrack })(withRouter(CreateTrack)); // withRouter to pass the history object
+export default connect(null, { addTrack })(withRouter(AddTrack)); // withRouter to pass the history object

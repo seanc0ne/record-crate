@@ -1,5 +1,5 @@
 // *********** REACT, REDUX & UTILS **********
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { loadUser } from './actions/auth';
@@ -9,12 +9,13 @@ import setAuthToken from './utils/setAuthToken';
 // *********** COMPONENTS **********
 import Landing from './components/layout/Landing';
 import Alert from './components/layout/Alert';
-import Library from './components/Library';
+import Dashboard from './components/Dashboard';
 import EditUser from './components/auth/EditUser';
-import Tracks from './components/tracks/Tracks';
-import CreateTrack from './components/tracks/track-forms/CreateTrack';
+import Tracks from './components/tracks/view-all/Tracks';
+import Track from './components/tracks/view-one/Track';
+import AddTrack from './components/tracks/track-forms/AddTrack';
 import PrivateRoute from './components/routing/PrivateRoute';
-import Navbar from './components/layout/Navbar';
+// import Navbar from './components/layout/Navbar';
 
 // *********** BOOTSTRAP & CUSTOM STYLES **********
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -22,9 +23,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
 import './App.css';
 
-
 // *********** ASSETS & IMAGES **********
-import bgimage from './assets/img/bgImg@x2.png';
 
 // check localStorage for a token and set the global headers with it if there is one
 if (localStorage.token) {
@@ -39,16 +38,17 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-        <Navbar />
-        <Jumbotron className='splashJumbotron'>
+        {/* <Navbar /> */}
+        <Jumbotron className="splashJumbotron">
           <Container>
-            <Route exact path="/" component={Landing} />
             <Alert />
+            <Route exact path="/" component={Landing} />
             <Switch>
-              <Route exact path="/library" component={Library} />
+              <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/edit-user" component={EditUser} />
               <PrivateRoute exact path="/tracks" component={Tracks} />
-              <PrivateRoute exact path="/add-track" component={CreateTrack} />
+              <PrivateRoute exact path="/track/:id" component={Track} />
+              <PrivateRoute exact path="/add-track" component={AddTrack} />
             </Switch>
           </Container>
         </Jumbotron>

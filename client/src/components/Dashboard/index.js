@@ -7,6 +7,7 @@ import Navbar from '../layout/Navbar';
 const Dashboard = ({ isAuthenticated }) => {
   return (
     <Fragment>
+      <Navbar />
       <div className="row" style={{ marginTop: '150px' }}>
         <div className="col-xs-12 col-md-3">
           <div className="whiteBox">
@@ -45,7 +46,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(Dashboard);
-
 
 /*
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const TrackList = (track) => {
+const TrackList = ({ track }) => {
   const {
     _id,
     songTitle,
@@ -26,7 +26,7 @@ const TrackList = (track) => {
     createdAt, // date when track was added to library
     notesCount, // nb of notes associated to this track
     notes, // array of note objects structured as { _id, showNote, userId, noteText, createdAt }
-  } = track.track;
+  } = track;
 
   return (
     <div className="track bg-light">
@@ -59,7 +59,7 @@ const TrackList = (track) => {
           dropboxUrls:
           {dropboxUrls.map((url, index) => (
             <li key={`url_${index}`}>
-              <a href={url} target="_blank">
+              <a href={url} target="_blank" rel="noopener noreferrer">
                 {url}
               </a>
             </li>
@@ -81,7 +81,7 @@ const TrackList = (track) => {
           ))}
         </ul>
       </div>
-      <Link to={`/${_id}`} className="btn btn-primary">
+      <Link to={`/track/${_id}`} className="btn btn-light">
         View Track
       </Link>
     </div>
