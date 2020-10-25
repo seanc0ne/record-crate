@@ -8,19 +8,22 @@ import setAuthToken from './utils/setAuthToken';
 
 // *********** COMPONENTS **********
 import Landing from './components/layout/Landing';
-import Register from './components/auth/Register';
-import Login from './components/auth/Login';
 import Alert from './components/layout/Alert';
-import Dashboard from './components/dashboard/Dashboard';
+import Library from './components/Library';
 import EditUser from './components/auth/EditUser';
 import Tracks from './components/tracks/Tracks';
 import CreateTrack from './components/tracks/track-forms/CreateTrack';
 import PrivateRoute from './components/routing/PrivateRoute';
+import Navbar from './components/layout/Navbar';
 
 // *********** BOOTSTRAP & CUSTOM STYLES **********
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Jumbotron from 'react-bootstrap/Jumbotron';
+import Container from 'react-bootstrap/Container';
 import './App.css';
+
+
+// *********** ASSETS & IMAGES **********
 import bgimage from './assets/img/bgImg@x2.png';
 
 // check localStorage for a token and set the global headers with it if there is one
@@ -36,24 +39,18 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-        <Jumbotron
-        // style={{
-        //   backgroundImage: `url(${bgimage})`,
-        //   backgroundSize: 'cover',
-        //   width: '100vw',
-        //   height: '100vh',
-        // }}
-        >
-          <Route exact path="/" component={Landing} />
-          <Alert />
-          <Switch>
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-            <PrivateRoute exact path="/dashboard" component={Dashboard} />
-            <PrivateRoute exact path="/edit-user" component={EditUser} />
-            <PrivateRoute exact path="/tracks" component={Tracks} />
-            <PrivateRoute exact path="/add-track" component={CreateTrack} />
-          </Switch>
+        <Navbar />
+        <Jumbotron className='splashJumbotron'>
+          <Container>
+            <Route exact path="/" component={Landing} />
+            <Alert />
+            <Switch>
+              <Route exact path="/library" component={Library} />
+              <PrivateRoute exact path="/edit-user" component={EditUser} />
+              <PrivateRoute exact path="/tracks" component={Tracks} />
+              <PrivateRoute exact path="/add-track" component={CreateTrack} />
+            </Switch>
+          </Container>
         </Jumbotron>
       </Router>
     </Provider>

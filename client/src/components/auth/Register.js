@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
@@ -12,16 +12,17 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import recordSleeve from '../../assets/img/recordSleeve@x2.png';
 
-const Register = ({ setAlert, register, isAuthenticated }) => {
+const Register = ({ setAlert, register, isAuthenticated, showCancelButton, onCancelClick }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
     password2: '',
   });
+  const history = useHistory();
 
   if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
+    return <Redirect to="/library" />;
   }
 
   const { name, email, password, password2 } = formData;
@@ -33,9 +34,14 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     e.preventDefault();
     // verify that passwords match
     if (password !== password2) {
-      setAlert('Passwords do not match', 'danger'); // we pass in the msg, and the alert type. We choose 'danger' for the alert type b/c of our css. We could optionally pass in a third arg which is the timeout delay which is set by default at 5000.
+      alert('Passwords do not match', 'danger'); // we pass in the msg, and the alert type. We choose 'danger' for the alert type b/c of our css. We could optionally pass in a third arg which is the timeout delay which is set by default at 5000.
     } else {
-      register({ name, email, password });
+      // register({ name, email, password });
+
+      // TODO: delete line 43, 22, 3
+      // TODO: uncomment line 39
+
+      history.push('/library');
     }
   };
 
@@ -91,6 +97,11 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
               <Button className="signUpConfirmBtn" type="submit">
                 OK
               </Button>
+              {showCancelButton ? (
+                <Button type="button" onClick={onCancelClick}>
+                  Cancel
+                </Button>
+              ): null}
             </Form.Row>
           </Form>
         </div>
