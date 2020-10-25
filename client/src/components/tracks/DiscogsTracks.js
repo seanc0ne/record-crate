@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
+import {Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TrackList from './view-all/TrackList';
@@ -11,38 +12,55 @@ const APIKEY =
 function DiscogsTracks(props) {
   const [search, setSearch] = useState([]);
 
-  const searchDiscogs = (query) => {
+  const searchDiscogs = async (query) => {
     // API.search(query)
     //   .then(res => this.setState({ results: res.data.data }))
     //   .catch(err => console.log(err));
     query = query.replace(' ', '+');
 
-    fetch(
+    const response = await fetch(
       `${BASEURL}${query}${APIKEY}`
       // baiser+summer+breeze&key=nxBVZyfnWIoqRtAaAjAz&secret=bFnEJXzeQAwQSpjFeucOoOXVmjQVfFXn
-    )
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        console.log(data);
-      });
+    );
+    
+    const data = await response.json();
+    return data;
+
+    //   .then(function (response) {
+    //     return response.json();
+    //   })
+    //   .then(function (data) {
+    //     return data;
+    //   });
   };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
-    const result = searchDiscogs(event.target.value);
-    // call setState and pass in the results from fetching
-    // setSearch(result.results)
+    let searchTerm = event.target.children[0].value;
+
+    const result = await searchDiscogs(searchTerm);
+    // // call setState and pass in the results from fetching
+    let results = result.results
+    setSearch(search.push(results[0]))
+    console.log("You searched: ", searchTerm)
+    console.log("Value of 'search' in state")
+    console.log(search)
   };
 
   return (
-    <form onSubmit={handleFormSubmit}>
-      <input type="text" />
-      <button className="btn btn-primary mt-3">Search</button>
-    </form>
+      <div>
+        <form onSubmit={handleFormSubmit}>
+        <input type="text" />
+        <button className="btn btn-primary mt-3">Search</button>
+        </form>
 
-    // search.map( searchResult => { <li>'stuff'</li>});
+        {/* <ul>
+            {results.map(item => (
+                <li>{item}</li>
+            ))}
+        </ul>
+        {/* <button className='btn btn primary mt-3' onClick={()=> window.location.pathname.replace('/dashboard', '/add-track')}>Add Record</button> */}
+    </div>
   );
 }
 

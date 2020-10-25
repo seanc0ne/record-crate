@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import Navbar from './Navbar';
+import DiscogsTracks from '../tracks/DiscogsTracks'
 import Tracks from '../tracks/view-all/Tracks';
 
 const Dashboard = ({ isAuthenticated }) => {
@@ -10,6 +11,10 @@ const Dashboard = ({ isAuthenticated }) => {
         <div className="col-xs-12 col-md-3">
           <div className="whiteBox">
             <h2>Library</h2>
+            <h2>Search Discogs</h2>
+            <div>
+              <DiscogsTracks />
+            </div>
           </div>
         </div>
         <div className="col-xs-12 col-md-9">
