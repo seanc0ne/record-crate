@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
 
-import Image from 'react-bootstrap/Image'
+import Image from 'react-bootstrap/Image';
 
 // *********** ASSETS & IMAGES **********
 import logo from '../../assets/img/logo@2x.png';
@@ -53,12 +53,10 @@ const Navbar = ({ auth: { user, isAuthenticated, loading }, logout }) => {
     <nav className="navbar bg-dark">
       <h1>
         <Link to="/">
-          <Image className="logo" src={logo} fluid /> 
+          <Image className="logo" src={logo} fluid />
         </Link>
       </h1>
-      {!loading && (
-        <Fragment>{authLinks}</Fragment>
-      )}
+      {!loading && <Fragment>{authLinks}</Fragment>}
     </nav>
   );
 };

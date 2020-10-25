@@ -7,7 +7,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 
-const Dashboard = ({ isAuthenticated }) => {
+const Playground = ({ isAuthenticated }) => {
   const history = useHistory();
   return (
     <Fragment>
@@ -63,7 +63,7 @@ const Dashboard = ({ isAuthenticated }) => {
   );
 };
 
-Dashboard.propTypes = {
+Playground.propTypes = {
   isAuthenticated: PropTypes.bool,
 };
 
@@ -71,4 +71,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps)(Playground);

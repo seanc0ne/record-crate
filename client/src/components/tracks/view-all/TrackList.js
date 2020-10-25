@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
 const TrackList = ({ track }) => {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const {
     _id,
     songTitle,
@@ -29,62 +35,97 @@ const TrackList = ({ track }) => {
   } = track;
 
   return (
-    <div className="track bg-light">
-      <span>ARTWORK?</span>
-      <div>
-        <h4>{songTitle}</h4>
-        <h5>
-          Artist(s):{' '}
-          {sourceId.artists.map((artist) => (
-            <span key={artist._id}>
-              {artist.artistName} ({artist.countryOfOrigin})
-            </span>
-          ))}
-        </h5>
-        <h6>
-          {sourceId.source}, label: {sourceId.label}, years: {sourceId.years}
-        </h6>
-        <div>
-          showTrack: {showTrack ? 'yes' : 'no'}, keys: {keys}, bpms: {bpms},
-          lengths: {lengths}
-        </div>
-        <div>
-          composers: {composers}, producers: {producers}
-        </div>
-        <div>
-          billboardChartPeaks: {billboardChartPeaks}, chartPeakDates:{' '}
-          {chartPeakDates}
-        </div>
+    <ul className="library-list">
+      <li>{songTitle}</li>
+      <li>
+        {sourceId.artists.map((artist) => (
+          <span className="artist-name" key={artist._id}>
+            {' '}
+            {artist.artistName}{' '}
+          </span>
+        ))}
+      </li>
+      {/* <li>{sourceId.years}</li>
+      <li>{sourceId.label}</li> */}
+      <li>{keys}</li>
+      <li>{bpms}</li>
+      <li>{lengths}</li>
+      {/* <li>{composers}</li>
+      <li>{producers}</li>
+      <li>{billboardChartPeaks}</li>
+      <li>{chartPeakDates}</li>
+      <li>
         <ul>
-          dropboxUrls:
           {dropboxUrls.map((url, index) => (
             <li key={`url_${index}`}>
               <a href={url} target="_blank" rel="noopener noreferrer">
-                {url}
+                {`Link_${index}`}
               </a>
             </li>
           ))}
         </ul>
-        <div>
-          This song was added to the library by {userId.name} on {createdAt}.
-          There is/are {notesCount} note(s) as follows:
-        </div>
-        <ul>
-          {notes.map((note) => (
-            <li key={note._id}>
-              <div>Note: (showNote: {note.showNote ? 'yes' : 'no'})</div>
-              <div>{note.noteText}</div>
-              <div>
-                Created by {note.userId} on {note.createdAt}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <Link to={`/track/${_id}`} className="btn btn-light">
-        View Track
-      </Link>
-    </div>
+      </li> */}
+      <li>
+        <Button onClick={handleShow}>Details...</Button>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>
+              {songTitle} by{' '}
+              {sourceId.artists.map((artist) => (
+                <span className="artist-name" key={artist._id}>
+                  {' '}
+                  {artist.artistName} ({artist.countryOfOrigin})
+                </span>
+              ))}
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div>
+              {sourceId.source}, label: {sourceId.label}, years:{' '}
+              {sourceId.years}
+            </div>
+            <div>
+              keys: {keys}, bpms: {bpms}, lengths: {lengths}
+            </div>
+            <div>
+              composers: {track.composers}, producers: {track.producers}
+            </div>
+            <div>
+              billboardChartPeaks: {track.billboardChartPeaks}, chartPeakDates:{' '}
+              {track.chartPeakDates}
+            </div>
+            <ul>
+              dropboxUrls:
+              {track.dropboxUrls.map((url, index) => (
+                <li key={`url_${index}`}>
+                  <a href={url} target="_blank" rel="noopener noreferrer">
+                    {url}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <div>
+              This song was added to the library by {track.userId.name} on{' '}
+              {track.createdAt}. There is/are {track.notesCount} note(s) as
+              follows:
+            </div>
+            <ul>
+              {track.notes.map((note) => (
+                <li key={note._id}>
+                  <div>
+                    Note by {note.userId} on {note.createdAt}:
+                  </div>
+                  <div>{note.noteText}</div>
+                </li>
+              ))}
+            </ul>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={handleClose}>Close</Button>
+          </Modal.Footer>
+        </Modal>
+      </li>
+    </ul>
   );
 };
 

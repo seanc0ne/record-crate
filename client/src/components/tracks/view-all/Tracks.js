@@ -15,17 +15,11 @@ const Tracks = ({ getTracks, track: { tracks, loading } }) => {
         <h1>Loading...</h1>
       ) : (
         <Fragment>
-          <h1 className="large text-primary">Tracks</h1>
-          <p className="lead">
-            <i className="fab fa-connectdevelop"></i> Browse and select tracks
-          </p>
-          <div className="tracks">
-            {tracks.length > 0 ? (
-              tracks.map((track) => <TrackList key={track._id} track={track} />)
-            ) : (
-              <h4>No tracks found...</h4>
-            )}
-          </div>
+          {tracks.length > 0 ? (
+            tracks.map((track) => <TrackList key={track._id} track={track} />)
+          ) : (
+            <h4>No tracks found...</h4>
+          )}
         </Fragment>
       )}
     </Fragment>

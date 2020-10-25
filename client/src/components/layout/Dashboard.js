@@ -1,8 +1,6 @@
 import React, { Fragment } from 'react';
-// import { Link, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import Navbar from '../layout/Navbar';
+import Navbar from './Navbar';
+import Tracks from '../tracks/view-all/Tracks';
 
 const Dashboard = ({ isAuthenticated }) => {
   return (
@@ -19,17 +17,18 @@ const Dashboard = ({ isAuthenticated }) => {
             <ul className="library-list">
               <li>Title</li>
               <li>Artist</li>
-              <li>Year</li>
-              <li>Label</li>
+              {/* <li>Year</li>
+              <li>Label</li> */}
               <li>Key</li>
               <li>BPM</li>
               <li>Length</li>
-              <li>Composer</li>
+              {/* <li>Composer</li>
               <li>Producer</li>
               <li>Chart</li>
               <li>Peak</li>
-              <li>Link</li>
+              <li>Link</li> */}
             </ul>
+            <Tracks />
           </div>
         </div>
       </div>
@@ -37,15 +36,7 @@ const Dashboard = ({ isAuthenticated }) => {
   );
 };
 
-Dashboard.propTypes = {
-  isAuthenticated: PropTypes.bool,
-};
-
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-});
-
-export default connect(mapStateToProps)(Dashboard);
+export default Dashboard;
 
 /*
 
