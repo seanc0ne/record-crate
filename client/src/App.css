@@ -1,7 +1,7 @@
 /* Global Styles */
 :root {
   --color1: #f05b6f;
-  --color2: #5E436B;
+  --color2: #5e436b;
 }
 
 * {
@@ -32,6 +32,17 @@ ul {
   background-size: cover;
   width: 100vw;
   height: 100vh;
+}
+
+.artist-name {
+  color: black;
+  text-transform: capitalize;
+}
+
+.modal-header,
+.modal-title,
+.modal-body div {
+  color: black;
 }
 
 /* .jumbotron {
@@ -179,7 +190,7 @@ button {
   z-index: 1;
   width: 100%;
   top: 0;
-  opacity: .9;
+  opacity: 0.9;
 }
 
 .navFont {
@@ -362,7 +373,6 @@ button {
   }
 }
 
-
 .library-list {
   list-style-type: none;
   display: flex;
@@ -381,14 +391,6 @@ button {
   opacity: 0.8;
   min-height: 400px;
 }
-
-
-
-
-
-
-
-
 
 /* --logo-paper: #e9cfb5;
 --logo-orange: #d96d00;
