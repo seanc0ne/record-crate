@@ -10,7 +10,7 @@ import Register from '../auth/Register';
 import Login from '../auth/Login';
 
 // *********** BOOTSTRAP **********
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -25,9 +25,16 @@ const Landing = ({ isAuthenticated }) => {
     console.log('sleeveName', sleeveName);
     switch (sleeveName) {
       case 'signup':
-        return <Register></Register>;
+        return (
+          <Register
+            showCancelButton
+            onCancelClick={() => {
+              setCurrentSleeve('start');
+            }}
+          />
+        );
       case 'login':
-        return <Login></Login>;
+        return <Login />;
       case 'start':
       default:
         return (

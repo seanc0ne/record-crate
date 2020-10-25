@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import recordSleeveLogo from '../../assets/img/recordSleeveWtLogo@x2.png';
 
 // *********** BOOTSTRAP **********
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
@@ -18,13 +18,14 @@ const StartSleeve = ({ currentSleeve, setCurrentSleeve }) => {
           </Card.Text>
           <div className="startBtns m-4">
             <Button
-              className="btn btn-primary mx-3 signUpBtn"
+              className="btn btn-primary mx-3"
               onClick={() => setCurrentSleeve('signup')}
             >
               Sign Up
             </Button>
             <Button
-              className="btn btn-light mx-3 loginBtn"
+              className="btn mx-3"
+              // took btn-light out of className 
               onClick={() => setCurrentSleeve('login')}
             >
               Login
