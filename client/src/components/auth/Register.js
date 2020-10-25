@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
@@ -19,10 +19,10 @@ const Register = ({ setAlert, register, isAuthenticated, showCancelButton, onCan
     password: '',
     password2: '',
   });
-  const history = useHistory();
+  
 
   if (isAuthenticated) {
-    return <Redirect to="/library" />;
+    return <Redirect to="/dashboard" />;
   }
 
   const { name, email, password, password2 } = formData;
@@ -36,12 +36,7 @@ const Register = ({ setAlert, register, isAuthenticated, showCancelButton, onCan
     if (password !== password2) {
       alert('Passwords do not match', 'danger'); // we pass in the msg, and the alert type. We choose 'danger' for the alert type b/c of our css. We could optionally pass in a third arg which is the timeout delay which is set by default at 5000.
     } else {
-      // register({ name, email, password });
-
-      // TODO: delete line 43, 22, 3
-      // TODO: uncomment line 39
-
-      history.push('/library');
+      register({ name, email, password });
     }
   };
 
