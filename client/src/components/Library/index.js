@@ -1,102 +1,76 @@
-import React from 'react';
-// import {
-//   Jumbotron,
-//   Container,
-//   CardColumns,
-//   Card,
-//   Button,
-// } from 'react-bootstrap';
+import React, { Fragment } from 'react';
+// import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import Navbar from '../layout/Navbar';
 
-// *********** BOOTSTRAP **********
-// import "bootstrap/dist/css/bootstrap.min.css";
-import Container from 'react-bootstrap/Container';
-import Jumbotron from 'react-bootstrap/Jumbotron';
-import CardColumns from 'react-bootstrap/CardColumns';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-
-import Auth from '../utils/auth';
-import { useQuery, useMutation } from '@apollo/react-hooks';
-import { GET_ME_RECORDS } from '../utils/queries';
-import { REMOVE_RECORD } from '../utils/mutations';
-// Add Discogs API here?
-const Library = () => {
-  const { loading, data } = useQuery(GET_ME_RECORDS);
-  const userData = data?.me || {};
-  const [removeRecord, { error }] = useMutation(REMOVE_RECORD);
-  const handleDeleteRecord = async (recordId) => {
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-    if (!token) {
-      return false;
-    }
-    try {
-      await removeRecord({
-        variables: { recordId },
-      });
-      if (error) {
-        throw new Error('Something went wrong!');
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-  // if data isn't here yet, say so
-  if (loading) {
-    return <h2>LOADING...</h2>;
-  }
+const Dashboard = ({ isAuthenticated }) => {
   return (
-    <>
-      <Jumbotron fluid className="text-light bg-dark">
-        <Container>
-          <h1>Viewing record crate!</h1>
-        </Container>
-      </Jumbotron>
-      <Container>
-        <h2>
-          {userData.savedRecords.length
-            ? `Viewing ${userData.savedRecords.length} saved ${
-                userData.savedRecords.length === 1 ? 'record' : 'records'
-              }:`
-            : 'You have no saved records!'}
-        </h2>
-        <CardColumns>
-          {userData.savedRecords?.map((record) => {
-            return (
-              <Card key={record.recordId} border="dark">
-                {record.image ? (
-                  <Card.Img
-                    src={record.image}
-                    alt={`The cover for ${record.title}`}
-                    variant="top"
-                  />
-                ) : null}
-                <Card.Body>
-                  <Card.Title>{record.title}</Card.Title>
-                  <p className="small">Artist: {record.artist}</p>
-                  <Card.Text>{record.description}</Card.Text>
-                  <p className="small">
-                    {/* <a
-                      href={record.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      alt="link to discogs"
-                    >
-                      See more on Discogs ...
-                    </a> */}
-                  </p>
-                  <Button
-                    className="btn-block btn-danger"
-                    onClick={() => handleDeleteRecord(record.recordId)}
-                  >
-                    Delete this record!
-                  </Button>
-                </Card.Body>
-              </Card>
-            );
-          })}
-        </CardColumns>
-      </Container>
-    </>
+    <Fragment>
+      <div className="row" style={{ marginTop: '150px' }}>
+        <div className="col-xs-12 col-md-3">
+          <div className="whiteBox">
+            <h2>Library</h2>
+          </div>
+        </div>
+        <div className="col-xs-12 col-md-9">
+          <div className="whiteBox">
+            <ul className="library-list">
+              <li>Title</li>
+              <li>Artist</li>
+              <li>Year</li>
+              <li>Label</li>
+              <li>Key</li>
+              <li>BPM</li>
+              <li>Length</li>
+              <li>Composer</li>
+              <li>Producer</li>
+              <li>Chart</li>
+              <li>Peak</li>
+              <li>Link</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </Fragment>
   );
 };
-export default Library;
+
+Dashboard.propTypes = {
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps)(Dashboard);
+
+
+/*
+
+function MyComponent() {
+const [albums, setAlbums] = useState([]);
+
+useEffect(() => {
+  // retrieve data from backend
+  // set it in albums
+
+  fetch('/albums')
+    .then(data => data.json())
+    .then(data => setAlbums(data))
+}, [])
+
+return albums.map(({ title, artist, year }) => {
+  return (
+    <div>
+      <h1>{title}</h1>
+      <p>{artist}</p>
+      <p>{year}</p>
+    </div>
+  )
+})
+
+}
+
+*/

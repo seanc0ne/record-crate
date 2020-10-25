@@ -25,9 +25,16 @@ const Landing = ({ isAuthenticated }) => {
     console.log('sleeveName', sleeveName);
     switch (sleeveName) {
       case 'signup':
-        return <Register></Register>;
+        return (
+          <Register
+            showCancelButton
+            onCancelClick={() => {
+              setCurrentSleeve('start');
+            }}
+          />
+        );
       case 'login':
-        return <Login></Login>;
+        return <Login />;
       case 'start':
       default:
         return (
