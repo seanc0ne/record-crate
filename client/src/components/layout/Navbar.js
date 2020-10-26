@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
 
+// *********** BOOTSTRAP **********
 import Image from 'react-bootstrap/Image';
 
 // *********** ASSETS & IMAGES **********
@@ -12,16 +13,6 @@ import logo from '../../assets/img/logo@2x.png';
 const Navbar = ({ auth: { user, isAuthenticated, loading }, logout }) => {
   const authLinks = (
     <ul>
-      <li>
-        <Link to="/library">
-          <span className="hide-sm navFont">LIBRARY</span>
-        </Link>
-      </li>
-      <li>
-        <Link to="/playlist">
-          <span className="hide-sm navFont">PLAYLIST</span>
-        </Link>
-      </li>
       <li>
         <Link to="/edit-user">
           <i className="fas fa-user "></i>{' '}
@@ -50,13 +41,16 @@ const Navbar = ({ auth: { user, isAuthenticated, loading }, logout }) => {
   );
 
   return (
-    <nav className="navbar bg-dark">
-      <h1>
+    <nav className="navbar">
+      <div>
         <Link to="/">
           <Image className="logo" src={logo} fluid />
         </Link>
-      </h1>
-      {!loading && <Fragment>{authLinks}</Fragment>}
+      </div>
+      <div>
+        {!loading && <Fragment>{authLinks}</Fragment>}
+      </div>
+     
     </nav>
   );
 };

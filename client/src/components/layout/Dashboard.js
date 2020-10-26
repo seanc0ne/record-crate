@@ -2,15 +2,18 @@ import React, { Fragment } from 'react';
 import Navbar from './Navbar';
 import DiscogsTracks from '../tracks/DiscogsTracks'
 import Tracks from '../tracks/view-all/Tracks';
-import { Container } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Dashboard = ({ isAuthenticated }) => {
   return (
     <Fragment>
+      <div className="row">
       <Navbar />
-      <div className="row" style={{ marginTop: '150px' }}>
-        <div className="col-xs-12 col-md-3">
-          <div className="whiteBox">
+      </div>
+      
+      <div className="row" style={{ marginTop: '30px' }}>
+        <div className="col-xs-12 col-md-2 whiteBox">
+          <div>
             <h2>Library</h2>
             <h2>Search Discogs</h2>
             <div>
@@ -18,8 +21,12 @@ const Dashboard = ({ isAuthenticated }) => {
             </div>
           </div>
         </div>
-        <div className="col-xs-12 col-md-9">
-          <div className="whiteBox">
+
+        <div className="col-xs-12 col-md-1">
+        </div>
+
+        <div className="col-xs-12 col-md-9 whiteBox">
+          <div>
             <table>
               <tr>
                 <th>Title</th>

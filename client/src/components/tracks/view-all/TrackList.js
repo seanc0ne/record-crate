@@ -34,6 +34,7 @@ const TrackList = ({ track }) => {
     notes, // array of note objects structured as { _id, showNote, userId, noteText, createdAt }
   } = track;
 
+  
   return (
     // old way <ul className="library-list"></ul>
     <tr>
@@ -50,7 +51,7 @@ const TrackList = ({ track }) => {
       <td>{bpms}</td>
       <td>{lengths}</td>
       <td>
-      <Button onClick={handleShow}>Details...</Button>
+      <span onClick={handleShow}>&#8230;</span>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>
