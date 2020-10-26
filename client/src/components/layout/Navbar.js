@@ -50,19 +50,7 @@ const Navbar = ({ auth: { user, isAuthenticated, loading }, logout }) => {
         </Link>
       </div>
       <div>
-        {!loading && <Fragment>
-          
-          <DropdownButton
-      alignRight
-      title="User Menu"
-      id="dropdown-menu-align-right"
-        >
-              <Dropdown.Item eventKey="option-1">Edit User</Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item eventKey="some link">Log Out</Dropdown.Item>
-      </DropdownButton>
-
-          </Fragment>}
+        {!loading && <Fragment>{authLinks}</Fragment>}
         
       </div>
      
