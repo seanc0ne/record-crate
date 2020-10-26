@@ -6,6 +6,8 @@ import { logout } from '../../actions/auth';
 
 // *********** BOOTSTRAP **********
 import Image from 'react-bootstrap/Image';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown'
 
 // *********** ASSETS & IMAGES **********
 import logo from '../../assets/img/logo@2x.png';
@@ -48,7 +50,20 @@ const Navbar = ({ auth: { user, isAuthenticated, loading }, logout }) => {
         </Link>
       </div>
       <div>
-        {!loading && <Fragment>{authLinks}</Fragment>}
+        {!loading && <Fragment>
+          
+          <DropdownButton
+      alignRight
+      title="User Menu"
+      id="dropdown-menu-align-right"
+        >
+              <Dropdown.Item eventKey="option-1">Edit User</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item eventKey="some link">Log Out</Dropdown.Item>
+      </DropdownButton>
+
+          </Fragment>}
+        
       </div>
      
     </nav>
@@ -69,3 +84,12 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { logout })(Navbar);
+
+
+
+
+
+{/* <div>
+        {!loading && <Fragment>{authLinks}</Fragment>}
+        
+      </div> */}

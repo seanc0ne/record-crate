@@ -11,20 +11,34 @@ const Dashboard = ({ isAuthenticated }) => {
       <Navbar />
       </div>
       
+
+{/* ********** LEFT BOX / MENU ********** */}
       <div className="row" style={{ marginTop: '30px' }}>
         <div className="col-xs-12 col-md-2 whiteBox">
           <div>
-            <h2>Library</h2>
-            <h2>Search Discogs</h2>
+            <div className='dashLeftColHead'>Library</div>
+            <div className='dashLeftColItem'>Add a Song</div>
+            
+            <div></div>
+            
             <div>
               <DiscogsTracks />
             </div>
+
+            <div className='dashLeftColHead'>Playlist</div>
+            <div className='dashLeftColItem'>[playlist 1]</div>
+            <div className='dashLeftColItem'>[playlist 2]</div>
+            <div className='dashLeftColItem'>[playlist 3]</div>
+          
           </div>
         </div>
 
+{/* ********** CENTER (EMPTY) BOX / MENU ********** */}
         <div className="col-xs-12 col-md-1">
         </div>
 
+
+{/* ********** RIGHT BOX / MENU ********** */}
         <div className="col-xs-12 col-md-9 whiteBox">
           <div>
             <table>

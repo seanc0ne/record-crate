@@ -51,8 +51,10 @@ function DiscogsTracks(props) {
       <div>
         <form onSubmit={handleFormSubmit}>
         <input type="text" />
+        <div className='dashLeftSearchDiscog'>Search Discogs</div>
         <button className="btn btn-primary mt-3">Search</button>
         </form>
+        
 
         {/* <ul>
             {results.map(item => (
