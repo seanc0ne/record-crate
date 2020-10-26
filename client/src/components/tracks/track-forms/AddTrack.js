@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addTrack } from '../../../actions/track';
+import DropDownTracks from '../../layout/DropDownTracks';
 
 // *********** BOOTSTRAP **********
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -64,6 +65,9 @@ const AddTrack = ({ addTrack, history }) => {
                 name="songTitle"
                 placeholder="Enter that tune's name..."
               />
+            </Col>
+            <Col>
+              <DropDownTracks />
             </Col>
             <Form.Label column>Public? </Form.Label>
             <Col>

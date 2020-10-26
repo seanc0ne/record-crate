@@ -15,16 +15,17 @@ const Artists = ({ getArtists, artist: { artists, loading } }) => {
       ) : (
         <Fragment>
           <h1 className="large text-primary">Artists</h1>
-          <div>
+          <ul>
             {artists.length > 0 ? (
               artists.map((artist) => (
-                // <ArtistList key={artist._id} artist={artist} />
-                <p>TEST</p>
+                <li className="artist-name" key={artist._id}>
+                  {artist.artistName}
+                </li>
               ))
             ) : (
               <h4>No artists found...</h4>
             )}
-          </div>
+          </ul>
         </Fragment>
       )}
     </Fragment>

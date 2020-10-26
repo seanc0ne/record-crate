@@ -11,12 +11,15 @@ import {
 // Get all artists
 export const getArtists = () => async (dispatch) => {
   // dispatch({ type: CLEAR_ARTIST });
+  console.log('*** inside getArtists in actions');
   try {
     const res = await axios.get('/api/artist');
+    console.log('res.data BEFORE dispatch', res.data);
     dispatch({
       type: GET_ARTISTS,
       payload: res.data,
     });
+    console.log('res.data AFTER dispatch', res.data);
   } catch (err) {
     dispatch({
       type: ARTIST_ERROR,
