@@ -6,6 +6,7 @@ import {
   UPDATE_TRACK,
   CLEAR_TRACK,
   TRACK_ERROR,
+  DELETE_TRACK,
 } from './types';
 
 // Get all tracks
@@ -25,7 +26,7 @@ export const getTracks = () => async (dispatch) => {
   }
 };
 
-// Get a track by ID
+// Get track by ID
 export const getTrackById = (trackId) => async (dispatch) => {
   console.log('trackId', trackId);
   try {
@@ -38,6 +39,23 @@ export const getTrackById = (trackId) => async (dispatch) => {
     console.log('payload inside getTrackById AFTER dispatch', res.data);
   } catch (err) {
     console.log('MAYDAY! ERROR inside getTrackById');
+    dispatch({
+      type: TRACK_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Delete track by ID
+export const deleteTrack = (trackId) => async (dispatch) => {
+  try {
+    const res = await axios.delete(`/api/track/${trackId}`);
+    dispatch({
+      type: DELETE_TRACK,
+      payload: trackId,
+    });
+    dispatch(setAlert('Track removed', 'success'));
+  } catch (err) {
     dispatch({
       type: TRACK_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },

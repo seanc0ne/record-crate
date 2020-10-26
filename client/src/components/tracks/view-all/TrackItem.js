@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
+import { deleteTrack } from '../../../actions/track';
 
 const TrackItem = ({
+  deleteTrack,
   auth,
   track: { _id, songTitle, keys, bpms, lengths, userId },
 }) => {
@@ -17,7 +19,11 @@ const TrackItem = ({
         <td>{lengths}</td>
         <td>
           {!auth.loading && userId._id === auth.user._id && (
-            <button type="button" class="btn btn-danger">
+            <button
+              onClick={(e) => deleteTrack(_id)}
+              type="button"
+              class="btn btn-danger"
+            >
               <i class="fas fa-times"></i>
             </button>
           )}
@@ -30,10 +36,11 @@ const TrackItem = ({
 TrackItem.propTypes = {
   track: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
+  deleteTrack: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, {})(TrackItem);
+export default connect(mapStateToProps, { deleteTrack })(TrackItem);

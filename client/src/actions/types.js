@@ -27,3 +27,4 @@ export const GET_URLS = 'GET_URLS';
 export const UPDATE_TRACK = 'UPDATE_TRACK';
 export const CLEAR_TRACK = 'CLEAR_TRACK';
 export const TRACK_ERROR = 'TRACK_ERROR';
+export const DELETE_TRACK = 'DELETE_TRACK';

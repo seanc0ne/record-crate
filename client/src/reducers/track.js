@@ -5,6 +5,7 @@ import {
   UPDATE_TRACK,
   CLEAR_TRACK,
   TRACK_ERROR,
+  DELETE_TRACK,
 } from '../actions/types';
 
 const initialState = {
@@ -42,6 +43,12 @@ export default function (state = initialState, action) {
         ...state,
         track: null,
         urls: [],
+        loading: false,
+      };
+    case DELETE_TRACK:
+      return {
+        ...state,
+        tracks: state.tracks.filter((track) => track._id !== payload),
         loading: false,
       };
     case TRACK_ERROR:
