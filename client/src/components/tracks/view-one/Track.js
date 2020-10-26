@@ -69,9 +69,8 @@ const Track = ({ match, getTrackById, track: { track, loading }, auth }) => {
                 showTrack: {track.showTrack ? 'yes' : 'no'}, keys: {track.keys},
                 bpms: {track.bpms}, lengths: {track.lengths}
               </div>
-              <div>
-                composers: {track.composers}, producers: {track.producers}
-              </div>
+              <div>composers: {track.composers}</div>
+              <div>producers: {track.producers}</div>
               <div>
                 billboardChartPeaks: {track.billboardChartPeaks},
                 chartPeakDates: {track.chartPeakDates}

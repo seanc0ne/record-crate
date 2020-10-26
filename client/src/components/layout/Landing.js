@@ -1,5 +1,5 @@
 // *********** REACT & REDUX **********
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -48,14 +48,15 @@ const Landing = ({ isAuthenticated }) => {
 
   return (
     <section className="landing">
-      <Container className="pt-5" fluid>
         {/* <Row className="mx-auto vw-75 vh-100"></Row> */}
-        <Row className="mx-auto vw-75 vh-100">
-          <Col className="my-auto">
+        <Row>
+          <Col xs={5} md='auto'>
             <Card className="landingCard">{displaySleeve(currentSleeve)}</Card>
           </Col>
+          <Col className="md">
+            <Fragment></Fragment>
+          </Col>
         </Row>
-      </Container>
     </section>
   );
 };
