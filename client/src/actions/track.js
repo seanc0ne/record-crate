@@ -10,7 +10,7 @@ import {
 
 // Get all tracks
 export const getTracks = () => async (dispatch) => {
-  dispatch({ type: CLEAR_TRACK });
+  // dispatch({ type: CLEAR_TRACK });
   try {
     const res = await axios.get('/api/track');
     dispatch({

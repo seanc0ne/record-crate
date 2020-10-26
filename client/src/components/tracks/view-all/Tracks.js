@@ -1,7 +1,8 @@
 import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import TrackList from './TrackList';
+// import TrackList from './TrackList';
+import TrackItem from './TrackItem';
 import { getTracks } from '../../../actions/track';
 
 const Tracks = ({ getTracks, track: { tracks, loading } }) => {
@@ -9,19 +10,17 @@ const Tracks = ({ getTracks, track: { tracks, loading } }) => {
     getTracks();
   }, [getTracks]);
 
-  return (
+  return loading ? (
+    <h1>Loading...</h1>
+  ) : (
     <Fragment>
-      {loading ? (
-        <h1>Loading...</h1>
-      ) : (
-        <Fragment>
-          {tracks.length > 0 ? (
-            tracks.map((track) => <TrackList key={track._id} track={track} />)
-          ) : (
-            <h4>No tracks found...</h4>
-          )}
-        </Fragment>
-      )}
+      {/* TrackForm */}
+      <div>
+        {/* PREVIOUSLY: {tracks.map((track) => <TrackList key={track._id} track={track} />)} */}
+        {tracks.map((track) => (
+          <TrackItem key={track._id} track={track} />
+        ))}
+      </div>
     </Fragment>
   );
 };
