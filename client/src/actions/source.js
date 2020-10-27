@@ -27,8 +27,11 @@ export const getSources = () => async (dispatch) => {
 };
 
 // Add source
-export const addSource = (formData) => async (dispatch) => {
-  console.log('formData from within addSource action: ', formData);
+export const addSource = (artistsArr, sourceObj) => async (dispatch) => {
+  console.log('artistsArr from within addSource action: ', artistsArr);
+  console.log('sourceObj from within addSource action: ', sourceObj);
+  sourceObj.artists = artistsArr;
+  console.log('sourceObj after adding artistsArr: ', sourceObj);
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -36,8 +39,8 @@ export const addSource = (formData) => async (dispatch) => {
   };
   try {
     console.log('config', config);
-    console.log('formData', formData);
-    const res = await axios.post('/api/source', formData, config);
+    console.log('sourceObj', sourceObj);
+    const res = await axios.post('/api/source', sourceObj, config);
     dispatch({
       type: ADD_SOURCE,
       payload: res.data,

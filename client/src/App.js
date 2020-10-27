@@ -13,8 +13,11 @@ import Dashboard from './components/layout/Dashboard';
 import EditUser from './components/auth/EditUser';
 import Tracks from './components/tracks/view-all/Tracks';
 import Track from './components/tracks/view-one/Track';
-import AddTrack from './components/tracks/track-forms/AddTrack';
+// import AddTrack from './components/tracks/track-forms/AddTrack';
+import AddArtist from './components/artists/artist-forms/AddArtist';
+import AddSource from './components/sources/source-forms/AddSource';
 import PrivateRoute from './components/routing/PrivateRoute';
+import Playground from './components/playground/Playground';
 
 // *********** BOOTSTRAP & CUSTOM STYLES **********
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -46,7 +49,13 @@ function App() {
               <PrivateRoute exact path="/edit-user" component={EditUser} />
               <PrivateRoute exact path="/tracks" component={Tracks} />
               <PrivateRoute exact path="/track/:id" component={Track} />
-              <PrivateRoute exact path="/add-track" component={AddTrack} />
+              <PrivateRoute
+                exact
+                path="/dashboard/playground"
+                component={Playground}
+              />
+              <PrivateRoute exact path="/add-artist" component={AddArtist} />
+              <PrivateRoute exact path="/add-source" component={AddSource} />
             </Switch>
           </Container>
         </Jumbotron>

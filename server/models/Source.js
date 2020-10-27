@@ -10,7 +10,7 @@ const SourceSchema = new Schema(
         required: true,
       },
     ],
-    source: {
+    sourceName: {
       type: String,
       required: true,
       trim: true,

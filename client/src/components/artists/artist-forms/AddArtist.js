@@ -1,5 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addArtist } from '../../../actions/artist';
@@ -10,31 +9,24 @@ const AddArtist = ({ addArtist }) => {
     countryOfOrigin: '',
   });
 
-  const { artistName, countryOfOrigin } = artistData;
-  console.log('initial state of artistData', artistData);
+  const handleChangeArtist = (e) => {
+    setArtistData({ ...artistData, [e.target.name]: e.target.value });
+  };
 
-  // const onSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log('submit state of artistData', artistData);
-  //   addArtist(artistData);
-  // };
+  const onSubmitArtist = (e) => {
+    // e.preventDefault();
+    addArtist(artistData);
+  };
 
   return (
-    <form
-      className="form"
-      onSubmit={(e) => {
-        e.preventDefault();
-        console.log('submit state of artistData', artistData);
-        addArtist(artistData);
-      }}
-    >
+    <form className="form" onSubmit={(e) => onSubmitArtist(e)}>
       <div className="form-group">
         <input
           type="text"
           placeholder="Artist Name"
           name="artistName"
-          value={artistName}
-          onChange={(e) => setArtistData(artistName)}
+          value={artistData.artistName}
+          onChange={(e) => handleChangeArtist(e)}
         />
       </div>
       <div className="form-group">
@@ -42,8 +34,8 @@ const AddArtist = ({ addArtist }) => {
           type="text"
           placeholder="Country of Origin"
           name="countryOfOrigin"
-          value={countryOfOrigin}
-          onChange={(e) => setArtistData(countryOfOrigin)}
+          value={artistData.countryOfOrigin}
+          onChange={(e) => handleChangeArtist(e)}
         />
       </div>
       <input type="submit" className="btn btn-primary my-1" />
