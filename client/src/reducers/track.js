@@ -6,6 +6,7 @@ import {
   TRACK_ERROR,
   DELETE_TRACK,
   ADD_TRACK,
+  UPDATE_TRACK,
 } from '../actions/types';
 
 const initialState = {
@@ -20,6 +21,7 @@ export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case GET_TRACK:
+    case UPDATE_TRACK:
       return {
         ...state,
         track: payload,

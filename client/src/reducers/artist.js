@@ -1,10 +1,10 @@
 import {
   GET_ARTIST,
   GET_ARTISTS,
-  UPDATE_ARTIST,
   CLEAR_ARTIST,
   ARTIST_ERROR,
   ADD_ARTIST,
+  UPDATE_ARTIST,
 } from '../actions/types';
 
 const initialState = {
@@ -28,6 +28,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         artists: payload,
+        loading: false,
+      };
+    case ADD_ARTIST:
+      return {
+        ...state,
+        artists: [...state.artists, payload],
         loading: false,
       };
     case CLEAR_ARTIST:
