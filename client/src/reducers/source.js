@@ -5,6 +5,7 @@ import {
   SOURCE_ERROR,
   DELETE_SOURCE,
   ADD_SOURCE,
+  UPDATE_SOURCE,
 } from '../actions/types';
 
 const initialState = {

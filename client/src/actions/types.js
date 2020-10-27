@@ -16,14 +16,27 @@ export const ACCOUNT_DELETED = 'ACCOUNT_DELETED';
 // artists
 export const GET_ARTIST = 'GET_ARTIST';
 export const GET_ARTISTS = 'GET_ARTISTS';
-export const UPDATE_ARTIST = 'UPDATE_ARTIST';
 export const CLEAR_ARTIST = 'CLEAR_ARTIST';
 export const ARTIST_ERROR = 'ARTIST_ERROR';
+export const DELETE_ARTIST = 'DELETE_ARTIST';
+export const ADD_ARTIST = 'ADD_ARTIST';
+export const UPDATE_ARTIST = 'UPDATE_ARTIST';
+
+// artists
+export const GET_SOURCE = 'GET_SOURCE';
+export const GET_SOURCES = 'GET_SOURCES';
+export const CLEAR_SOURCE = 'CLEAR_SOURCE';
+export const SOURCE_ERROR = 'SOURCE_ERROR';
+export const DELETE_SOURCE = 'DELETE_SOURCE';
+export const ADD_SOURCE = 'ADD_SOURCE';
+export const UPDATE_SOURCE = 'UPDATE_SOURCE';
 
 // tracks
 export const GET_TRACK = 'GET_TRACK';
 export const GET_TRACKS = 'GET_TRACKS';
 export const GET_URLS = 'GET_URLS';
-export const UPDATE_TRACK = 'UPDATE_TRACK';
 export const CLEAR_TRACK = 'CLEAR_TRACK';
 export const TRACK_ERROR = 'TRACK_ERROR';
+export const DELETE_TRACK = 'DELETE_TRACK';
+export const ADD_TRACK = 'ADD_TRACK';
+export const UPDATE_TRACK = 'UPDATE_TRACK';
