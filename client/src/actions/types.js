@@ -22,7 +22,7 @@ export const DELETE_ARTIST = 'DELETE_ARTIST';
 export const ADD_ARTIST = 'ADD_ARTIST';
 export const UPDATE_ARTIST = 'UPDATE_ARTIST';
 
-// artists
+// sources
 export const GET_SOURCE = 'GET_SOURCE';
 export const GET_SOURCES = 'GET_SOURCES';
 export const CLEAR_SOURCE = 'CLEAR_SOURCE';

@@ -3,6 +3,7 @@ import { setAlert } from './alert';
 import {
   GET_SOURCE,
   GET_SOURCES,
+  UPDATE_SOURCE,
   CLEAR_SOURCE,
   SOURCE_ERROR,
   DELETE_SOURCE,

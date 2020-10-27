@@ -1,3 +1,191 @@
+import React, { Fragment, useState, useEffect } from 'react';
+import Select from 'react-select';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addTrack } from '../../../actions/track';
+import { getSources } from '../../../actions/source';
+
+// *********** BOOTSTRAP & CUSTOM STYLES **********
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+
+const AddTrack = ({ getSources, addTrack, source: { sources, loading } }) => {
+  const [trackData, setTrackData] = useState({
+    songTitle: '',
+    keys: '',
+    bpms: '',
+    lengths: '',
+    composers: '',
+    producers: '',
+    billboardChartPeaks: '',
+    chartPeakDates: '',
+    dropboxUrls: '',
+    showTrack: true,
+  });
+
+  const [sourceSelection, setSourceSelection] = useState(null);
+
+  useEffect(() => {
+    getSources();
+  }, [getSources]);
+
+  let sourceList = [];
+  if (sources.length > 0) {
+    sources.forEach((source) =>
+      sourceList.push({ value: source._id, label: source.sourceName })
+    );
+  }
+
+  const handleChangeTrack = (e) => {
+    setTrackData({ ...trackData, [e.target.name]: e.target.value });
+    console.log('trackData', trackData);
+  };
+
+  const handleSourceSelection = (value) => {
+    setSourceSelection(value);
+    console.log('value', value);
+    console.log('sourceSelection', sourceSelection);
+  };
+
+  const onSubmitTrack = (e) => {
+    const selectedSource = sourceSelection.value;
+    addTrack(selectedSource, trackData);
+  };
+
+  return (
+    <Fragment>
+      {loading ? (
+        <h4>Loading...</h4>
+      ) : (
+        <Form className="w-100 bg-light p-5" onSubmit={(e) => onSubmitTrack(e)}>
+          <Form.Row className="w-100 my-2">
+            <Col className="w-100">
+              <Form.Label>Song:</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Song Title"
+                name="songTitle"
+                value={trackData.songTitle}
+                onChange={(e) => handleChangeTrack(e)}
+              ></Form.Control>
+            </Col>
+          </Form.Row>
+          <Form.Row className="w-100 my-2">
+            <Col className="w-100">
+              <Form.Group className="w-100">
+                <Form.Label>Source:</Form.Label>
+                <Select
+                  name="sources"
+                  options={sourceList}
+                  className="basic-single select-item"
+                  classNamePrefix="select"
+                  onChange={handleSourceSelection}
+                />
+              </Form.Group>
+            </Col>
+          </Form.Row>
+          <Form.Row className="w-100 my-2">
+            <Col>
+              <Form.Control
+                type="text"
+                placeholder="List of keys, comma-separated (ex: 5A, 8A)"
+                name="keys"
+                value={trackData.keys}
+                onChange={(e) => handleChangeTrack(e)}
+              ></Form.Control>
+            </Col>
+            <Col>
+              <Form.Control
+                type="text"
+                placeholder="List of bpm, comma-separated (ex: 105, 141)"
+                name="bpms"
+                value={trackData.bpms}
+                onChange={(e) => handleChangeTrack(e)}
+              ></Form.Control>
+            </Col>
+            <Col>
+              <Form.Control
+                type="text"
+                placeholder="List of lengths, comma-separated (ex: 4:55, 6:27)"
+                name="lengths"
+                value={trackData.lengths}
+                onChange={(e) => handleChangeTrack(e)}
+              ></Form.Control>
+            </Col>
+          </Form.Row>
+          <Form.Row className="w-100 my-2">
+            <Col>
+              <Form.Control
+                type="text"
+                placeholder="List of composers, comma-separated"
+                name="composers"
+                value={trackData.composers}
+                onChange={(e) => handleChangeTrack(e)}
+              ></Form.Control>
+            </Col>
+            <Col>
+              <Form.Control
+                type="text"
+                placeholder="List of producers, comma-separated"
+                name="producers"
+                value={trackData.producers}
+                onChange={(e) => handleChangeTrack(e)}
+              ></Form.Control>
+            </Col>
+          </Form.Row>
+          <Form.Row className="w-100 my-2">
+            <Col>
+              <Form.Control
+                type="text"
+                placeholder="Billboard chart peaks, comma-separated (ex: 11, 24)"
+                name="billboardChartPeaks"
+                value={trackData.billboardChartPeaks}
+                onChange={(e) => handleChangeTrack(e)}
+              ></Form.Control>
+            </Col>
+            <Col>
+              <Form.Control
+                type="text"
+                placeholder="Chart peak dates, comma-separated (ex: 09/01/1981, 09/01/1983)"
+                name="chartPeakDates"
+                value={trackData.chartPeakDates}
+                onChange={(e) => handleChangeTrack(e)}
+              ></Form.Control>
+            </Col>
+          </Form.Row>
+          <Form.Row className="w-100 my-2">
+            <Col>
+              <Form.Control
+                type="text"
+                placeholder="Dropbox URLs, comma-separated"
+                name="dropboxUrls"
+                value={trackData.dropboxUrls}
+                onChange={(e) => handleChangeTrack(e)}
+              ></Form.Control>
+            </Col>
+          </Form.Row>
+          <Button type="submit">SUBMIT</Button>
+        </Form>
+      )}
+    </Fragment>
+  );
+};
+
+AddTrack.propTypes = {
+  getSources: PropTypes.func.isRequired,
+  addTrack: PropTypes.func.isRequired,
+  source: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  source: state.source,
+});
+
+export default connect(mapStateToProps, { addTrack, getSources })(AddTrack);
+
 // import React, { Fragment, useState } from 'react';
 // import { Link, withRouter } from 'react-router-dom';
 // import PropTypes from 'prop-types';

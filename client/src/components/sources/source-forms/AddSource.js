@@ -19,11 +19,14 @@ const AddSource = ({ getArtists, addSource, artist: { artists, loading } }) => {
     label: '',
     years: '',
   });
+
   const [artistSelection, setArtistSelection] = useState(null);
-  let artistList = [];
+
   useEffect(() => {
     getArtists();
   }, [getArtists]);
+
+  let artistList = [];
   if (artists.length > 0) {
     artists.forEach((artist) =>
       artistList.push({ value: artist._id, label: artist.artistName })
@@ -37,17 +40,14 @@ const AddSource = ({ getArtists, addSource, artist: { artists, loading } }) => {
   };
 
   const onSubmitSource = (e) => {
-    e.preventDefault();
-    console.log('artistSelection on submit', artistSelection);
     const selectedArtists = artistSelection.map((selection) => selection.value);
-    console.log('selectedArtists', selectedArtists);
-    console.log('sourceData', sourceData);
     addSource(selectedArtists, sourceData);
   };
+
   return (
     <Fragment>
       {loading ? (
-        <h1>Loading...</h1>
+        <h4>Loading...</h4>
       ) : (
         <Form
           className="w-100 bg-light p-5"
@@ -78,7 +78,7 @@ const AddSource = ({ getArtists, addSource, artist: { artists, loading } }) => {
             <Col>
               <Form.Control
                 type="text"
-                placeholder="Enter one or more years separated by a comma (ex: 1979, 1995)"
+                placeholder="Enter one or more years, comma-separated (ex: 1979, 1995)"
                 name="years"
                 value={sourceData.years}
                 onChange={(e) => handleChangeSource(e)}
@@ -86,17 +86,19 @@ const AddSource = ({ getArtists, addSource, artist: { artists, loading } }) => {
             </Col>
           </Form.Row>
           <Form.Row className="w-100">
-            <Form.Group className="w-100">
-              <Form.Label>Artist(s):</Form.Label>
-              <Select
-                isMulti
-                name="artists"
-                options={artistList}
-                className="basic-multi-select artist-name"
-                classNamePrefix="select"
-                onChange={handleArtistSelection}
-              />
-            </Form.Group>
+            <Col className="w-100">
+              <Form.Group className="w-100">
+                <Form.Label>Artist(s):</Form.Label>
+                <Select
+                  isMulti
+                  name="artists"
+                  options={artistList}
+                  className="basic-multi-select select-item"
+                  classNamePrefix="select"
+                  onChange={handleArtistSelection}
+                />
+              </Form.Group>
+            </Col>
           </Form.Row>
           <Button type="submit">SUBMIT</Button>
         </Form>

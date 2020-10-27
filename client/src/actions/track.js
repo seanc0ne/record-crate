@@ -6,6 +6,8 @@ import {
   UPDATE_TRACK,
   CLEAR_TRACK,
   TRACK_ERROR,
+  DELETE_TRACK,
+  ADD_TRACK,
 } from './types';
 
 // Get all tracks
@@ -46,22 +48,27 @@ export const getTrackById = (trackId) => async (dispatch) => {
 };
 
 // Add a track - note: the 'history' object has a push method within
-export const addTrack = (formData, history) => async (dispatch) => {
-  console.log('data from AddTrack', formData);
+export const addTrack = (selectedSourceId, trackObj) => async (dispatch) => {
+  console.log(
+    'selectedSourceId from within addTrack action: ',
+    selectedSourceId
+  );
+  console.log('trackObj from within addTrack action: ', trackObj);
+  trackObj.sourceId = selectedSourceId;
+  console.log('trackObj after adding selectedSourceId: ', trackObj);
   try {
     const config = {
       headers: {
         'Content-Type': 'application/json',
       },
     };
-    const res = await axios.post('/api/track', formData, config);
+    const res = await axios.post('/api/track', trackObj, config);
     dispatch({
-      type: GET_TRACK,
+      type: ADD_TRACK,
       payload: res.data,
     });
+    console.log('res.data', res.data);
     dispatch(setAlert('Track saved', 'success'));
-    // Redirect to dashboard
-    history.push('/dashboard'); // redirecting in an action is different - we cannot use the Redirect -  we have to use the push method within the history object
   } catch (err) {
     const errors = err.response.data.errors; // we want to display the array of errors
     // if there are errors we want to dispatch an alert for each of them

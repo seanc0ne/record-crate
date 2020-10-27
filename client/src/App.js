@@ -13,7 +13,7 @@ import Dashboard from './components/layout/Dashboard';
 import EditUser from './components/auth/EditUser';
 import Tracks from './components/tracks/view-all/Tracks';
 import Track from './components/tracks/view-one/Track';
-// import AddTrack from './components/tracks/track-forms/AddTrack';
+import AddTrack from './components/tracks/track-forms/AddTrack';
 import AddArtist from './components/artists/artist-forms/AddArtist';
 import AddSource from './components/sources/source-forms/AddSource';
 import PrivateRoute from './components/routing/PrivateRoute';
@@ -56,6 +56,7 @@ function App() {
               />
               <PrivateRoute exact path="/add-artist" component={AddArtist} />
               <PrivateRoute exact path="/add-source" component={AddSource} />
+              <PrivateRoute exact path="/add-track" component={AddTrack} />
             </Switch>
           </Container>
         </Jumbotron>
