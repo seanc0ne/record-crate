@@ -2,9 +2,10 @@ import {
   GET_TRACK,
   GET_TRACKS,
   GET_URLS,
-  UPDATE_TRACK,
   CLEAR_TRACK,
   TRACK_ERROR,
+  DELETE_TRACK,
+  ADD_TRACK,
 } from '../actions/types';
 
 const initialState = {
@@ -19,7 +20,6 @@ export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case GET_TRACK:
-    case UPDATE_TRACK:
       return {
         ...state,
         track: payload,
@@ -29,6 +29,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         tracks: payload,
+        loading: false,
+      };
+    case ADD_TRACK:
+      return {
+        ...state,
+        tracks: [...state.tracks, payload],
         loading: false,
       };
     case GET_URLS:
@@ -44,12 +50,18 @@ export default function (state = initialState, action) {
         urls: [],
         loading: false,
       };
+    case DELETE_TRACK:
+      return {
+        ...state,
+        tracks: state.tracks.filter((track) => track._id !== payload),
+        loading: false,
+      };
     case TRACK_ERROR:
       return {
         ...state,
         error: payload,
         loading: false,
-        track: null,
+        // track: null,
       };
     default:
       return state;
