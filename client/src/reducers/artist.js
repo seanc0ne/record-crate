@@ -4,6 +4,7 @@ import {
   UPDATE_ARTIST,
   CLEAR_ARTIST,
   ARTIST_ERROR,
+  ADD_ARTIST,
 } from '../actions/types';
 
 const initialState = {
