@@ -68,7 +68,8 @@ i.fas.clickable,
   cursor: pointer;
 }
 
-.track-container {
+table {
+  display: block;
   max-height: 500px;
   overflow-y: auto;
 }

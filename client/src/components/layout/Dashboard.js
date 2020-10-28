@@ -55,16 +55,16 @@ const Dashboard = () => {
 
         {/* ********** RIGHT BOX / MENU ********** */}
         <div className="col-xs-12 col-md-9 whiteBox">
-          <div className="track-container">
+          <div>
             <table>
-              <tr>
+              <thead>
                 <th>Title</th>
                 <th>Artist</th>
                 <th>Keys</th>
                 <th>BPM</th>
                 <th>Length</th>
                 <th></th>
-              </tr>
+              </thead>
               <Tracks />
             </table>
             {/* <ul className="library-list">

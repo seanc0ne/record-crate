@@ -14,13 +14,11 @@ const Tracks = ({ getTracks, track: { tracks, loading } }) => {
       {loading ? (
         <h1>Loading...</h1>
       ) : (
-        <Fragment>
-          {tracks.length > 0 ? (
-            tracks.map((track) => <TrackList key={track._id} track={track} />)
-          ) : (
-            <h4>No tracks found...</h4>
-          )}
-        </Fragment>
+        <tbody>
+          {tracks.map((track) => (
+            <TrackList key={track._id} track={track} />
+          ))}
+        </tbody>
       )}
     </Fragment>
   );
