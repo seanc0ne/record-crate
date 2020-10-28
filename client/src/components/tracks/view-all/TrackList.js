@@ -144,8 +144,8 @@ const TrackList = ({ deleteTrack, setAlert, auth, track }) => {
                     composers: {track.composers}, producers: {track.producers}
                   </div>
                   <div>
-                    billboardChartPeak: {track.billboardChartPeaks},
-                    chartPeakDates: {track.chartPeakDates}
+                    Billboard chart peak: {track.billboardChartPeaks},
+                    chart peak dates: {track.chartPeakDates}
                   </div>
 
                   <br></br>
@@ -168,7 +168,7 @@ const TrackList = ({ deleteTrack, setAlert, auth, track }) => {
                   <ul>
                     Dropbox URL:
                     {track.dropboxUrls.map((url, index) => (
-                      <li key={`url_${index}`}>
+                      <li className="dropbox" key={`url_${index}`}>
                         <a href={url} target="_blank" rel="noopener noreferrer">
                           {url}
                         </a>
