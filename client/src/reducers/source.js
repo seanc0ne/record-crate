@@ -1,15 +1,16 @@
 import {
-  GET_ARTIST,
-  GET_ARTISTS,
-  CLEAR_ARTIST,
-  ARTIST_ERROR,
-  ADD_ARTIST,
-  UPDATE_ARTIST,
+  GET_SOURCE,
+  GET_SOURCES,
+  CLEAR_SOURCE,
+  SOURCE_ERROR,
+  DELETE_SOURCE,
+  ADD_SOURCE,
+  UPDATE_SOURCE,
 } from '../actions/types';
 
 const initialState = {
-  artist: null,
-  artists: [],
+  source: null,
+  sources: [],
   loading: true,
   error: {},
 };
@@ -17,37 +18,31 @@ const initialState = {
 export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
-    case GET_ARTIST:
-    case UPDATE_ARTIST:
+    case GET_SOURCE:
+    case UPDATE_SOURCE:
       return {
         ...state,
-        artist: payload,
+        source: payload,
         loading: false,
       };
-    case GET_ARTISTS:
+    case GET_SOURCES:
       return {
         ...state,
-        artists: payload,
+        sources: payload,
         loading: false,
       };
-    case ADD_ARTIST:
+    case ADD_SOURCE:
       return {
         ...state,
-        artists: [...state.artists, payload],
+        sources: [...state.sources, payload],
         loading: false,
       };
-    case CLEAR_ARTIST:
-      return {
-        ...state,
-        artist: null,
-        loading: false,
-      };
-    case ARTIST_ERROR:
+    case SOURCE_ERROR:
       return {
         ...state,
         error: payload,
         loading: false,
-        artist: null,
+        source: null,
       };
     default:
       return state;

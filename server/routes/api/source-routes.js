@@ -13,7 +13,7 @@ router.post(
     auth,
     [
       check('artists', 'At least one artist is required').not().isEmpty(),
-      check('source', 'The source is required').not().isEmpty(),
+      check('sourceName', 'The source is required').not().isEmpty(),
       check('label', 'The record label is required').not().isEmpty(),
       check('years', 'At least one year of release is required')
         .not()
@@ -34,7 +34,7 @@ router.post(
       const newSource = new Source({
         userId: req.user.id,
         artists: req.body.artists,
-        source: req.body.source,
+        sourceName: req.body.sourceName,
         label: req.body.label,
         years: years,
       });
@@ -53,7 +53,7 @@ router.post(
 router.get('/', auth, async (req, res) => {
   try {
     const sources = await Source.find()
-      .sort({ source: 'ascending' })
+      .sort({ sourceName: 'ascending' })
       .populate({
         path: 'userId',
         select: 'name avatar',

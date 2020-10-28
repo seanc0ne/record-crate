@@ -1,44 +1,59 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Navbar from './Navbar';
-import DiscogsTracks from '../tracks/DiscogsTracks'
+import DiscogsTracks from '../tracks/DiscogsTracks';
 import Tracks from '../tracks/view-all/Tracks';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import AddTrack from '../tracks/track-forms/AddTrack';
+import { setAlert } from '../../actions/alert';
 
-const Dashboard = ({ isAuthenticated }) => {
+// *********** BOOTSTRAP & CUSTOM STYLES **********
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+
+const Dashboard = () => {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <Fragment>
       <div className="row">
-      <Navbar />
+        <Navbar />
       </div>
-      
 
-{/* ********** LEFT BOX / MENU ********** */}
+      {/* ********** LEFT BOX / MENU ********** */}
       <div className="row" style={{ marginTop: '30px' }}>
         <div className="col-xs-12 col-md-2 whiteBox">
           <div>
-            <div className='dashLeftColHead'>Library</div>
-            <div className='dashLeftColItem'>Add a Song</div>
-            
-            <div></div>
-            
-            <div>
-              <DiscogsTracks />
-            </div>
+            <div className="dashLeftColHead">Library</div>
 
-            <div className='dashLeftColHead'>Playlist</div>
-            <div className='dashLeftColItem'>[playlist 1]</div>
-            <div className='dashLeftColItem'>[playlist 2]</div>
-            <div className='dashLeftColItem'>[playlist 3]</div>
-          
+            <div className="dashLeftColItem clickable" onClick={handleShow}>
+              <i class="fas fa-plus clickable"></i> Add a Song
+            </div>
+            <Modal className="modal-track" show={show} onHide={handleClose}>
+              <Modal.Header closeButton></Modal.Header>
+              <Modal.Body>
+                <AddTrack />
+              </Modal.Body>
+              <Modal.Footer>
+                <DiscogsTracks />
+              </Modal.Footer>
+            </Modal>
+
+            <div></div>
+
+            <div className="dashLeftColHead">Playlist</div>
+            <div className="dashLeftColItem">[playlist 1]</div>
+            <div className="dashLeftColItem">[playlist 2]</div>
+            <div className="dashLeftColItem">[playlist 3]</div>
           </div>
         </div>
 
-{/* ********** CENTER (EMPTY) BOX / MENU ********** */}
-        <div className="col-xs-12 col-md-1">
-        </div>
+        {/* ********** CENTER (EMPTY) BOX / MENU ********** */}
+        <div className="col-xs-12 col-md-1"></div>
 
-
-{/* ********** RIGHT BOX / MENU ********** */}
+        {/* ********** RIGHT BOX / MENU ********** */}
         <div className="col-xs-12 col-md-9 whiteBox">
           <div>
             <table>
@@ -48,19 +63,19 @@ const Dashboard = ({ isAuthenticated }) => {
                 <th>Keys</th>
                 <th>BPM</th>
                 <th>Length</th>
-                <th></th>                
+                <th></th>
               </tr>
-                <Tracks />
+              <Tracks />
             </table>
             {/* <ul className="library-list">
               <li>Title</li>
               <li>Artist</li> */}
-              {/* <li>Year</li>
+            {/* <li>Year</li>
               <li>Label</li> */}
-              {/* <li>Key</li>
+            {/* <li>Key</li>
               <li>BPM</li>
               <li>Length</li> */}
-              {/* <li>Composer</li>
+            {/* <li>Composer</li>
               <li>Producer</li>
               <li>Chart</li>
               <li>Peak</li>
@@ -73,7 +88,16 @@ const Dashboard = ({ isAuthenticated }) => {
   );
 };
 
-export default Dashboard;
+Dashboard.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { setAlert })(Dashboard);
 
 /*
 

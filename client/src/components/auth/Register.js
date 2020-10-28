@@ -12,14 +12,19 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import recordSleeve from '../../assets/img/recordSleeve@x2.png';
 
-const Register = ({ setAlert, register, isAuthenticated, showCancelButton, onCancelClick }) => {
+const Register = ({
+  setAlert,
+  register,
+  isAuthenticated,
+  showCancelButton,
+  onCancelClick,
+}) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
     password2: '',
   });
-  
 
   if (isAuthenticated) {
     return <Redirect to="/dashboard" />;
@@ -34,7 +39,7 @@ const Register = ({ setAlert, register, isAuthenticated, showCancelButton, onCan
     e.preventDefault();
     // verify that passwords match
     if (password !== password2) {
-      alert('Passwords do not match', 'danger'); // we pass in the msg, and the alert type. We choose 'danger' for the alert type b/c of our css. We could optionally pass in a third arg which is the timeout delay which is set by default at 5000.
+      setAlert('Passwords do not match', 'danger'); // we pass in the msg, and the alert type. We choose 'danger' for the alert type b/c of our css. We could optionally pass in a third arg which is the timeout delay which is set by default at 5000.
     } else {
       register({ name, email, password });
     }
@@ -96,7 +101,7 @@ const Register = ({ setAlert, register, isAuthenticated, showCancelButton, onCan
                 <Button type="button" onClick={onCancelClick}>
                   Cancel
                 </Button>
-              ): null}
+              ) : null}
             </Form.Row>
           </Form>
         </div>

@@ -57,6 +57,26 @@ const Playground = ({ isAuthenticated }) => {
               TEST: VIEW ALL ARTISTS
             </Button>
           </Row>
+          <Row className="mx-5 px-5 my-2 py-2">
+            <Button
+              className="btn-light"
+              onClick={() => {
+                history.push('/add-artist');
+              }}
+            >
+              TEST: ADD AN ARTIST
+            </Button>
+          </Row>
+          <Row className="mx-5 px-5 my-2 py-2">
+            <Button
+              className="btn-light"
+              onClick={() => {
+                history.push('/add-source');
+              }}
+            >
+              TEST: ADD A SOURCE
+            </Button>
+          </Row>
         </Container>
       </div>
     </Fragment>
