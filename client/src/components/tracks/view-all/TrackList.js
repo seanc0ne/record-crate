@@ -57,7 +57,7 @@ const TrackList = ({ track }) => {
   const CustomMenu = React.forwardRef(
     ({ children, style, className, 'aria-labelledby': labeledBy }, ref) => {
       const [value, setValue] = useState('');
-  
+
       return (
         <div
           ref={ref}
@@ -65,31 +65,30 @@ const TrackList = ({ track }) => {
           className={className}
           aria-labelledby={labeledBy}
         >
-          <FormControl
+          {/* <FormControl
             autoFocus
             className="mx-3 my-2 w-auto"
             placeholder="Type to filter..."
             onChange={(e) => setValue(e.target.value)}
             value={value}
-          />
+          /> */}
           <ul className="list-unstyled">
             {React.Children.toArray(children).filter(
               (child) =>
-                !value || child.props.children.toLowerCase().startsWith(value),
+                !value || child.props.children.toLowerCase().startsWith(value)
             )}
           </ul>
         </div>
       );
-    },
+    }
   );
-  
-  
+
   return (
     // old way <ul className="library-list"></ul>
     <tr>
       <td>{songTitle}</td>
       <td>
-      {sourceId.artists.map((artist) => (
+        {sourceId.artists.map((artist) => (
           <span className="artist-name" key={artist._id}>
             {' '}
             {artist.artistName}{' '}
@@ -99,109 +98,90 @@ const TrackList = ({ track }) => {
       <td>{keys}</td>
       <td>{bpms}</td>
       <td>{lengths}</td>
-      <td className='noCaret'>
-      <Dropdown>
+      <td className="noCaret">
+        <Dropdown>
           <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-          &#8230;
-    </Dropdown.Toggle>
+            &#8230;
+          </Dropdown.Toggle>
 
-<DropdownMenu as={CustomMenu}>
-
-<Dropdown.Item href="#/action-1">
-    
-  <span onClick={handleShow}>Track Info</span>
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>
-              <span className="trackDetailH1">
-              {songTitle} 
-              </span>
-              {' '}by{' '}
-              {sourceId.artists.map((artist) => (
-                <span className="trackDetailArtistName" key={artist._id}>
-                  {' '}
-                  {artist.artistName} ({artist.countryOfOrigin})
-                </span>
-              ))}
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <div>
-              <div className="trackDetailH2">
-              {sourceId.source}
-              </div>
-              label: {sourceId.label}, year:{' '}
-              {sourceId.years}
-            </div>
-            <div>
-              key: {keys}, BPM: {bpms}, length: {lengths}
-            </div>
-            <div>
-              composers: {track.composers}, producers: {track.producers}
-            </div>
-            <div>
-              billboardChartPeak: {track.billboardChartPeaks}, chartPeakDates:{' '}
-              {track.chartPeakDates}
-            </div>
-
-            <br></br>
-            
-            <div>
-              There is/are {track.notesCount} note(s) as
-              follows:
-            </div>
-            <ul>
-              {track.notes.map((note) => (
-                <li key={note._id}>
-                  <br></br>
-                  <div>{note.noteText}</div>
-                  <div className='trackDetailFooter'>
-                    by {note.userId} on {note.createdAt}
+          <DropdownMenu as={CustomMenu}>
+            <Dropdown.Item href="#/action-1">
+              <span onClick={handleShow}>Track Info</span>
+              <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                  <Modal.Title>
+                    <span className="trackDetailH1">{songTitle}</span> by{' '}
+                    {sourceId.artists.map((artist) => (
+                      <span className="trackDetailArtistName" key={artist._id}>
+                        {' '}
+                        {artist.artistName} ({artist.countryOfOrigin})
+                      </span>
+                    ))}
+                  </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <div>
+                    <div className="trackDetailH2">{sourceId.source}</div>
+                    label: {sourceId.label}, year: {sourceId.years}
                   </div>
-                </li>
-              ))}
-            </ul>
+                  <div>
+                    key: {keys}, BPM: {bpms}, length: {lengths}
+                  </div>
+                  <div>
+                    composers: {track.composers}, producers: {track.producers}
+                  </div>
+                  <div>
+                    billboardChartPeak: {track.billboardChartPeaks},
+                    chartPeakDates: {track.chartPeakDates}
+                  </div>
 
-            <br></br>
+                  <br></br>
 
-            <ul>
-              Dropbox URL:
-              {track.dropboxUrls.map((url, index) => (
-                <li key={`url_${index}`}>
-                  <a href={url} target="_blank" rel="noopener noreferrer">
-                    {url}
-                  </a>
-                </li>
-              ))}
-            </ul> 
+                  <div>There is/are {track.notesCount} note(s) as follows:</div>
+                  <ul>
+                    {track.notes.map((note) => (
+                      <li key={note._id}>
+                        <br></br>
+                        <div>{note.noteText}</div>
+                        <div className="trackDetailFooter">
+                          by {note.userId} on {note.createdAt}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
 
-          </Modal.Body>
-          <Modal.Footer className="trackDetailFooter">
-            <div style={{textAlign:'left'}}>
-            This song was added to the library by {track.userId.name} on{' '}
-              {track.createdAt} 
-            </div>
-            <Button onClick={handleClose}>Close</Button>
-          </Modal.Footer>
-        </Modal>
+                  <br></br>
 
-
-  </Dropdown.Item>
-  <Dropdown.Item href="#/action-2">Edit Track</Dropdown.Item>
-  <Dropdown.Item href="#/action-3">Delete Track</Dropdown.Item>
-  <Dropdown.Divider />
-  <Dropdown.Item href="#/action-4">Add to Playlist</Dropdown.Item>
-
-</DropdownMenu>
-
-  
-</Dropdown>
+                  <ul>
+                    Dropbox URL:
+                    {track.dropboxUrls.map((url, index) => (
+                      <li key={`url_${index}`}>
+                        <a href={url} target="_blank" rel="noopener noreferrer">
+                          {url}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </Modal.Body>
+                <Modal.Footer className="trackDetailFooter">
+                  <div style={{ textAlign: 'left' }}>
+                    This song was added to the library by {track.userId.name} on{' '}
+                    {track.createdAt}
+                  </div>
+                  <Button onClick={handleClose}>Close</Button>
+                </Modal.Footer>
+              </Modal>
+            </Dropdown.Item>
+            <Dropdown.Item href="#/action-2">Edit Track</Dropdown.Item>
+            <Dropdown.Item href="#/action-3">
+              <span onClick={handleShow}>Delete Track</span>
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item href="#/action-4">Add to Playlist</Dropdown.Item>
+          </DropdownMenu>
+        </Dropdown>
       </td>
     </tr>
-    
-    
-    
-    
   );
 };
 

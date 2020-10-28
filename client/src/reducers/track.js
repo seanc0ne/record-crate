@@ -42,7 +42,7 @@ export default function (state = initialState, action) {
     case GET_URLS:
       return {
         ...state,
-        repos: payload,
+        urls: payload,
         loading: false,
       };
     case CLEAR_TRACK:
