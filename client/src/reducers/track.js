@@ -70,7 +70,7 @@ export default function (state = initialState, action) {
     case ADD_NOTE:
       return {
         ...state,
-        track: { ...state.track, notes: payload },
+        track: payload,
         loading: false,
       };
     case DELETE_NOTE:

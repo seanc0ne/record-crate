@@ -5,6 +5,13 @@ import { connect } from 'react-redux';
 import { getTrackById } from '../../../actions/track';
 import Navbar from '../../layout/Navbar';
 import AddNoteToTrack from '../track-forms/AddNoteToTrack';
+import NoteList from './NoteList';
+
+// *********** BOOTSTRAP & CUSTOM STYLES **********
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const Track = ({ match, getTrackById, track: { track, loading }, auth }) => {
   useEffect(() => {
@@ -18,72 +25,91 @@ const Track = ({ match, getTrackById, track: { track, loading }, auth }) => {
         <p>LOADING...</p>
       ) : (
         <Fragment>
-          <div className="track mt-5 p-5">
-            <div>
-              <h4>{track.songTitle}</h4>
-              <h5>
-                Artist(s):{' '}
-                {track.sourceId.artists.map((artist) => (
-                  <span key={artist._id}>
-                    {artist.artistName} ({artist.countryOfOrigin})
-                  </span>
-                ))}
-              </h5>
-              {auth.isAuthenticated &&
-                auth.loading === false &&
-                auth.user._id === track.userId._id && (
-                  <Link to="/edit-track" className="my-5 btn btn-dark">
-                    Edit Track
-                  </Link>
-                )}
-              <h6>
-                {track.sourceId.source}, label: {track.sourceId.label}, years:{' '}
-                {track.sourceId.years}
-              </h6>
-              <div>
-                showTrack: {track.showTrack ? 'yes' : 'no'}, keys: {track.keys},
-                bpms: {track.bpms}, lengths: {track.lengths}
-              </div>
-              <div>composers: {track.composers}</div>
-              <div>producers: {track.producers}</div>
-              <div>
-                billboardChartPeaks: {track.billboardChartPeaks},
-                chartPeakDates: {track.chartPeakDates}
-              </div>
-              <ul>
-                dropboxUrls:
-                {track.dropboxUrls.map((url, index) => (
-                  <li key={`url_${index}`}>
-                    <a href={url} target="_blank" rel="noopener noreferrer">
-                      {url}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-              <div>
-                This song was added to the library by {track.userId.name} on{' '}
-                {track.createdAt}. There is/are {track.notesCount} note(s) as
-                follows:
-              </div>
-              <ul>
+          <div className="track container mt-5 p-5">
+            <Row className="mx-5 d-block">
+              <Row className="justify-content-between my-3">
+                <Col>
+                  <h4>{track.songTitle}</h4>
+                </Col>
+                <Col>
+                  {auth.isAuthenticated &&
+                    auth.loading === false &&
+                    auth.user._id === track.userId._id && (
+                      <Link to="/edit-track" className="mx-auto btn">
+                        Edit Track
+                      </Link>
+                    )}
+                </Col>
+              </Row>
+              <Row className="my-3">
+                <Col>
+                  <h5>
+                    Artist(s):{' '}
+                    {track.sourceId.artists.map((artist) => (
+                      <span key={artist._id}>
+                        {artist.artistName} ({artist.countryOfOrigin})
+                      </span>
+                    ))}
+                  </h5>
+                </Col>
+              </Row>
+              <Row className="my-3">
+                <Col>SOURCE: {track.sourceId.sourceName}</Col>
+                <Col>LABEL: {track.sourceId.label}</Col>
+                <Col>YEAR: {track.sourceId.years}</Col>
+              </Row>
+              <Row className="my-3">
+                {/* <Col>showTrack: {track.showTrack ? 'yes' : 'no'}</Col> */}
+                <Col>KEYS: {track.keys}</Col>
+                <Col>BPM: {track.bpms}</Col>
+                <Col>LENGTH: {track.lengths}</Col>
+              </Row>
+              <Row className="my-3">
+                <Col>COMPOSERS: {track.composers}</Col>
+                <Col>PRODUCERS: {track.producers}</Col>
+              </Row>
+              <Row className="my-3">
+                <Col>BILLBOARD CHART PEAKS: {track.billboardChartPeaks}</Col>
+                <Col>CHART PEAK DATES: {track.chartPeakDates}</Col>
+              </Row>
+              <Row className="my-3">
+                <Col>
+                  <div className="mb-2">CHECKOUT:</div>
+                  <ul>
+                    {track.dropboxUrls.map((url, index) => (
+                      <li key={`url_${index}`}>
+                        <a href={url} target="_blank" rel="noopener noreferrer">
+                          {url}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </Col>
+              </Row>
+              <Row className="my-2">
+                <Col>
+                  <div className="my-2">
+                    This song was added to the library by {track.userId.name} on{' '}
+                    {track.createdAt}.
+                  </div>
+                  <div className="my-2">
+                    There is/are {track.notesCount} note(s) as follows:
+                  </div>
+                </Col>
+              </Row>
+              <Row className="notes">
                 {track.notes.map((note) => (
-                  <li key={note._id}>
-                    <div>Note: (showNote: {note.showNote ? 'yes' : 'no'})</div>
-                    <div>{note.noteText}</div>
-                    <div>
-                      Created by {note.userId} on {note.createdAt}
-                    </div>
-                  </li>
+                  <NoteList key={note._id} note={note} trackId={track._id} />
                 ))}
-              </ul>
-            </div>
-            <AddNoteToTrack trackId={track._id} />
-            <div className="mt-3 clickable">
-              <Link to="/dashboard">
-                <i className="fas fa-sign-out-alt"></i>
-                <span className="navFont"> Back to Library</span>
-              </Link>
-            </div>
+              </Row>
+              <AddNoteToTrack trackId={track._id} />
+              <div className="mt-3 clickable">
+                <Link to="/dashboard">
+                  <i className="fas fa-sign-out-alt"></i>
+                  <span className="navFont"> Back to Library</span>
+                </Link>
+              </div>
+            </Row>
           </div>
         </Fragment>
       )}
