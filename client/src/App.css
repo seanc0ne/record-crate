@@ -2,6 +2,9 @@
 :root {
   --color1: #f05b6f;
   --color2: #5e436b;
+  --alert-success: #5c8d49;
+  --alert-danger: #e5ca00;
+  --alert-yellow: #feaa2d;
 }
 
 * {
@@ -31,6 +34,10 @@ ul {
 table {
   border-collapse: collapse;
   width: 100%;
+  /* this below makes the table vertically scrollable */
+  display: block;
+  max-height: 500px;
+  overflow-y: auto;
 }
 
 th {
@@ -66,11 +73,6 @@ i.fas.clickable,
 
 .clickable {
   cursor: pointer;
-}
-
-.track-container {
-  max-height: 500px;
-  overflow-y: auto;
 }
 
 .container {
@@ -127,13 +129,28 @@ i.fas.clickable,
   height: 64px;
 }
 
+.avatar {
+  border-radius: 50%;
+  max-width: 100%;
+  height: 50px;
+}
+
+.dropdown-user .btn,
+.dropdown-user .btn:hover,
+.dropdown-user .btn:focus {
+  background: transparent;
+  box-shadow: none;
+}
+
+.dropdown-menu {
+  background-color: white;
+}
+
 /* Alerts, Backgrounds, Buttons */
 .alert {
   padding: 0.8rem;
   margin: 1rem 0;
   opacity: 0.9;
-  background: var(--sleeve-cream);
-  color: var(--disc-dark);
 }
 
 .btn {
@@ -169,7 +186,7 @@ i.fas.clickable,
 
 .btn-success,
 .alert-success {
-  background: var(--color1);
+  background: var(--alert-success);
   color: white;
 }
 
@@ -182,10 +199,6 @@ i.fas.clickable,
 
 .btn:hover {
   opacity: 0.8;
-}
-
-.bg-light {
-  border: var(--logo-grey) solid 1px;
 }
 
 /* Text Styles*/
@@ -259,6 +272,7 @@ button {
   top: 0;
   opacity: 0.9;
   padding: 20px;
+  z-index: 100;
 }
 
 .navFont {
@@ -278,12 +292,13 @@ button {
 }
 
 .navbar a:hover {
-  color: var(--sleeve-bright-purple);
+  /* color: var(--sleeve-bright-purple); */
+  cursor: pointer;
 }
 
-.navbar .welcome span {
+/* .navbar .welcome span {
   margin-right: 0.6rem;
-}
+} */
 
 .navbar li {
   color: white;
@@ -363,6 +378,13 @@ button {
   box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
     rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
     rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+}
+
+.shadow-effect {
+  /* box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
+    rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
+    rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px; */
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
 .btn:hover {
