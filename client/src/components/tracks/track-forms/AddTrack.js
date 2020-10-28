@@ -67,18 +67,6 @@ const AddTrack = ({ getSources, addTrack, source: { sources, loading } }) => {
         <Form className="w-100" onSubmit={(e) => onSubmitTrack(e)}>
           <Form.Row className="w-100 my-2">
             <Col className="w-100">
-              <Form.Label>Song:</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Song Title"
-                name="songTitle"
-                value={trackData.songTitle}
-                onChange={(e) => handleChangeTrack(e)}
-              ></Form.Control>
-            </Col>
-          </Form.Row>
-          <Form.Row className="w-100 my-2">
-            <Col className="w-100">
               <Form.Group className="w-100">
                 <Form.Label>Source:</Form.Label>
                 <Select
@@ -91,11 +79,10 @@ const AddTrack = ({ getSources, addTrack, source: { sources, loading } }) => {
               </Form.Group>
             </Col>
             <Col>
-              <Form.Label></Form.Label>
-              <div conClick={handleShow}>
-                <span className="mr-3">Cannot find an artist?</span>
-                <i class="fas fa-plus clickable"></i>
-                <span className="clickable"> Add an Artist</span>
+              <Form.Label className="ml-5">Cannot find a source?</Form.Label>
+              <div className="ml-5 mt-3 pb-2" onClick={handleShow}>
+                <i class="fas fa-plus clickable pb-2"></i>
+                <span className="clickable add-source pb-2"> Add a Source</span>
               </div>
               <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton></Modal.Header>
@@ -106,10 +93,22 @@ const AddTrack = ({ getSources, addTrack, source: { sources, loading } }) => {
             </Col>
           </Form.Row>
           <Form.Row className="w-100 my-2">
+            <Col className="w-100">
+              <Form.Label>Song:</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Song Title"
+                name="songTitle"
+                value={trackData.songTitle}
+                onChange={(e) => handleChangeTrack(e)}
+              ></Form.Control>
+            </Col>
+          </Form.Row>
+          <Form.Row className="w-100 my-2">
             <Col>
               <Form.Control
                 type="text"
-                placeholder="List of keys, comma-separated (ex: 5A, 8A)"
+                placeholder="Keys (comma-separated: e.g. 5A, 8A)"
                 name="keys"
                 value={trackData.keys}
                 onChange={(e) => handleChangeTrack(e)}
@@ -118,7 +117,7 @@ const AddTrack = ({ getSources, addTrack, source: { sources, loading } }) => {
             <Col>
               <Form.Control
                 type="text"
-                placeholder="List of bpm, comma-separated (ex: 105, 141)"
+                placeholder="BPM (comma-separated: e.g. 105, 141)"
                 name="bpms"
                 value={trackData.bpms}
                 onChange={(e) => handleChangeTrack(e)}
@@ -127,7 +126,7 @@ const AddTrack = ({ getSources, addTrack, source: { sources, loading } }) => {
             <Col>
               <Form.Control
                 type="text"
-                placeholder="List of lengths, comma-separated (ex: 4:55, 6:27)"
+                placeholder="Lengths (comma-separated: e.g. 4:55, 6:27)"
                 name="lengths"
                 value={trackData.lengths}
                 onChange={(e) => handleChangeTrack(e)}
@@ -138,7 +137,7 @@ const AddTrack = ({ getSources, addTrack, source: { sources, loading } }) => {
             <Col>
               <Form.Control
                 type="text"
-                placeholder="List of composers, comma-separated"
+                placeholder="Composers (comma-separated)"
                 name="composers"
                 value={trackData.composers}
                 onChange={(e) => handleChangeTrack(e)}
@@ -147,7 +146,7 @@ const AddTrack = ({ getSources, addTrack, source: { sources, loading } }) => {
             <Col>
               <Form.Control
                 type="text"
-                placeholder="List of producers, comma-separated"
+                placeholder="Producers (comma-separated)"
                 name="producers"
                 value={trackData.producers}
                 onChange={(e) => handleChangeTrack(e)}
@@ -158,7 +157,7 @@ const AddTrack = ({ getSources, addTrack, source: { sources, loading } }) => {
             <Col>
               <Form.Control
                 type="text"
-                placeholder="Billboard chart peaks, comma-separated (ex: 11, 24)"
+                placeholder="Billboard chart peaks (comma-separated: e.g. 11, 24)"
                 name="billboardChartPeaks"
                 value={trackData.billboardChartPeaks}
                 onChange={(e) => handleChangeTrack(e)}
@@ -167,7 +166,7 @@ const AddTrack = ({ getSources, addTrack, source: { sources, loading } }) => {
             <Col>
               <Form.Control
                 type="text"
-                placeholder="Chart peak dates, comma-separated (ex: 09/01/1981, 09/01/1983)"
+                placeholder="Chart peak dates (comma-separated: e.g. 09/01/1981, 09/01/1983)"
                 name="chartPeakDates"
                 value={trackData.chartPeakDates}
                 onChange={(e) => handleChangeTrack(e)}
@@ -178,7 +177,7 @@ const AddTrack = ({ getSources, addTrack, source: { sources, loading } }) => {
             <Col>
               <Form.Control
                 type="text"
-                placeholder="Dropbox URLs, comma-separated"
+                placeholder="Dropbox URLs (comma-separated)"
                 name="dropboxUrls"
                 value={trackData.dropboxUrls}
                 onChange={(e) => handleChangeTrack(e)}

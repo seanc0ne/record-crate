@@ -53,10 +53,7 @@ const AddSource = ({ getArtists, addSource, artist: { artists, loading } }) => {
       {loading ? (
         <h4>Loading...</h4>
       ) : (
-        <Form
-          className="w-100 bg-light p-5"
-          onSubmit={(e) => onSubmitSource(e)}
-        >
+        <Form className="w-100" onSubmit={(e) => onSubmitSource(e)}>
           <Form.Row className="w-100">
             <Col className="w-100">
               <Form.Group className="w-100">
@@ -72,11 +69,10 @@ const AddSource = ({ getArtists, addSource, artist: { artists, loading } }) => {
               </Form.Group>
             </Col>
             <Col>
-              <Form.Label></Form.Label>
+              <Form.Label className="ml-5">Cannot find an artist?</Form.Label>
               <div className="ml-5 mt-3" onClick={handleShow}>
-                <span className="mr-3">Cannot find an artist?</span>
                 <i class="fas fa-plus clickable"></i>
-                <span className="clickable"> Add an Artist</span>
+                <span className="clickable add-artist"> Add an Artist</span>
               </div>
               <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton></Modal.Header>
@@ -118,7 +114,9 @@ const AddSource = ({ getArtists, addSource, artist: { artists, loading } }) => {
               ></Form.Control>
             </Col>
           </Form.Row>
-          <Button type="submit">SUBMIT</Button>
+          <Button className="my-2" type="submit">
+            SUBMIT
+          </Button>
         </Form>
       )}
     </Fragment>

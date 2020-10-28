@@ -54,9 +54,12 @@ td {
   background-image: url('./assets/img/recordSleeve@x2.png');
 }
 
-i.fas.clickable {
+i.fas.clickable,
+.add-artist,
+.add-source {
   color: var(--color2);
   font-weight: bold;
+  text-shadow: 0.1px 0.15px white;
 }
 
 .clickable {
