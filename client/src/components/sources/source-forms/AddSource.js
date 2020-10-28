@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addSource } from '../../../actions/source';
 import { getArtists } from '../../../actions/artist';
+import AddArtist from '../../artists/artist-forms/AddArtist';
 
 // *********** BOOTSTRAP & CUSTOM STYLES **********
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -13,6 +14,9 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 
 const AddSource = ({ getArtists, addSource, artist: { artists, loading } }) => {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const [sourceData, setSourceData] = useState({
     artists: null,
     sourceName: '',
@@ -53,38 +57,6 @@ const AddSource = ({ getArtists, addSource, artist: { artists, loading } }) => {
           className="w-100 bg-light p-5"
           onSubmit={(e) => onSubmitSource(e)}
         >
-          <Form.Row className="w-100 my-2">
-            <Col className="w-100">
-              <Form.Label>Source:</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter the name of the source (e.g. title of the album)"
-                name="sourceName"
-                value={sourceData.sourceName}
-                onChange={(e) => handleChangeSource(e)}
-              ></Form.Control>
-            </Col>
-          </Form.Row>
-          <Form.Row className="w-100 my-2">
-            <Col>
-              <Form.Control
-                type="text"
-                placeholder="Enter the label"
-                name="label"
-                value={sourceData.label}
-                onChange={(e) => handleChangeSource(e)}
-              ></Form.Control>
-            </Col>
-            <Col>
-              <Form.Control
-                type="text"
-                placeholder="Enter one or more years, comma-separated (ex: 1979, 1995)"
-                name="years"
-                value={sourceData.years}
-                onChange={(e) => handleChangeSource(e)}
-              ></Form.Control>
-            </Col>
-          </Form.Row>
           <Form.Row className="w-100">
             <Col className="w-100">
               <Form.Group className="w-100">
@@ -98,6 +70,52 @@ const AddSource = ({ getArtists, addSource, artist: { artists, loading } }) => {
                   onChange={handleArtistSelection}
                 />
               </Form.Group>
+            </Col>
+            <Col>
+              <Form.Label></Form.Label>
+              <div className="ml-5 mt-3" onClick={handleShow}>
+                <span className="mr-3">Cannot find an artist?</span>
+                <i class="fas fa-plus clickable"></i>
+                <span className="clickable"> Add an Artist</span>
+              </div>
+              <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton></Modal.Header>
+                <Modal.Body>
+                  <AddArtist />
+                </Modal.Body>
+              </Modal>
+            </Col>
+          </Form.Row>
+          <Form.Row className="w-100 my-2">
+            <Col className="w-100">
+              <Form.Label>Source:</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Source Name"
+                name="sourceName"
+                value={sourceData.sourceName}
+                onChange={(e) => handleChangeSource(e)}
+              ></Form.Control>
+            </Col>
+          </Form.Row>
+          <Form.Row className="w-100 my-2">
+            <Col>
+              <Form.Control
+                type="text"
+                placeholder="Label"
+                name="label"
+                value={sourceData.label}
+                onChange={(e) => handleChangeSource(e)}
+              ></Form.Control>
+            </Col>
+            <Col>
+              <Form.Control
+                type="text"
+                placeholder="Years (comma-separated)"
+                name="years"
+                value={sourceData.years}
+                onChange={(e) => handleChangeSource(e)}
+              ></Form.Control>
             </Col>
           </Form.Row>
           <Button type="submit">SUBMIT</Button>

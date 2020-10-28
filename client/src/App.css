@@ -50,6 +50,19 @@ td {
   content: none;
 }
 
+.modal-content {
+  background-image: url('./assets/img/recordSleeve@x2.png');
+}
+
+i.fas.clickable {
+  color: var(--color2);
+  font-weight: bold;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
 .container {
   display: flex;
   flex-direction: column;

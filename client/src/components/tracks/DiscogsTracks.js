@@ -1,10 +1,11 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import {Redirect} from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TrackList from './view-all/TrackList';
 import { getTracks } from '../../actions/track';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 const BASEURL = 'https://api.discogs.com/database/search?q=';
 const APIKEY =
   '&key=nxBVZyfnWIoqRtAaAjAz&secret=bFnEJXzeQAwQSpjFeucOoOXVmjQVfFXn';
@@ -22,7 +23,7 @@ function DiscogsTracks(props) {
       `${BASEURL}${query}${APIKEY}`
       // baiser+summer+breeze&key=nxBVZyfnWIoqRtAaAjAz&secret=bFnEJXzeQAwQSpjFeucOoOXVmjQVfFXn
     );
-    
+
     const data = await response.json();
     return data;
 
@@ -40,23 +41,23 @@ function DiscogsTracks(props) {
 
     const result = await searchDiscogs(searchTerm);
     // // call setState and pass in the results from fetching
-    let results = result.results
-    setSearch(search.push(results[0]))
-    console.log("You searched: ", searchTerm)
-    console.log("Value of 'search' in state")
-    console.log(search)
+    let results = result.results;
+    setSearch(search.push(results[0]));
+    console.log('You searched: ', searchTerm);
+    console.log("Value of 'search' in state");
+    console.log(search);
   };
 
   return (
-      <div>
-        <form onSubmit={handleFormSubmit}>
-        <input type="text" />
-        <div className='dashLeftSearchDiscog'>Search Discogs</div>
-        <button className="btn btn-primary mt-3">Search</button>
-        </form>
-        
+    <div className="my-3">
+      <form className="d-inline" onSubmit={handleFormSubmit}>
+        <input className="p-1" type="text" placeholder="Search Discogs ..." />
+        <button className="btn">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
 
-        {/* <ul>
+      {/* <ul>
             {results.map(item => (
                 <li>{item}</li>
             ))}

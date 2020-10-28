@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addTrack } from '../../../actions/track';
 import { getSources } from '../../../actions/source';
+import AddSource from '../../sources/source-forms/AddSource';
 
 // *********** BOOTSTRAP & CUSTOM STYLES **********
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -13,6 +14,9 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 
 const AddTrack = ({ getSources, addTrack, source: { sources, loading } }) => {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const [trackData, setTrackData] = useState({
     songTitle: '',
     keys: '',
@@ -60,7 +64,7 @@ const AddTrack = ({ getSources, addTrack, source: { sources, loading } }) => {
       {loading ? (
         <h4>Loading...</h4>
       ) : (
-        <Form className="w-100 bg-light p-5" onSubmit={(e) => onSubmitTrack(e)}>
+        <Form className="w-100" onSubmit={(e) => onSubmitTrack(e)}>
           <Form.Row className="w-100 my-2">
             <Col className="w-100">
               <Form.Label>Song:</Form.Label>
@@ -85,6 +89,20 @@ const AddTrack = ({ getSources, addTrack, source: { sources, loading } }) => {
                   onChange={handleSourceSelection}
                 />
               </Form.Group>
+            </Col>
+            <Col>
+              <Form.Label></Form.Label>
+              <div conClick={handleShow}>
+                <span className="mr-3">Cannot find an artist?</span>
+                <i class="fas fa-plus clickable"></i>
+                <span className="clickable"> Add an Artist</span>
+              </div>
+              <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton></Modal.Header>
+                <Modal.Body>
+                  <AddSource />
+                </Modal.Body>
+              </Modal>
             </Col>
           </Form.Row>
           <Form.Row className="w-100 my-2">
