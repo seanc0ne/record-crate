@@ -2,6 +2,9 @@
 :root {
   --color1: #f05b6f;
   --color2: #5e436b;
+  --alert-success: #5c8d49;
+  --alert-danger: #e5ca00;
+  --alert-yellow: #feaa2d;
 }
 
 * {
@@ -31,6 +34,10 @@ ul {
 table {
   border-collapse: collapse;
   width: 100%;
+  /* this below makes the table vertically scrollable */
+  display: block;
+  max-height: 500px;
+  overflow-y: auto;
 }
 
 th {
@@ -66,12 +73,6 @@ i.fas.clickable,
 
 .clickable {
   cursor: pointer;
-}
-
-table {
-  display: block;
-  max-height: 500px;
-  overflow-y: auto;
 }
 
 .container {
@@ -133,8 +134,6 @@ table {
   padding: 0.8rem;
   margin: 1rem 0;
   opacity: 0.9;
-  background: var(--sleeve-cream);
-  color: var(--disc-dark);
 }
 
 .btn {
@@ -164,13 +163,13 @@ table {
 
 .btn-danger,
 .alert-danger {
-  background: var(--color1);
+  background: var(--alert-danger);
   color: white;
 }
 
 .btn-success,
 .alert-success {
-  background: var(--color1);
+  background: var(--alert-success);
   color: white;
 }
 

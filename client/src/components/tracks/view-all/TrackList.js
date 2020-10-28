@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { deleteTrack } from '../../../actions/track';
 
 // *********** BOOTSTRAP & CUSTOM STYLES **********
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -8,9 +9,9 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownMenu from 'react-bootstrap/esm/DropdownMenu';
-import FormControl from 'react-bootstrap/FormControl';
+// import FormControl from 'react-bootstrap/FormControl';
 
-const TrackList = ({ track }) => {
+const TrackList = ({ deleteTrack, auth, track }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -39,6 +40,12 @@ const TrackList = ({ track }) => {
     notesCount, // nb of notes associated to this track
     notes, // array of note objects structured as { _id, showNote, userId, noteText, createdAt }
   } = track;
+
+  const handleDeleteTrack = () => {
+    if (!auth.loading && userId._id === auth.user._id) {
+      deleteTrack(_id);
+    }
+  };
 
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     <a
@@ -174,7 +181,7 @@ const TrackList = ({ track }) => {
             </Dropdown.Item>
             <Dropdown.Item href="#/action-2">Edit Track</Dropdown.Item>
             <Dropdown.Item href="#/action-3">
-              <span onClick={handleShow}>Delete Track</span>
+              <span onClick={handleDeleteTrack}>Delete Track</span>
             </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item href="#/action-4">Add to Playlist</Dropdown.Item>
@@ -187,6 +194,12 @@ const TrackList = ({ track }) => {
 
 TrackList.propTypes = {
   track: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  deleteTrack: PropTypes.func.isRequired,
 };
 
-export default TrackList;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { deleteTrack })(TrackList);
