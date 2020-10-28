@@ -3,54 +3,21 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getTrackById } from '../../../actions/track';
+import Navbar from '../../layout/Navbar';
 
 const Track = ({ match, getTrackById, track: { track, loading }, auth }) => {
   useEffect(() => {
     getTrackById(match.params.id); // match the id in the url
-    // const {
-    //   _id,
-    //   songTitle,
-    //   showTrack, // boolean
-    //   keys, // array
-    //   bpms, // array
-    //   lengths, // array
-    //   composers, // array
-    //   producers, // array
-    //   billboardChartPeaks, // array
-    //   chartPeakDates, // array
-    //   dropboxUrls, // array
-    //   sourceId,
-    //   //  {
-    //   //   source,
-    //   //   label,
-    //   //   artists, // array of artist objects structured as { _id, artistName, countryOfOrigin, userId } where userId is the user who added the artist in the library and structured as { _id, name, avatar }
-    //   //   years, // array
-    //   // },
-    //   userId, // user who added this track to the library
-    //   createdAt, // date when track was added to library
-    //   notesCount, // nb of notes associated to this track
-    //   notes, // array of note objects structured as { _id, showNote, userId, noteText, createdAt }
-    // } = track;
   }, [getTrackById, match.params.id]);
 
   return (
     <Fragment>
+      <Navbar />
       {track === null || loading ? (
         <p>LOADING...</p>
       ) : (
         <Fragment>
-          <Link to="/tracks" className="my-5 btn btn-light">
-            Back to Tracks
-          </Link>
-          {auth.isAuthenticated &&
-            auth.loading === false &&
-            auth.user._id === track.userId._id && (
-              <Link to="/edit-track" className="my-5 btn btn-dark">
-                Edit Track
-              </Link>
-            )}
-          <div className="track bg-light">
-            <span>ARTWORK?</span>
+          <div className="track mt-5 p-5">
             <div>
               <h4>{track.songTitle}</h4>
               <h5>
@@ -61,6 +28,13 @@ const Track = ({ match, getTrackById, track: { track, loading }, auth }) => {
                   </span>
                 ))}
               </h5>
+              {auth.isAuthenticated &&
+                auth.loading === false &&
+                auth.user._id === track.userId._id && (
+                  <Link to="/edit-track" className="my-5 btn btn-dark">
+                    Edit Track
+                  </Link>
+                )}
               <h6>
                 {track.sourceId.source}, label: {track.sourceId.label}, years:{' '}
                 {track.sourceId.years}
@@ -101,6 +75,17 @@ const Track = ({ match, getTrackById, track: { track, loading }, auth }) => {
                   </li>
                 ))}
               </ul>
+            </div>
+            <div>
+              <Link to="/tracks" className="m-2 btn">
+                Add a Note
+              </Link>
+            </div>
+            <div className="mt-3 clickable">
+              <Link to="/dashboard">
+                <i className="fas fa-sign-out-alt"></i>
+                <span className="navFont"> Back to Library</span>
+              </Link>
             </div>
           </div>
         </Fragment>
