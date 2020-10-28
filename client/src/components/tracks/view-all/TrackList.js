@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deleteTrack } from '../../../actions/track';
+import { setAlert } from '../../../actions/alert';
 
 // *********** BOOTSTRAP & CUSTOM STYLES **********
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,7 +12,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownMenu from 'react-bootstrap/esm/DropdownMenu';
 // import FormControl from 'react-bootstrap/FormControl';
 
-const TrackList = ({ deleteTrack, auth, track }) => {
+const TrackList = ({ deleteTrack, setAlert, auth, track }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -44,6 +45,11 @@ const TrackList = ({ deleteTrack, auth, track }) => {
   const handleDeleteTrack = () => {
     if (!auth.loading && userId._id === auth.user._id) {
       deleteTrack(_id);
+    } else {
+      setAlert(
+        'Sorry, you are not authorized to delete this track from the library',
+        'danger'
+      );
     }
   };
 
@@ -196,10 +202,11 @@ TrackList.propTypes = {
   track: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   deleteTrack: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { deleteTrack })(TrackList);
+export default connect(mapStateToProps, { deleteTrack, setAlert })(TrackList);

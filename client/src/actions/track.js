@@ -57,7 +57,7 @@ export const addTrack = (selectedSourceId, trackObj) => async (dispatch) => {
       type: ADD_TRACK,
       payload: res.data,
     });
-    dispatch(setAlert('Track saved', 'success'));
+    dispatch(setAlert('Track saved to the library', 'success'));
   } catch (err) {
     const errors = err.response.data.errors; // we want to display the array of errors
     // if there are errors we want to dispatch an alert for each of them
@@ -79,7 +79,7 @@ export const deleteTrack = (trackId) => async (dispatch) => {
       type: DELETE_TRACK,
       payload: trackId,
     });
-    dispatch(setAlert('Track removed', 'success'));
+    dispatch(setAlert('Track deleted from the library', 'success'));
   } catch (err) {
     dispatch({
       type: TRACK_ERROR,

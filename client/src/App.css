@@ -163,7 +163,7 @@ i.fas.clickable,
 
 .btn-danger,
 .alert-danger {
-  background: var(--alert-danger);
+  background: var(--color1);
   color: white;
 }
 
