@@ -129,6 +129,23 @@ i.fas.clickable,
   height: 64px;
 }
 
+.avatar {
+  border-radius: 50%;
+  max-width: 100%;
+  height: 50px;
+}
+
+.dropdown-user .btn,
+.dropdown-user .btn:hover,
+.dropdown-user .btn:focus {
+  background: transparent;
+  box-shadow: none;
+}
+
+.dropdown-menu {
+  background-color: white;
+}
+
 /* Alerts, Backgrounds, Buttons */
 .alert {
   padding: 0.8rem;
@@ -182,10 +199,6 @@ i.fas.clickable,
 
 .btn:hover {
   opacity: 0.8;
-}
-
-.bg-light {
-  border: var(--logo-grey) solid 1px;
 }
 
 /* Text Styles*/
@@ -259,6 +272,7 @@ button {
   top: 0;
   opacity: 0.9;
   padding: 20px;
+  z-index: 100;
 }
 
 .navFont {
@@ -278,12 +292,13 @@ button {
 }
 
 .navbar a:hover {
-  color: var(--sleeve-bright-purple);
+  /* color: var(--sleeve-bright-purple); */
+  cursor: pointer;
 }
 
-.navbar .welcome span {
+/* .navbar .welcome span {
   margin-right: 0.6rem;
-}
+} */
 
 .navbar li {
   color: white;

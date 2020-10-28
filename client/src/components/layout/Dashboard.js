@@ -11,11 +11,13 @@ import { setAlert } from '../../actions/alert';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Modal from 'react-bootstrap/Modal';
 
-const Dashboard = () => {
+const Dashboard = ({ setAlert, auth: { user, loading } }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  return (
+  return loading && user === null ? (
+    <h4>Loading...</h4>
+  ) : (
     <Fragment>
       <div className="row">
         <Navbar />
@@ -89,11 +91,11 @@ const Dashboard = () => {
 
 Dashboard.propTypes = {
   setAlert: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
+  auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { setAlert })(Dashboard);
