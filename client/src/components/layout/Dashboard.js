@@ -31,7 +31,7 @@ const Dashboard = () => {
             <div className="dashLeftColItem clickable" onClick={handleShow}>
               <i class="fas fa-plus clickable"></i> Add a Song
             </div>
-            <Modal show={show} onHide={handleClose}>
+            <Modal className="modal-track" show={show} onHide={handleClose}>
               <Modal.Header closeButton></Modal.Header>
               <Modal.Body>
                 <AddTrack />

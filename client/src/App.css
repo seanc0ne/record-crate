@@ -50,7 +50,9 @@ td {
   content: none;
 }
 
-.modal-content {
+.modal-artist .modal-content,
+.modal-source .modal-content,
+.modal-track .modal-content {
   background-image: url('./assets/img/recordSleeve@x2.png');
 }
 

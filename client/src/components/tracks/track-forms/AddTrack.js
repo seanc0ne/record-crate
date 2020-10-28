@@ -84,7 +84,7 @@ const AddTrack = ({ getSources, addTrack, source: { sources, loading } }) => {
                 <i class="fas fa-plus clickable pb-2"></i>
                 <span className="clickable add-source pb-2"> Add a Source</span>
               </div>
-              <Modal show={show} onHide={handleClose}>
+              <Modal className="modal-source" show={show} onHide={handleClose}>
                 <Modal.Header closeButton></Modal.Header>
                 <Modal.Body>
                   <AddSource />

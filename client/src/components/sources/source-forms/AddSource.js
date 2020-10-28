@@ -74,7 +74,7 @@ const AddSource = ({ getArtists, addSource, artist: { artists, loading } }) => {
                 <i class="fas fa-plus clickable"></i>
                 <span className="clickable add-artist"> Add an Artist</span>
               </div>
-              <Modal show={show} onHide={handleClose}>
+              <Modal className="modal-artist" show={show} onHide={handleClose}>
                 <Modal.Header closeButton></Modal.Header>
                 <Modal.Body>
                   <AddArtist />
