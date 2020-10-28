@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getTrackById } from '../../../actions/track';
 import Navbar from '../../layout/Navbar';
+import AddNoteToTrack from '../track-forms/AddNoteToTrack';
 
 const Track = ({ match, getTrackById, track: { track, loading }, auth }) => {
   useEffect(() => {
@@ -76,11 +77,7 @@ const Track = ({ match, getTrackById, track: { track, loading }, auth }) => {
                 ))}
               </ul>
             </div>
-            <div>
-              <Link to="/tracks" className="m-2 btn">
-                Add a Note
-              </Link>
-            </div>
+            <AddNoteToTrack trackId={track._id} />
             <div className="mt-3 clickable">
               <Link to="/dashboard">
                 <i className="fas fa-sign-out-alt"></i>
