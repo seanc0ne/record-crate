@@ -55,7 +55,7 @@ const Dashboard = () => {
 
         {/* ********** RIGHT BOX / MENU ********** */}
         <div className="col-xs-12 col-md-9 whiteBox">
-          <div>
+          <div className="track-container">
             <table>
               <tr>
                 <th>Title</th>
