@@ -89,7 +89,7 @@ router.get('/', auth, async (req, res) => {
       })
       .populate({
         path: 'sourceId',
-        select: 'source label years',
+        select: 'sourceName label years',
         populate: {
           path: 'userId',
           select: 'name avatar',
@@ -125,7 +125,7 @@ router.get('/:track_id', auth, async (req, res) => {
       })
       .populate({
         path: 'sourceId',
-        select: 'source label years',
+        select: 'sourceName label years',
         populate: {
           path: 'userId',
           select: 'name avatar',
@@ -190,10 +190,11 @@ router.put(
           },
         },
         { new: true }
-      ).select('-__v');
+      );
       if (!track)
         return res.status(404).json({ msg: 'This track was not found' });
-      res.json(track.notes);
+      console.log('track', track);
+      res.json(track);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');

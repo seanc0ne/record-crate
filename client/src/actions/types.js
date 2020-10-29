@@ -40,3 +40,5 @@ export const TRACK_ERROR = 'TRACK_ERROR';
 export const DELETE_TRACK = 'DELETE_TRACK';
 export const ADD_TRACK = 'ADD_TRACK';
 export const UPDATE_TRACK = 'UPDATE_TRACK';
+export const ADD_NOTE = 'ADD_NOTE';
+export const DELETE_NOTE = 'DELETE_NOTE';

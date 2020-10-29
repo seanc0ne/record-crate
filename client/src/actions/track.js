@@ -8,6 +8,8 @@ import {
   TRACK_ERROR,
   DELETE_TRACK,
   ADD_TRACK,
+  ADD_NOTE,
+  DELETE_NOTE,
 } from './types';
 
 // Get all tracks
@@ -80,6 +82,47 @@ export const deleteTrack = (trackId) => async (dispatch) => {
       payload: trackId,
     });
     dispatch(setAlert('Track deleted from the library', 'success'));
+  } catch (err) {
+    dispatch({
+      type: TRACK_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Add note to track
+export const addNote = (trackId, noteData) => async (dispatch) => {
+  console.log('trackId', trackId);
+  console.log('noteData', noteData);
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const res = await axios.put(`/api/track/${trackId}/note`, noteData, config);
+    dispatch({
+      type: ADD_NOTE,
+      payload: res.data,
+    });
+    dispatch(setAlert('Your note added to this track', 'success'));
+  } catch (err) {
+    dispatch({
+      type: TRACK_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Delete note from track
+export const deleteNote = (trackId, noteId) => async (dispatch) => {
+  try {
+    await axios.delete(`/api/track/${trackId}/note/${noteId}`);
+    dispatch({
+      type: DELETE_NOTE,
+      payload: noteId,
+    });
+    dispatch(setAlert('Your note was deleted', 'success'));
   } catch (err) {
     dispatch({
       type: TRACK_ERROR,

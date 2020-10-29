@@ -117,8 +117,8 @@ const TrackList = ({ deleteTrack, setAlert, auth, track }) => {
             &#8230;
           </Dropdown.Toggle>
 
-          <DropdownMenu as={CustomMenu}>
-            <Dropdown.Item href="#/action-1">
+          <DropdownMenu as={CustomMenu} className="shadow-effect">
+            <Dropdown.Item href="#!">
               <span onClick={handleShow}>Track Info</span>
               <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
@@ -169,12 +169,13 @@ const TrackList = ({ deleteTrack, setAlert, auth, track }) => {
                   <br></br>
 
                   <ul>
-                    Dropbox URL:
                     {track.dropboxUrls.map((url, index) => (
                       <li className="dropbox" key={`url_${index}`}>
                         <a href={url} target="_blank" rel="noopener noreferrer">
-                          {url}
-                        </a>
+                          <i className="fas fa-compact-disc"></i>
+                          <span> Click Here</span>
+                        </a>{' '}
+                        for URL
                       </li>
                     ))}
                   </ul>
@@ -188,12 +189,14 @@ const TrackList = ({ deleteTrack, setAlert, auth, track }) => {
                 </Modal.Footer>
               </Modal>
             </Dropdown.Item>
-            <Dropdown.Item href="#/action-2">Edit Track</Dropdown.Item>
-            <Dropdown.Item href="#/action-3">
+            <Dropdown.Item href={`/track/${track._id}`}>
+              Edit Track
+            </Dropdown.Item>
+            <Dropdown.Item href="#!">
               <span onClick={handleDeleteTrack}>Delete Track</span>
             </Dropdown.Item>
             <Dropdown.Divider />
-            <Dropdown.Item href="#/action-4">Add to Playlist</Dropdown.Item>
+            <Dropdown.Item href="#!">Add to Playlist</Dropdown.Item>
           </DropdownMenu>
         </Dropdown>
       </td>

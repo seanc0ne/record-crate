@@ -68,7 +68,7 @@ const AddTrack = ({ getSources, addTrack, source: { sources, loading } }) => {
           <Form.Row className="w-100 my-2">
             <Col className="w-100">
               <Form.Group className="w-100">
-                <Form.Label>Source:</Form.Label>
+                <Form.Label>Source / Album:</Form.Label>
                 <Select
                   name="sources"
                   options={sourceList}

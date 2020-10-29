@@ -7,6 +7,8 @@ import {
   DELETE_TRACK,
   ADD_TRACK,
   UPDATE_TRACK,
+  ADD_NOTE,
+  DELETE_NOTE,
 } from '../actions/types';
 
 const initialState = {
@@ -64,6 +66,21 @@ export default function (state = initialState, action) {
         error: payload,
         loading: false,
         track: null,
+      };
+    case ADD_NOTE:
+      return {
+        ...state,
+        track: payload,
+        loading: false,
+      };
+    case DELETE_NOTE:
+      return {
+        ...state,
+        track: {
+          ...state.track,
+          notes: state.track.notes.filter((note) => note._id !== payload),
+        },
+        loading: false,
       };
     default:
       return state;
