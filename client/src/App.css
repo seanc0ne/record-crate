@@ -505,3 +505,7 @@ button {
     text-align: center;
   }
 }
+
+.dropbox {
+  font-size: .6em;
+}
