@@ -190,16 +190,7 @@ router.put(
           },
         },
         { new: true }
-      )
-        .select('-__v')
-        .populate({
-          path: 'notes',
-          select: '-__v',
-          populate: {
-            path: 'userId',
-            select: 'name',
-          },
-        });
+      );
       if (!track)
         return res.status(404).json({ msg: 'This track was not found' });
       console.log('track', track);
