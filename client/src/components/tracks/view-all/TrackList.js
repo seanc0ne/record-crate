@@ -134,6 +134,9 @@ const TrackList = ({ deleteTrack, setAlert, auth, track }) => {
                 </Modal.Header>
                 <Modal.Body>
                   <div>
+                  {sourceId.source}
+                  </div>
+                  <div>
                     <div className="trackDetailH2">{sourceId.source}</div>
                     label: {sourceId.label}, year: {sourceId.years}
                   </div>
