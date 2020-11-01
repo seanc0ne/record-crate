@@ -45,11 +45,15 @@ const Track = ({ match, getTrackById, track: { track, loading }, auth }) => {
                 <Col>
                   <h5>
                     Artist(s):{' '}
-                    {track.sourceId.artists.map((artist) => (
-                      <span key={artist._id}>
-                        {artist.artistName} ({artist.countryOfOrigin})
-                      </span>
-                    ))}
+                    {track.sourceId.artists ? (
+                      track.sourceId.artists.map((artist) => (
+                        <span key={artist._id}>
+                          {artist.artistName} ({artist.countryOfOrigin})
+                        </span>
+                      ))
+                    ) : (
+                      <p>No artist array here!</p>
+                    )}
                   </h5>
                 </Col>
               </Row>
@@ -76,13 +80,21 @@ const Track = ({ match, getTrackById, track: { track, loading }, auth }) => {
                 <Col>
                   <div className="mb-2">CHECKOUT:</div>
                   <ul>
-                    {track.dropboxUrls.map((url, index) => (
-                      <li key={`url_${index}`}>
-                        <a href={url} target="_blank" rel="noopener noreferrer">
-                          {url}
-                        </a>
-                      </li>
-                    ))}
+                    {track.dropboxUrls ? (
+                      track.dropboxUrls.map((url, index) => (
+                        <li key={`url_${index}`}>
+                          <a
+                            href={url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {url}
+                          </a>
+                        </li>
+                      ))
+                    ) : (
+                      <p>Array null...</p>
+                    )}
                   </ul>
                 </Col>
               </Row>

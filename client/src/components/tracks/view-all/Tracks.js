@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 import TrackList from './TrackList';
 import { getTracks } from '../../../actions/track';
 
-const Tracks = ({ getTracks, track: { tracks, loading } }) => {
+const Tracks = ({ getTracks, auth, track: { tracks, loading } }) => {
   useEffect(() => {
     getTracks();
   }, [getTracks]);
 
   return (
     <Fragment>
-      {loading ? (
+      {auth.loading || loading ? (
         <h1>Loading...</h1>
       ) : (
         <tbody>
@@ -27,10 +27,12 @@ const Tracks = ({ getTracks, track: { tracks, loading } }) => {
 Tracks.propTypes = {
   getTracks: PropTypes.func.isRequired,
   track: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   track: state.track,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { getTracks })(Tracks);
