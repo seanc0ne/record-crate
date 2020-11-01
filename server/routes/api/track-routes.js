@@ -151,7 +151,7 @@ router.get('/:track_id', auth, async (req, res) => {
 // @route - PUT api/track/:track_id
 // @desc - update a track
 // @access - private
-router.put('/', auth, async (req, res) => {
+router.put('/:track_id', auth, async (req, res) => {
   console.log('************** inside server - endpoint api/track/:track_id');
   console.log('req.body', req.body);
   const {
@@ -173,7 +173,7 @@ router.put('/', auth, async (req, res) => {
   trackObj.userId = req.user.id;
   trackObj.songTitle = songTitle;
   trackObj.showTrack = showTrack;
-  if (sourceId) trackObj.sourceId = sourceId;
+  if (sourceId) trackObj.sourceId = sourceId._id;
   if (keys.length > 0) trackObj.keys = keys.split(',').map((key) => key.trim());
   if (bpms.length > 0) trackObj.bpms = bpms.split(',').map((bpm) => bpm.trim());
   if (lengths.length > 0)

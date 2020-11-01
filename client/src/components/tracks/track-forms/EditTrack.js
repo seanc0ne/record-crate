@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { editTrack } from '../../../actions/track';
@@ -24,20 +23,61 @@ const EditTrack = ({ editTrack, track: { track } }) => {
   const handleCloseArtistInfo = () => setShowArtistInfo(false);
   const handleShowArtistInfo = () => setShowArtistInfo(true);
 
-  // Handle state for forms
+  // Handle state for track data
   const [trackData, setTrackData] = useState({
     songTitle: track.songTitle,
-    keys: track.keys,
-    bpms: track.bpms,
-    lengths: track.lengths,
-    composers: track.composers,
-    producers: track.producers,
-    billboardChartPeaks: track.billboardChartPeaks,
-    chartPeakDates: track.chartPeakDates,
-    dropboxUrls: track.dropboxUrls,
+    keys:
+      track.keys.length === 0
+        ? ''
+        : track.keys.length === 1
+        ? track.keys.toString()
+        : track.keys.join(', '),
+    bpms:
+      track.bpms.length === 0
+        ? ''
+        : track.bpms.length === 1
+        ? track.bpms.toString()
+        : track.bpms.join(', '),
+    lengths:
+      track.lengths.length === 0
+        ? ''
+        : track.lengths.length === 1
+        ? track.lengths.toString()
+        : track.lengths.join(', '),
+    composers:
+      track.composers.length === 0
+        ? ''
+        : track.composers.length === 1
+        ? track.composers.toString()
+        : track.composers.join(', '),
+    producers:
+      track.producers.length === 0
+        ? ''
+        : track.producers.length === 1
+        ? track.producers.toString()
+        : track.producers.join(', '),
+    billboardChartPeaks:
+      track.billboardChartPeaks.length === 0
+        ? ''
+        : track.billboardChartPeaks.length === 1
+        ? track.billboardChartPeaks.toString()
+        : track.billboardChartPeaks.join(', '),
+    chartPeakDates:
+      track.chartPeakDates.length === 0
+        ? ''
+        : track.chartPeakDates.length === 1
+        ? track.chartPeakDates.toString()
+        : track.chartPeakDates.join(', '),
+    dropboxUrls:
+      track.dropboxUrls.length === 0
+        ? ''
+        : track.dropboxUrls.length === 1
+        ? track.dropboxUrls.toString()
+        : track.dropboxUrls.join(', '),
     showTrack: track.showTrack,
     sourceId: track.sourceId,
   });
+  console.log('type of trackData keys', typeof trackData.keys);
 
   const handleChangeTrack = (e) => {
     console.log('trackData before set', trackData);

@@ -84,7 +84,6 @@ export const editTrack = (trackId, trackObj) => async (dispatch) => {
         'Content-Type': 'application/json',
       },
     };
-    console.log('config', config);
     const res = await axios.put(`/api/track/${trackId}`, trackObj, config);
     console.log('res.data', res.data);
     dispatch({

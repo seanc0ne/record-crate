@@ -55,3 +55,35 @@ export const addSource = (artistsArr, sourceObj) => async (dispatch) => {
     });
   }
 };
+
+// Edit a source by ID
+export const editSource = (sourceId, sourceObj) => async (dispatch) => {
+  console.log('inside action editSource');
+  console.log('sourceId', sourceId);
+  console.log('sourceObj', sourceObj);
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  try {
+    const res = await axios.put(`/api/source/${sourceId}`, sourceObj, config);
+    console.log('res.data', res.data);
+    dispatch({
+      type: UPDATE_SOURCE,
+      payload: res.data,
+    });
+    console.log('after UPDATE_SOURCE dispatch');
+    dispatch(setAlert('Source added', 'success'));
+  } catch (err) {
+    const errors = err.response.data.errors; // we want to display the array of errors
+    // if there are errors we want to dispatch an alert for each of them
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+    dispatch({
+      type: SOURCE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
