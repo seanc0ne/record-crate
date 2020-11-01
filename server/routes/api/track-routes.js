@@ -151,76 +151,67 @@ router.get('/:track_id', auth, async (req, res) => {
 // @route - PUT api/track/:track_id
 // @desc - update a track
 // @access - private
-router.put(
-  '/',
-  [auth, [check('songTitle', 'A song title is required').not().isEmpty()]],
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
+router.put('/', auth, async (req, res) => {
+  console.log('************** inside server - endpoint api/track/:track_id');
+  console.log('req.body', req.body);
+  const {
+    songTitle,
+    sourceId,
+    keys,
+    bpms,
+    lengths,
+    composers,
+    producers,
+    billboardChartPeaks,
+    chartPeakDates,
+    dropboxUrls,
+    showTrack,
+  } = req.body;
 
-    const {
-      songTitle,
-      sourceId,
-      keys,
-      bpms,
-      lengths,
-      composers,
-      producers,
-      billboardChartPeaks,
-      chartPeakDates,
-      dropboxUrls,
-      showTrack,
-    } = req.body;
+  // build track object
+  const trackObj = {};
+  trackObj.userId = req.user.id;
+  trackObj.songTitle = songTitle;
+  trackObj.showTrack = showTrack;
+  if (sourceId) trackObj.sourceId = sourceId;
+  if (keys.length > 0) trackObj.keys = keys.split(',').map((key) => key.trim());
+  if (bpms.length > 0) trackObj.bpms = bpms.split(',').map((bpm) => bpm.trim());
+  if (lengths.length > 0)
+    trackObj.lengths = lengths.split(',').map((length) => length.trim());
+  if (composers.length > 0)
+    trackObj.composers = composers
+      .split(',')
+      .map((composer) => composer.trim());
+  if (producers.length > 0)
+    trackObj.producers = producers
+      .split(',')
+      .map((producer) => producer.trim());
+  if (billboardChartPeaks.length > 0)
+    trackObj.billboardChartPeaks = billboardChartPeaks
+      .split(',')
+      .map((billboardChartPeak) => billboardChartPeak.trim());
+  if (chartPeakDates.length > 0)
+    trackObj.chartPeakDates = chartPeakDates
+      .split(',')
+      .map((chartPeakDate) => chartPeakDate.trim());
+  if (dropboxUrls.length > 0)
+    trackObj.dropboxUrls = dropboxUrls
+      .split(',')
+      .map((dropboxUrl) => dropboxUrl.trim());
 
-    // build track object
-    const trackObj = {};
-    trackObj.userId = req.user.id;
-    trackObj.songTitle = songTitle;
-    trackObj.showTrack = showTrack;
-    if (sourceId) trackObj.sourceId = sourceId;
-    if (keys.length > 0)
-      trackObj.keys = keys.split(',').map((key) => key.trim());
-    if (bpms.length > 0)
-      trackObj.bpms = bpms.split(',').map((bpm) => bpm.trim());
-    if (lengths.length > 0)
-      trackObj.lengths = lengths.split(',').map((length) => length.trim());
-    if (composers.length > 0)
-      trackObj.composers = composers
-        .split(',')
-        .map((composer) => composer.trim());
-    if (producers.length > 0)
-      trackObj.producers = producers
-        .split(',')
-        .map((producer) => producer.trim());
-    if (billboardChartPeaks.length > 0)
-      trackObj.billboardChartPeaks = billboardChartPeaks
-        .split(',')
-        .map((billboardChartPeak) => billboardChartPeak.trim());
-    if (chartPeakDates.length > 0)
-      trackObj.chartPeakDates = chartPeakDates
-        .split(',')
-        .map((chartPeakDate) => chartPeakDate.trim());
-    if (dropboxUrls.length > 0)
-      trackObj.dropboxUrls = dropboxUrls
-        .split(',')
-        .map((dropboxUrl) => dropboxUrl.trim());
-
-    // update the data
-    try {
-      let track = await Track.findOneAndUpdate(
-        { _id: req.params.track_id },
-        { $set: trackObj },
-        { new: true }
-      );
-      res.json(track);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server error');
-    }
+  // update the data
+  try {
+    let track = await Track.findOneAndUpdate(
+      { _id: req.params.track_id },
+      { $set: trackObj },
+      { new: true }
+    );
+    res.json(track);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
   }
-);
+});
 
 // @route - DELETE api/track/:track_id
 // @desc - delete a track
