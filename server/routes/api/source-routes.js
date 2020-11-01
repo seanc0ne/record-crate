@@ -102,6 +102,37 @@ router.get('/:source_id', auth, async (req, res) => {
   }
 });
 
+// @route - PUT api/source/
+// @desc - add a source
+// @access - private
+router.post('//:source_id', auth, async (req, res) => {
+  console.log('************** inside server - endpoint api/source/:source_id');
+  console.log('req.body', req.body);
+  const { sourceName, artists, label, years } = req.body;
+
+  // build source object
+  const sourceObj = {};
+  sourceObj.userId = req.user.id;
+  sourceObj.sourceName = sourceName;
+  sourceObj.artists = artists;
+  sourceObj.label = label;
+  if (years.length > 0)
+    sourceObj.years = years.split(',').map((year) => year.trim());
+
+  // insert the data
+  try {
+    let source = await Source.findOneAndUpdate(
+      { _id: req.params.source_id },
+      { $set: sourceObj },
+      { new: true }
+    );
+    res.json(source);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 // @route - DELETE api/source/:source_id
 // @desc - delete source & tracks
 // @access - private

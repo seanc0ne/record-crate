@@ -45,13 +45,10 @@ const AddTrack = ({ getSources, addTrack, source: { sources, loading } }) => {
 
   const handleChangeTrack = (e) => {
     setTrackData({ ...trackData, [e.target.name]: e.target.value });
-    console.log('trackData', trackData);
   };
 
   const handleSourceSelection = (value) => {
     setSourceSelection(value);
-    console.log('value', value);
-    console.log('sourceSelection', sourceSelection);
   };
 
   const onSubmitTrack = (e) => {

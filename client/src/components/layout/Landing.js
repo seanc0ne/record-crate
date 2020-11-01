@@ -11,7 +11,6 @@ import Login from '../auth/Login';
 
 // *********** BOOTSTRAP **********
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
@@ -48,15 +47,15 @@ const Landing = ({ isAuthenticated }) => {
 
   return (
     <section className="landing">
-        {/* <Row className="mx-auto vw-75 vh-100"></Row> */}
-        <Row>
-          <Col xs={5} md='auto'>
-            <Card className="landingCard">{displaySleeve(currentSleeve)}</Card>
-          </Col>
-          <Col className="md">
-            <Fragment></Fragment>
-          </Col>
-        </Row>
+      {/* <Row className="mx-auto vw-75 vh-100"></Row> */}
+      <Row>
+        <Col xs={5} md="auto">
+          <Card className="landingCard">{displaySleeve(currentSleeve)}</Card>
+        </Col>
+        <Col className="md">
+          <Fragment></Fragment>
+        </Col>
+      </Row>
     </section>
   );
 };

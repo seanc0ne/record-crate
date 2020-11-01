@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getTrackById } from '../../../actions/track';
@@ -35,7 +35,10 @@ const Track = ({ match, getTrackById, track: { track, loading }, auth }) => {
                   {auth.isAuthenticated &&
                     auth.loading === false &&
                     auth.user._id === track.userId._id && (
-                      <Link to="/edit-track" className="mx-auto btn">
+                      <Link
+                        to={`/edit-track/${track._id}`}
+                        className="mx-auto btn"
+                      >
                         Edit Track
                       </Link>
                     )}

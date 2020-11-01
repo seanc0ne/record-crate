@@ -15,7 +15,7 @@ const Dashboard = ({ setAlert, auth: { user, loading } }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  return loading && user === null ? (
+  return loading || user === null ? (
     <h4>Loading...</h4>
   ) : (
     <Fragment>

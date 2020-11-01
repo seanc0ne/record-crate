@@ -73,6 +73,38 @@ export const addTrack = (selectedSourceId, trackObj) => async (dispatch) => {
   }
 };
 
+// Edit a track by ID
+export const editTrack = (trackId, trackObj) => async (dispatch) => {
+  console.log('inside action editTrack');
+  console.log('trackId', trackId);
+  console.log('trackObj', trackObj);
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const res = await axios.put(`/api/track/${trackId}`, trackObj, config);
+    console.log('res.data', res.data);
+    dispatch({
+      type: UPDATE_TRACK,
+      payload: res.data,
+    });
+    console.log('after UPDATE_TRACK dispatch');
+    dispatch(setAlert('Track updated', 'success'));
+  } catch (err) {
+    const errors = err.response.data.errors; // we want to display the array of errors
+    // if there are errors we want to dispatch an alert for each of them
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+    dispatch({
+      type: TRACK_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
 // Delete a track by ID
 export const deleteTrack = (trackId) => async (dispatch) => {
   try {
